@@ -360,6 +360,35 @@
         color: var(--text-dark);
     }
 
+    .stats-card.hero-stat {
+        right: auto;
+        top: auto;
+    }
+
+    .stats-float {
+        animation: statsFloat 4s ease-in-out infinite;
+    }
+
+    .stats-float.delay-1 {
+        animation-delay: 0.6s;
+    }
+
+    .stats-float.delay-2 {
+        animation-delay: 1.2s;
+    }
+
+    @keyframes statsFloat {
+        0% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-6px);
+        }
+        100% {
+            transform: translateY(0);
+        }
+    }
+
     .stats-icon {
         width: 34px;
         height: 34px;

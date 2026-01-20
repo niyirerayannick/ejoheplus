@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Register - EjoHePlus{% endblock %}
 
@@ -9,85 +10,106 @@
 {% block content %}
 <section class="section">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="about-card max-w-3xl mx-auto">
-            <h2 class="section-title mb-2">Create your account</h2>
-            <p class="text-xs text-gray-500 mb-6">
-                Already have an account?
-                <a href="{% url 'accounts:login' %}" class="text-blue-600 font-semibold">Sign in here</a>
-            </p>
-            <form class="space-y-4" method="post">
-                {% csrf_token %}
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="text-xs text-gray-500">Username</label>
-                        {{ form.username }}
-                        {% if form.username.errors %}
-                            <p class="text-red-500 text-xs mt-1">{{ form.username.errors }}</p>
-                        {% endif %}
-                    </div>
-                    <div>
-                        <label class="text-xs text-gray-500">Email</label>
-                        {{ form.email }}
-                        {% if form.email.errors %}
-                            <p class="text-red-500 text-xs mt-1">{{ form.email.errors }}</p>
-                        {% endif %}
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div class="hero-card">
+                <div class="hero-decoration">
+                    <svg viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="200" cy="120" r="120" fill="white" opacity="0.15"/>
+                        <circle cx="900" cy="180" r="160" fill="white" opacity="0.12"/>
+                        <circle cx="620" cy="420" r="140" fill="white" opacity="0.12"/>
+                        <rect x="420" y="200" width="220" height="220" fill="white" opacity="0.08" transform="rotate(45 530 310)"/>
+                    </svg>
+                </div>
+                <div class="relative z-10 text-white">
+                    <div class="hero-badge"><i class="fas fa-user-plus"></i> Join EjoHePlus</div>
+                    <h1 class="hero-title">Create your account</h1>
+                    <p class="hero-text">Get guidance, mentorship, and opportunities built for student success.</p>
+                    <div class="grid grid-cols-2 gap-3 mt-6">
+                        <div class="h-24 rounded-lg" style="background-image:url('{% static 'image/3705.jpg' %}'); background-size: cover; background-position: center;"></div>
+                        <div class="h-24 rounded-lg" style="background-image:url('{% static 'image/1481.jpg' %}'); background-size: cover; background-position: center;"></div>
                     </div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="text-xs text-gray-500">First Name</label>
-                        {{ form.first_name }}
-                        {% if form.first_name.errors %}
-                            <p class="text-red-500 text-xs mt-1">{{ form.first_name.errors }}</p>
-                        {% endif %}
+            </div>
+            <div class="about-card">
+                <h2 class="section-title mb-2">Create your account</h2>
+                <p class="text-xs text-gray-500 mb-6">
+                    Already have an account?
+                    <a href="{% url 'accounts:login' %}" class="text-blue-600 font-semibold">Sign in here</a>
+                </p>
+                <form class="space-y-4" method="post">
+                    {% csrf_token %}
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-xs text-gray-500">Username</label>
+                            {{ form.username }}
+                            {% if form.username.errors %}
+                                <p class="text-red-500 text-xs mt-1">{{ form.username.errors }}</p>
+                            {% endif %}
+                        </div>
+                        <div>
+                            <label class="text-xs text-gray-500">Email</label>
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                <p class="text-red-500 text-xs mt-1">{{ form.email.errors }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-xs text-gray-500">First Name</label>
+                            {{ form.first_name }}
+                            {% if form.first_name.errors %}
+                                <p class="text-red-500 text-xs mt-1">{{ form.first_name.errors }}</p>
+                            {% endif %}
+                        </div>
+                        <div>
+                            <label class="text-xs text-gray-500">Last Name</label>
+                            {{ form.last_name }}
+                            {% if form.last_name.errors %}
+                                <p class="text-red-500 text-xs mt-1">{{ form.last_name.errors }}</p>
+                            {% endif %}
+                        </div>
                     </div>
                     <div>
-                        <label class="text-xs text-gray-500">Last Name</label>
-                        {{ form.last_name }}
-                        {% if form.last_name.errors %}
-                            <p class="text-red-500 text-xs mt-1">{{ form.last_name.errors }}</p>
+                        <label class="text-xs text-gray-500 block mb-2">I want to join as:</label>
+                        <div class="space-y-2 text-sm">
+                            {% for choice in form.role %}
+                                <div class="flex items-center">
+                                    {{ choice.tag }}
+                                    <label for="{{ choice.id_for_label }}" class="ml-2 text-gray-600">
+                                        {{ choice.choice_label }}
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {% if form.role.errors %}
+                            <p class="text-red-500 text-xs mt-1">{{ form.role.errors }}</p>
                         {% endif %}
                     </div>
-                </div>
-                <div>
-                    <label class="text-xs text-gray-500 block mb-2">I want to join as:</label>
-                    <div class="space-y-2 text-sm">
-                        {% for choice in form.role %}
-                            <div class="flex items-center">
-                                {{ choice.tag }}
-                                <label for="{{ choice.id_for_label }}" class="ml-2 text-gray-600">
-                                    {{ choice.choice_label }}
-                                </label>
-                            </div>
-                        {% endfor %}
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-xs text-gray-500">Password</label>
+                            {{ form.password1 }}
+                            {% if form.password1.errors %}
+                                <p class="text-red-500 text-xs mt-1">{{ form.password1.errors }}</p>
+                            {% endif %}
+                        </div>
+                        <div>
+                            <label class="text-xs text-gray-500">Confirm Password</label>
+                            {{ form.password2 }}
+                            {% if form.password2.errors %}
+                                <p class="text-red-500 text-xs mt-1">{{ form.password2.errors }}</p>
+                            {% endif %}
+                        </div>
                     </div>
-                    {% if form.role.errors %}
-                        <p class="text-red-500 text-xs mt-1">{{ form.role.errors }}</p>
+                    {% if form.non_field_errors %}
+                        <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+                            {{ form.non_field_errors }}
+                        </div>
                     {% endif %}
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="text-xs text-gray-500">Password</label>
-                        {{ form.password1 }}
-                        {% if form.password1.errors %}
-                            <p class="text-red-500 text-xs mt-1">{{ form.password1.errors }}</p>
-                        {% endif %}
-                    </div>
-                    <div>
-                        <label class="text-xs text-gray-500">Confirm Password</label>
-                        {{ form.password2 }}
-                        {% if form.password2.errors %}
-                            <p class="text-red-500 text-xs mt-1">{{ form.password2.errors }}</p>
-                        {% endif %}
-                    </div>
-                </div>
-                {% if form.non_field_errors %}
-                    <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
-                        {{ form.non_field_errors }}
-                    </div>
-                {% endif %}
-                <button type="submit" class="section-button w-full justify-center">Create Account</button>
-            </form>
+                    <button type="submit" class="section-button w-full justify-center">Create Account</button>
+                </form>
+            </div>
         </div>
     </div>
 </section>

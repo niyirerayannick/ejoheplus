@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Login - EjoHePlus{% endblock %}
 
@@ -23,6 +24,10 @@
                     <div class="hero-badge"><i class="fas fa-user-shield"></i> Secure Sign In</div>
                     <h1 class="hero-title">Welcome Back to EjoHePlus</h1>
                     <p class="hero-text">Sign in to continue your mentorship, course, and opportunity journey.</p>
+                    <div class="grid grid-cols-2 gap-3 mt-6">
+                        <div class="h-24 rounded-lg" style="background-image:url('{% static 'image/3705.jpg' %}'); background-size: cover; background-position: center;"></div>
+                        <div class="h-24 rounded-lg" style="background-image:url('{% static 'image/1481.jpg' %}'); background-size: cover; background-position: center;"></div>
+                    </div>
                 </div>
             </div>
             <div class="about-card">
