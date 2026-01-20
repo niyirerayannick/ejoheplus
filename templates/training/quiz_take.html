@@ -1,0 +1,27 @@
+{% extends "dashboard/base_student_dashboard.html" %}
+
+{% block dashboard_content %}
+<div class="bg-white rounded-lg shadow-md p-6">
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-gray-900">{{ quiz.title }}</h2>
+        <p class="text-gray-600">Answer all questions and submit</p>
+    </div>
+    <form method="post" class="space-y-6">
+        {% csrf_token %}
+        {% for question in quiz.questions.all %}
+        <div class="border border-gray-200 rounded-lg p-4">
+            <p class="font-semibold mb-3">{{ forloop.counter }}. {{ question.text }}</p>
+            <div class="space-y-2">
+                {% for choice in question.choices.all %}
+                <label class="flex items-center gap-2 text-sm text-gray-700">
+                    <input type="radio" name="question_{{ question.id }}" value="{{ choice.id }}" required>
+                    <span>{{ choice.text }}</span>
+                </label>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+        <button type="submit" class="section-button">Submit Quiz</button>
+    </form>
+</div>
+{% endblock %}

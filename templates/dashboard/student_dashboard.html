@@ -1,0 +1,150 @@
+{% extends "dashboard/base_student_dashboard.html" %}
+
+{% block dashboard_content %}
+<!-- Stats Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm">Applications</p>
+                <p class="text-3xl font-bold text-gray-900">{{ stats.applications }}</p>
+            </div>
+            <div class="bg-blue-100 p-3 rounded-full">
+                <i class="fas fa-file-alt text-blue-600 text-2xl"></i>
+            </div>
+        </div>
+    </div>
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm">Mentors</p>
+                <p class="text-3xl font-bold text-gray-900">{{ stats.mentors }}</p>
+            </div>
+            <div class="bg-green-100 p-3 rounded-full">
+                <i class="fas fa-users text-green-600 text-2xl"></i>
+            </div>
+        </div>
+    </div>
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm">Courses</p>
+                <p class="text-3xl font-bold text-gray-900">{{ stats.courses }}</p>
+            </div>
+            <div class="bg-purple-100 p-3 rounded-full">
+                <i class="fas fa-book-reader text-purple-600 text-2xl"></i>
+            </div>
+        </div>
+    </div>
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm">Messages</p>
+                <p class="text-3xl font-bold text-gray-900">{{ stats.messages }}</p>
+            </div>
+            <div class="bg-yellow-100 p-3 rounded-full">
+                <i class="fas fa-envelope text-yellow-600 text-2xl"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CV Builder Section -->
+<div class="bg-white rounded-lg shadow-md p-6 mb-8">
+    <div class="flex justify-between items-center mb-4">
+        <div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">My CV Builder</h2>
+            <p class="text-gray-600">Build and export your professional CV as PDF</p>
+        </div>
+        <a href="{% url 'dashboard:cv_builder' %}" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+            {% if user.cv.exists %}<i class="fas fa-edit mr-2"></i>Edit CV{% else %}<i class="fas fa-plus mr-2"></i>Create CV{% endif %}
+        </a>
+    </div>
+    <div class="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center">
+        <i class="fas fa-file-pdf text-6xl text-gray-400 mb-4"></i>
+        <p class="text-gray-600 mb-4">
+            {% if user.cv.exists %}
+                Your CV is ready! Click "Edit CV" to update it or "Preview CV" to view it.
+            {% else %}
+                Start building your professional CV
+            {% endif %}
+        </p>
+    </div>
+</div>
+
+<!-- Mentors -->
+<div class="bg-white rounded-lg shadow-md p-6 mb-8">
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold text-gray-900">My Mentors</h2>
+        <a href="{% url 'mentorship:index' %}" class="text-blue-600 hover:underline">Find a mentor</a>
+    </div>
+    {% if recent_mentors %}
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {% for connection in recent_mentors %}
+            <div class="border border-gray-200 rounded-lg p-4">
+                <div class="flex items-center mb-3">
+                    <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
+                        {{ connection.mentor.get_full_name|default:connection.mentor.username|first|upper }}
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="font-semibold">{{ connection.mentor.get_full_name|default:connection.mentor.username }}</h3>
+                        <p class="text-gray-600 text-sm">{{ connection.mentor.email }}</p>
+                    </div>
+                </div>
+                <a href="{% url 'dashboard:message_create' %}?recipient={{ connection.mentor.id }}" class="block w-full bg-blue-50 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-100 text-center">
+                    Chat with Mentor
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-gray-600">No approved mentors yet.</p>
+    {% endif %}
+
+    {% if pending_mentor_requests %}
+    <div class="mt-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-3">Pending Requests</h3>
+        <div class="space-y-3">
+            {% for request in pending_mentor_requests %}
+            <div class="flex items-center justify-between border border-gray-200 rounded-lg p-4">
+                <div>
+                    <div class="font-semibold">{{ request.mentor.get_full_name|default:request.mentor.username }}</div>
+                    <div class="text-xs text-gray-500">Requested {{ request.requested_at|date:"M d, Y" }}</div>
+                </div>
+                <span class="text-xs px-2 py-1 rounded-full bg-yellow-100 text-yellow-700">Pending</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Opportunity Status -->
+<div class="bg-white rounded-lg shadow-md p-6">
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold text-gray-900">Recent Applications</h2>
+        <a href="{% url 'opportunities:list' %}" class="text-blue-600 hover:underline">View All</a>
+    </div>
+    {% if recent_applications %}
+        <div class="space-y-4">
+            {% for application in recent_applications %}
+            <div class="flex items-center justify-between border-b pb-4">
+                <div>
+                    <h3 class="font-semibold">{{ application.opportunity.title }}</h3>
+                    <p class="text-gray-600 text-sm">
+                        Status: 
+                        <span class="{% if application.status == 'accepted' %}text-green-600{% elif application.status == 'rejected' %}text-red-600{% else %}text-blue-600{% endif %}">
+                            {{ application.get_status_display }}
+                        </span>
+                    </p>
+                    <p class="text-gray-500 text-xs mt-1">Applied: {{ application.applied_at|date:"M d, Y" }}</p>
+                </div>
+                <a href="{% url 'opportunities:detail' application.opportunity.slug %}" class="text-blue-600 hover:underline">View Details</a>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-gray-600">No applications yet. <a href="{% url 'opportunities:list' %}" class="text-blue-600 hover:underline">Browse opportunities</a></p>
+    {% endif %}
+</div>
+{% endblock %}

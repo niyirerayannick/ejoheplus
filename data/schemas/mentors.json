@@ -1,0 +1,17 @@
+{
+  "name": "Mentors",
+  "fields": [
+    "full_name",
+    "email",
+    "phone",
+    "bio",
+    "profile_picture",
+    "professional_title",
+    "company",
+    "years_of_experience",
+    "expertise_areas",
+    "availability_hours",
+    "status",
+    "created_at"
+  ]
+}

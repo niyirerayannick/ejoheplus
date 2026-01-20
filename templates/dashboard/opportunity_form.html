@@ -1,0 +1,81 @@
+{% extends base_template %}
+
+{% block dashboard_content %}
+<div class="bg-white rounded-xl shadow-md p-6">
+    <div class="mb-6">
+        <p class="section-subtitle"><i class="fas fa-briefcase mr-2"></i>Opportunities</p>
+        <h2 class="section-title">Post <span class="highlight">Opportunity</span></h2>
+    </div>
+    {% if form.errors %}
+        <div class="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            Please fix the errors below and try again.
+        </div>
+    {% endif %}
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+            {{ form.title }}
+            {% if form.title.errors %}
+                <p class="text-xs text-red-600 mt-1">{{ form.title.errors|striptags }}</p>
+            {% endif %}
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Slug</label>
+            {{ form.slug }}
+            {% if form.slug.errors %}
+                <p class="text-xs text-red-600 mt-1">{{ form.slug.errors|striptags }}</p>
+            {% endif %}
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Type</label>
+            {{ form.type }}
+            {% if form.type.errors %}
+                <p class="text-xs text-red-600 mt-1">{{ form.type.errors|striptags }}</p>
+            {% endif %}
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+            {{ form.category }}
+            {% if form.category.errors %}
+                <p class="text-xs text-red-600 mt-1">{{ form.category.errors|striptags }}</p>
+            {% endif %}
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+            {{ form.description }}
+            {% if form.description.errors %}
+                <p class="text-xs text-red-600 mt-1">{{ form.description.errors|striptags }}</p>
+            {% endif %}
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Requirements</label>
+            {{ form.requirements }}
+            {% if form.requirements.errors %}
+                <p class="text-xs text-red-600 mt-1">{{ form.requirements.errors|striptags }}</p>
+            {% endif %}
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Benefits</label>
+            {{ form.benefits }}
+            {% if form.benefits.errors %}
+                <p class="text-xs text-red-600 mt-1">{{ form.benefits.errors|striptags }}</p>
+            {% endif %}
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Deadline</label>
+                {{ form.deadline }}
+                {% if form.deadline.errors %}
+                    <p class="text-xs text-red-600 mt-1">{{ form.deadline.errors|striptags }}</p>
+                {% endif %}
+            </div>
+            <div class="flex items-center gap-2">
+                {{ form.is_active }}
+                <span class="text-sm text-gray-700">Active</span>
+            </div>
+        </div>
+        <button type="submit" class="section-button">Publish Opportunity</button>
+    </form>
+</div>
+{% endblock %}

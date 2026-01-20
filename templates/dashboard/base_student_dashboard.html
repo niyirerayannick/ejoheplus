@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page_title }} - EjoHePlus{% endblock %}
+
+{% block extra_css %}
+{% include "partials/home_styles.html" %}
+<style>
+    .sidebar-active {
+        background-color: #3B82F6;
+        color: white;
+    }
+    .sidebar-link {
+        transition: all 0.2s;
+    }
+    .sidebar-link:hover {
+        background-color: #F3F4F6;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="flex min-h-screen bg-gray-50">
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden hidden"></div>
+    
+    <!-- Sidebar -->
+    <aside id="dashboard-sidebar" class="w-64 bg-white shadow-lg fixed h-full overflow-y-auto z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
+        <div class="p-4">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-gray-800">Student Dashboard</h2>
+                <button id="close-sidebar" class="lg:hidden text-gray-600 hover:text-gray-900">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <nav class="space-y-2">
+                <a href="{% url 'dashboard:student_dashboard' %}" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg {% if request.resolver_match.url_name == 'student_dashboard' %}sidebar-active text-white{% else %}text-gray-700{% endif %}">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="{% url 'dashboard:profile' %}" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg {% if request.resolver_match.url_name == 'profile' %}sidebar-active text-white{% else %}text-gray-700{% endif %}">
+                    <i class="fas fa-user"></i>
+                    <span>My Profile</span>
+                </a>
+                <a href="{% url 'dashboard:cv_builder' %}" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg {% if 'cv' in request.resolver_match.url_name %}sidebar-active text-white{% else %}text-gray-700{% endif %}">
+                    <i class="fas fa-file-alt"></i>
+                    <span>My CV</span>
+                </a>
+                <a href="{% url 'dashboard:articles_list' %}" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg {% if 'article' in request.resolver_match.url_name %}sidebar-active text-white{% else %}text-gray-700{% endif %}">
+                    <i class="fas fa-pen-nib"></i>
+                    <span>Articles</span>
+                </a>
+                <a href="{% url 'mentorship:mentor_list' %}" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700">
+                    <i class="fas fa-users"></i>
+                    <span>Mentors</span>
+                </a>
+                <a href="{% url 'opportunities:list' %}" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Opportunities</span>
+                </a>
+                <a href="{% url 'courses:index' %}" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700">
+                    <i class="fas fa-book-reader"></i>
+                    <span>Courses</span>
+                </a>
+                <a href="{% url 'dashboard:messages_list' %}" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg {% if 'message' in request.resolver_match.url_name %}sidebar-active text-white{% else %}text-gray-700{% endif %}">
+                    <i class="fas fa-envelope"></i>
+                    <span>Messages</span>
+                </a>
+                <a href="{% url 'dashboard:notifications_list' %}" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg {% if 'notification' in request.resolver_match.url_name %}sidebar-active text-white{% else %}text-gray-700{% endif %}">
+                    <i class="fas fa-bell"></i>
+                    <span>Notifications</span>
+                </a>
+            </nav>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 lg:ml-64 w-full lg:w-auto p-4 sm:p-6 lg:p-8">
+        <div class="max-w-7xl mx-auto">
+            <!-- Mobile Menu Button -->
+            <button id="open-sidebar" class="lg:hidden mb-4 text-gray-600 hover:text-gray-900">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+            <div class="bg-white rounded-xl shadow-md p-4 mb-6">
+                <p class="text-xs text-gray-500">Dashboard</p>
+                <h1 class="text-xl sm:text-2xl font-bold text-gray-900">
+                    Welcome back, {{ request.user.get_full_name|default:request.user.username }}
+                </h1>
+            </div>
+            {% block dashboard_content %}{% endblock %}
+            <div class="mt-10 text-xs text-gray-400 text-center">
+                © 2025 EjoHePlus. All rights reserved.
+            </div>
+        </div>
+    </main>
+</div>
+
+<script>
+    // Mobile sidebar toggle
+    const sidebar = document.getElementById('dashboard-sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    const openBtn = document.getElementById('open-sidebar');
+    const closeBtn = document.getElementById('close-sidebar');
+    
+    function openSidebar() {
+        sidebar.classList.remove('-translate-x-full');
+        overlay.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeSidebar() {
+        sidebar.classList.add('-translate-x-full');
+        overlay.classList.add('hidden');
+        document.body.style.overflow = '';
+    }
+    
+    openBtn?.addEventListener('click', openSidebar);
+    closeBtn?.addEventListener('click', closeSidebar);
+    overlay?.addEventListener('click', closeSidebar);
+    
+    // Close sidebar when clicking a link on mobile
+    document.querySelectorAll('#dashboard-sidebar a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth < 1024) {
+                closeSidebar();
+            }
+        });
+    });
+</script>
+{% endblock %}
+
+{% block footer %}{% endblock %}

@@ -1,0 +1,17 @@
+{
+  "name": "Jobs",
+  "fields": [
+    "title",
+    "slug",
+    "category",
+    "type",
+    "description",
+    "requirements",
+    "benefits",
+    "deadline",
+    "partner_email",
+    "status",
+    "image",
+    "created_at"
+  ]
+}

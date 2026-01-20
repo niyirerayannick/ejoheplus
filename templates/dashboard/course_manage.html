@@ -1,0 +1,472 @@
+{% extends base_template %}
+{% load static %}
+
+{% block dashboard_content %}
+<div class="course-ui space-y-6">
+    <div class="text-xs text-gray-500">
+        Dashboard → <a href="{% url 'dashboard:courses_list' %}" class="text-blue-600 hover:underline">Courses</a> → Manage Course
+    </div>
+
+    <div class="course-header">
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+            <div>
+                <div class="course-badge"><i class="fas fa-award"></i> Premium Course Workspace</div>
+                <h2 class="text-3xl font-bold mt-2">{{ course.title }}</h2>
+                <p class="text-sm text-white/80">{{ course.description|truncatewords:18 }}</p>
+                <div class="mt-3 flex flex-wrap items-center gap-2">
+                    <span class="course-pill {% if course.is_active %}active{% else %}draft{% endif %}">
+                        {{ course.is_active|yesno:"Published,Draft" }}
+                    </span>
+                    <span class="course-pill active">{{ course.category|default:"General" }}</span>
+                </div>
+            </div>
+            <div class="flex flex-wrap gap-2">
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="set_status">
+                    <input type="hidden" name="status" value="publish">
+                    <button class="course-primary-btn" type="submit">Publish</button>
+                </form>
+                <button class="course-secondary-btn" type="button" data-open-tab="settings">Edit</button>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="set_status">
+                    <input type="hidden" name="status" value="archive">
+                    <button class="course-secondary-btn" type="submit">Archive</button>
+                </form>
+                <a href="{% url 'courses:course_detail' course.slug %}" class="course-secondary-btn">Preview</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="course-tabs" role="tablist">
+            <button class="course-tab active" data-tab="overview">Overview</button>
+            <button class="course-tab" data-tab="materials">Materials</button>
+            <button class="course-tab" data-tab="certificates">Certificates</button>
+            <button class="course-tab" data-tab="enrollments">Enrollments</button>
+            <button class="course-tab" data-tab="settings">Settings</button>
+        </div>
+        <select id="course-tab-select" class="md:hidden border border-gray-200 rounded-lg px-3 py-2 text-sm">
+            <option value="overview">Overview</option>
+            <option value="materials">Materials</option>
+            <option value="certificates">Certificates</option>
+            <option value="enrollments">Enrollments</option>
+            <option value="settings">Settings</option>
+        </select>
+    </div>
+
+    <div id="course-tab-overview" class="course-panel active">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="bg-white rounded-xl shadow-md overflow-hidden lg:col-span-2">
+                <div class="h-56 bg-gray-200" style="background-image:url('{% if course.thumbnail %}{{ course.thumbnail.url }}{% else %}{% static 'image/6456.jpg' %}{% endif %}'); background-size: cover; background-position: center;"></div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">Course Overview</h3>
+                    <p class="text-sm text-gray-600">{{ course.overview|default:course.description }}</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-md p-6 space-y-4">
+                <div>
+                    <p class="text-xs text-gray-500">Instructor</p>
+                    {% if course.instructor %}
+                        <p class="font-semibold">{{ course.instructor.get_full_name|default:course.instructor.username }}</p>
+                    {% else %}
+                        <p class="font-semibold">Not Assigned</p>
+                    {% endif %}
+                </div>
+                <div>
+                    <p class="text-xs text-gray-500">Created By</p>
+                    {% if course.created_by %}
+                        <p class="font-semibold">{{ course.created_by.get_full_name|default:course.created_by.username }}</p>
+                    {% else %}
+                        <p class="font-semibold">Admin</p>
+                    {% endif %}
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="course-stat-card">
+                        <h4>{{ enrollments.count }}</h4>
+                        <p class="course-meta">Students</p>
+                    </div>
+                    <div class="course-stat-card">
+                        <h4>{{ materials.count }}</h4>
+                        <p class="course-meta">Materials</p>
+                    </div>
+                    <div class="course-stat-card">
+                        <h4>{{ course.chapters.count }}</h4>
+                        <p class="course-meta">Lessons</p>
+                    </div>
+                    <div class="course-stat-card">
+                        <h4>{{ completion_rate }}%</h4>
+                        <p class="course-meta">Completion Rate</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="course-tab-materials" class="course-panel">
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <h3 class="text-lg font-semibold">Course Materials</h3>
+                    <p class="text-sm text-gray-500">Drag to reorder lessons and resources.</p>
+                </div>
+                <button class="course-primary-btn" type="button" onclick="document.getElementById('material-form').scrollIntoView({behavior:'smooth'})">Add Material</button>
+            </div>
+
+            <form id="material-form" method="post" enctype="multipart/form-data" class="space-y-3 mb-6">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="save_material">
+                {% if edit_material %}<input type="hidden" name="material_id" value="{{ edit_material.id }}">{% endif %}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-xs text-gray-500">Title</label>
+                        {{ material_form.title }}
+                    </div>
+                    <div>
+                        <label class="text-xs text-gray-500">Type</label>
+                        {{ material_form.material_type }}
+                    </div>
+                </div>
+                <div>
+                    <label class="text-xs text-gray-500">Content</label>
+                    {{ material_form.content }}
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-xs text-gray-500">Video URL</label>
+                        {{ material_form.video_url }}
+                    </div>
+                    <div>
+                        <label class="text-xs text-gray-500">File</label>
+                        {{ material_form.file }}
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-xs text-gray-500">Order</label>
+                        {{ material_form.order }}
+                    </div>
+                    <label class="flex items-center gap-2 text-sm text-gray-700 mt-6">{{ material_form.is_free }} Free Material</label>
+                </div>
+                <button type="submit" class="course-primary-btn">Save Material</button>
+            </form>
+
+            <form method="post" class="mb-4">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="reorder_materials">
+                <input type="hidden" name="material_order" id="material-order-input" value="">
+                <button class="course-secondary-btn" type="submit">Save Order</button>
+            </form>
+
+            <div id="materials-list" class="space-y-3">
+                {% for material in materials %}
+                <div class="flex items-center justify-between border border-gray-200 rounded-lg p-3 text-sm bg-gray-50" draggable="true" data-material-id="{{ material.id }}">
+                    <div class="flex items-center gap-3">
+                        <span class="text-blue-600"><i class="fas fa-grip-vertical"></i></span>
+                        <span class="text-gray-500">
+                            {% if material.material_type == 'video' %}
+                                <i class="fas fa-video"></i>
+                            {% elif material.material_type == 'document' %}
+                                <i class="fas fa-file-alt"></i>
+                            {% elif material.material_type == 'quiz' %}
+                                <i class="fas fa-question-circle"></i>
+                            {% else %}
+                                <i class="fas fa-link"></i>
+                            {% endif %}
+                        </span>
+                        <div>
+                            <div class="font-semibold">{{ material.title }}</div>
+                            <div class="text-xs text-gray-500">{{ material.get_material_type_display }}</div>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <a href="?edit_material={{ material.id }}" class="text-blue-600 hover:underline">Edit</a>
+                        <form method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="delete_material">
+                            <input type="hidden" name="material_id" value="{{ material.id }}">
+                            <button class="text-red-600 hover:underline" type="submit">Delete</button>
+                        </form>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="text-center text-gray-500 py-6">
+                    <i class="fas fa-folder-open text-3xl mb-2"></i>
+                    <p>No materials yet. Add your first lesson above.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div id="course-tab-certificates" class="course-panel">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h3 class="text-lg font-semibold mb-4">Certificate Preview</h3>
+                <div class="border border-dashed border-gray-300 rounded-lg p-6 text-center">
+                    <p class="text-sm text-gray-500 mb-2">Preview certificate for completed students.</p>
+                    <div class="font-semibold">{{ course.title }}</div>
+                    <div class="text-xs text-gray-400 mt-1">PDF generated automatically after completion.</div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h3 class="text-lg font-semibold mb-4">Certificates</h3>
+                <form method="post" class="space-y-3 mb-4">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="save_certificate">
+                    {% if edit_certificate %}<input type="hidden" name="certificate_id" value="{{ edit_certificate.id }}">{% endif %}
+                    <div>
+                        <label class="text-xs text-gray-500">Enrollment</label>
+                        {{ certificate_form.enrollment }}
+                    </div>
+                    <div>
+                        <label class="text-xs text-gray-500">Certificate ID</label>
+                        {{ certificate_form.certificate_id }}
+                    </div>
+                    <button type="submit" class="course-primary-btn">Save Certificate</button>
+                </form>
+                <div class="space-y-2">
+                    {% for certificate in certificates %}
+                    <div class="flex items-center justify-between border border-gray-200 rounded-lg p-3 text-sm">
+                        <div>
+                            <div class="font-semibold">{{ certificate.enrollment.student.get_full_name|default:certificate.enrollment.student.username }}</div>
+                            <div class="text-xs text-gray-500">ID: {{ certificate.certificate_id }}</div>
+                        </div>
+                        <div class="flex gap-2">
+                            <a href="?edit_certificate={{ certificate.id }}" class="text-blue-600 hover:underline">Edit</a>
+                            <form method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="action" value="delete_certificate">
+                                <input type="hidden" name="certificate_id" value="{{ certificate.id }}">
+                                <button class="text-red-600 hover:underline" type="submit">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-sm text-gray-500">No certificates yet.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="course-tab-enrollments" class="course-panel">
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
+                <h3 class="text-lg font-semibold">Enrollments</h3>
+                <div class="flex items-center gap-2">
+                    <input id="enrollment-search" type="text" placeholder="Search students" class="border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                    <select id="enrollment-filter" class="border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                        <option value="all">All</option>
+                        <option value="completed">Completed</option>
+                        <option value="active">Active</option>
+                    </select>
+                </div>
+            </div>
+            <form method="post" class="space-y-3 mb-6">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="save_enrollment">
+                {% if edit_enrollment %}<input type="hidden" name="enrollment_id" value="{{ edit_enrollment.id }}">{% endif %}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-xs text-gray-500">Student</label>
+                        {{ enrollment_form.student }}
+                    </div>
+                    <div>
+                        <label class="text-xs text-gray-500">Completed At</label>
+                        {{ enrollment_form.completed_at }}
+                    </div>
+                </div>
+                <label class="flex items-center gap-2 text-sm text-gray-700">{{ enrollment_form.is_completed }} Completed</label>
+                <button type="submit" class="course-primary-btn">Save Enrollment</button>
+            </form>
+            <div class="overflow-x-auto" id="enrollment-list">
+                <table class="min-w-full text-sm">
+                    <thead class="text-left text-gray-500 border-b">
+                        <tr>
+                            <th class="py-2">Student</th>
+                            <th class="py-2">Progress</th>
+                            <th class="py-2">Enrolled</th>
+                            <th class="py-2">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for enrollment in enrollments %}
+                        <tr class="border-b enrollment-row" data-name="{{ enrollment.student.get_full_name|default:enrollment.student.username }}" data-status="{% if enrollment.is_completed %}completed{% else %}active{% endif %}">
+                            <td class="py-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-9 h-9 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-semibold">
+                                        {{ enrollment.student.get_full_name|default:enrollment.student.username|first|upper }}
+                                    </div>
+                                    <div>
+                                        <div class="font-semibold">{{ enrollment.student.get_full_name|default:enrollment.student.username }}</div>
+                                        <div class="text-xs text-gray-500">{{ enrollment.student.email }}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-3">
+                                <div class="h-2 bg-gray-200 rounded-full w-32">
+                                    <div class="h-2 bg-blue-600 rounded-full" style="width: {% if enrollment.is_completed %}100{% else %}0{% endif %}%"></div>
+                                </div>
+                                <div class="text-xs text-gray-500 mt-1">{% if enrollment.is_completed %}100%{% else %}0%{% endif %}</div>
+                            </td>
+                            <td class="py-3 text-gray-500">{{ enrollment.enrolled_at|date:"M d, Y" }}</td>
+                            <td class="py-3">
+                                <div class="flex gap-2">
+                                    <a href="?edit_enrollment={{ enrollment.id }}" class="text-blue-600 hover:underline">Edit</a>
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="action" value="delete_enrollment">
+                                        <input type="hidden" name="enrollment_id" value="{{ enrollment.id }}">
+                                        <button class="text-red-600 hover:underline" type="submit">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="py-4 text-gray-500">No enrollments yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="course-tab-settings" class="course-panel">
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <h3 class="text-lg font-semibold mb-4">Course Settings</h3>
+            <form method="post" enctype="multipart/form-data" class="space-y-4">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="update_course">
+                <div>
+                    <label class="text-xs text-gray-500">Title</label>
+                    {{ course_form.title }}
+                </div>
+                {% if course_form.slug %}
+                <div>
+                    <label class="text-xs text-gray-500">Slug</label>
+                    {{ course_form.slug }}
+                </div>
+                {% endif %}
+                <div>
+                    <label class="text-xs text-gray-500">Category</label>
+                    {{ course_form.category }}
+                </div>
+                <div>
+                    <label class="text-xs text-gray-500">Description</label>
+                    {{ course_form.description }}
+                </div>
+                <div>
+                    <label class="text-xs text-gray-500">Overview</label>
+                    {{ course_form.overview }}
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-xs text-gray-500">Duration (hours)</label>
+                        {{ course_form.duration_hours }}
+                    </div>
+                    <div>
+                        <label class="text-xs text-gray-500">Level</label>
+                        {{ course_form.level }}
+                    </div>
+                </div>
+                {% if course_form.instructor %}
+                <div>
+                    <label class="text-xs text-gray-500">Instructor</label>
+                    {{ course_form.instructor }}
+                </div>
+                {% endif %}
+                {% if course_form.created_by %}
+                <div>
+                    <label class="text-xs text-gray-500">Created By</label>
+                    {{ course_form.created_by }}
+                </div>
+                {% endif %}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-xs text-gray-500">Price</label>
+                        {{ course_form.price }}
+                    </div>
+                    <label class="flex items-center gap-2 text-sm text-gray-700 mt-6">{{ course_form.is_free }} Free Course</label>
+                </div>
+                <div>
+                    <label class="text-xs text-gray-500">Thumbnail</label>
+                    {{ course_form.thumbnail }}
+                </div>
+                <label class="flex items-center gap-2 text-sm text-gray-700">{{ course_form.is_active }} Active</label>
+                <button type="submit" class="course-primary-btn">Save Settings</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    const tabs = document.querySelectorAll('.course-tab');
+    const panels = document.querySelectorAll('.course-panel');
+    const select = document.getElementById('course-tab-select');
+
+    function activateTab(tabId) {
+        tabs.forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tabId));
+        panels.forEach(panel => panel.classList.toggle('active', panel.id === `course-tab-${tabId}`));
+        if (select) select.value = tabId;
+    }
+
+    tabs.forEach(btn => {
+        btn.addEventListener('click', () => activateTab(btn.dataset.tab));
+    });
+
+    select?.addEventListener('change', () => activateTab(select.value));
+
+    document.querySelectorAll('[data-open-tab]').forEach(button => {
+        button.addEventListener('click', () => activateTab(button.dataset.openTab));
+    });
+
+    const list = document.getElementById('materials-list');
+    const orderInput = document.getElementById('material-order-input');
+    if (list && orderInput) {
+        let draggedItem = null;
+        orderInput.value = Array.from(list.children).map(child => child.dataset.materialId).join(',');
+        list.querySelectorAll('[draggable="true"]').forEach(item => {
+            item.addEventListener('dragstart', () => {
+                draggedItem = item;
+                item.classList.add('opacity-60');
+            });
+            item.addEventListener('dragend', () => {
+                item.classList.remove('opacity-60');
+                draggedItem = null;
+                orderInput.value = Array.from(list.children).map(child => child.dataset.materialId).join(',');
+            });
+            item.addEventListener('dragover', (event) => {
+                event.preventDefault();
+                const bounding = item.getBoundingClientRect();
+                const offset = event.clientY - bounding.top;
+                if (offset > bounding.height / 2) {
+                    item.after(draggedItem);
+                } else {
+                    item.before(draggedItem);
+                }
+            });
+        });
+    }
+
+    const searchInput = document.getElementById('enrollment-search');
+    const filterSelect = document.getElementById('enrollment-filter');
+    const enrollmentRows = document.querySelectorAll('.enrollment-row');
+    function filterEnrollments() {
+        const search = (searchInput?.value || '').toLowerCase();
+        const filter = filterSelect?.value || 'all';
+        enrollmentRows.forEach(row => {
+            const name = row.dataset.name.toLowerCase();
+            const status = row.dataset.status;
+            const matchesSearch = name.includes(search);
+            const matchesStatus = filter === 'all' || status === filter;
+            row.style.display = matchesSearch && matchesStatus ? 'table-row' : 'none';
+        });
+    }
+    searchInput?.addEventListener('input', filterEnrollments);
+    filterSelect?.addEventListener('change', filterEnrollments);
+</script>
+{% endblock %}

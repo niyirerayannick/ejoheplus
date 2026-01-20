@@ -1,0 +1,105 @@
+{% extends "dashboard/base_student_dashboard.html" %}
+
+{% block dashboard_content %}
+<div class="mb-6 flex justify-between items-center">
+    <div>
+        <h1 class="text-3xl font-bold text-gray-900">My CV Builder</h1>
+        <p class="text-gray-600 mt-2">Build and customize your professional CV</p>
+    </div>
+    {% if cv and cv.full_name %}
+    <a href="{% url 'dashboard:cv_preview' %}" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700">
+        <i class="fas fa-eye mr-2"></i>Preview CV
+    </a>
+    {% endif %}
+</div>
+
+<div class="bg-white rounded-lg shadow-md p-8">
+    <form method="post" class="space-y-6">
+        {% csrf_token %}
+        
+        <div>
+            <h2 class="text-2xl font-semibold text-gray-900 mb-4">Personal Information</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
+                    {{ form.full_name }}
+                    {% if form.full_name.errors %}
+                        <p class="text-red-500 text-xs mt-1">{{ form.full_name.errors }}</p>
+                    {% endif %}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <p class="text-red-500 text-xs mt-1">{{ form.email.errors }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+                    {{ form.phone }}
+                    {% if form.phone.errors %}
+                        <p class="text-red-500 text-xs mt-1">{{ form.phone.errors }}</p>
+                    {% endif %}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Address</label>
+                    {{ form.address }}
+                    {% if form.address.errors %}
+                        <p class="text-red-500 text-xs mt-1">{{ form.address.errors }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">LinkedIn URL</label>
+                    {{ form.linkedin_url }}
+                    {% if form.linkedin_url.errors %}
+                        <p class="text-red-500 text-xs mt-1">{{ form.linkedin_url.errors }}</p>
+                    {% endif %}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Website URL</label>
+                    {{ form.website_url }}
+                    {% if form.website_url.errors %}
+                        <p class="text-red-500 text-xs mt-1">{{ form.website_url.errors }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h2 class="text-2xl font-semibold text-gray-900 mb-4">Professional Summary</h2>
+            {{ form.summary }}
+            {% if form.summary.errors %}
+                <p class="text-red-500 text-xs mt-1">{{ form.summary.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div>
+            <h2 class="text-2xl font-semibold text-gray-900 mb-4">Skills</h2>
+            {{ form.skills }}
+            <p class="text-gray-500 text-xs mt-1">Separate skills with commas (e.g., Python, JavaScript, Leadership)</p>
+            {% if form.skills.errors %}
+                <p class="text-red-500 text-xs mt-1">{{ form.skills.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div>
+            <h2 class="text-2xl font-semibold text-gray-900 mb-4">Languages</h2>
+            {{ form.languages }}
+            <p class="text-gray-500 text-xs mt-1">Separate languages with commas (e.g., English, French, Spanish)</p>
+            {% if form.languages.errors %}
+                <p class="text-red-500 text-xs mt-1">{{ form.languages.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div class="flex justify-end space-x-4 pt-4 border-t">
+            <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+                <i class="fas fa-save mr-2"></i>Save CV
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+[
+  {
+    "title": "Women in Tech Scholarship",
+    "slug": "women-in-tech-scholarship",
+    "category": "STEM",
+    "type": "scholarship",
+    "description": "Full scholarship for aspiring women in technology and software.",
+    "requirements": "Statement of purpose, academic transcript.",
+    "benefits": "Tuition coverage, mentorship, community.",
+    "deadline": "2026-03-10",
+    "partner_email": "partner@ejoheplus.com",
+    "status": "active"
+  },
+  {
+    "title": "Digital Marketing Scholarship",
+    "slug": "digital-marketing-scholarship",
+    "category": "Marketing",
+    "type": "scholarship",
+    "description": "Scholarship for learners pursuing digital marketing fundamentals.",
+    "requirements": "Application form, short essay.",
+    "benefits": "Course access, certificate, career coaching.",
+    "deadline": "2026-04-05",
+    "partner_email": "partner@ejoheplus.com",
+    "status": "active"
+  },
+  {
+    "title": "Community Leadership Grant",
+    "slug": "community-leadership-grant",
+    "category": "Leadership",
+    "type": "scholarship",
+    "description": "Funding for students leading community impact projects.",
+    "requirements": "Project proposal, references.",
+    "benefits": "Grant funding, mentorship, network.",
+    "deadline": "2026-05-01",
+    "partner_email": "partner@ejoheplus.com",
+    "status": "active"
+  }
+]

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Course Certificate</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #0f172a;
+            margin: 0;
+            padding: 0;
+        }
+        .page {
+            margin: 24px;
+            padding: 28px 36px;
+            border: 4px solid #1580d2;
+        }
+        .inner {
+            border: 2px solid #1580d2;
+            padding: 26px 34px;
+        }
+        .seal {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #f4b02a;
+            border: 4px solid #e2981a;
+            margin: 0 auto 16px;
+        }
+        .title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            color: #1580d2;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+        .given {
+            text-align: center;
+            font-size: 16px;
+            color: #111827;
+        }
+        .name {
+            text-align: center;
+            font-size: 30px;
+            font-weight: 700;
+            color: #1580d2;
+            margin: 8px 0 10px;
+        }
+        .body-text {
+            text-align: center;
+            font-size: 12px;
+            color: #374151;
+            line-height: 1.6;
+            margin: 8px 0 18px;
+        }
+        .meta {
+            text-align: center;
+            font-size: 12px;
+            color: #475569;
+            margin-bottom: 24px;
+        }
+        .signatures {
+            width: 100%;
+            font-size: 12px;
+            color: #0f172a;
+            margin-top: 12px;
+        }
+        .sig-line {
+            border-top: 1px solid #111827;
+            width: 180px;
+            margin-top: 26px;
+        }
+        .sig-name {
+            color: #1580d2;
+            font-weight: 600;
+            margin-top: 6px;
+        }
+        .certificate-id {
+            margin-top: 16px;
+            text-align: center;
+            font-size: 11px;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="inner">
+            <div class="seal"></div>
+            <div class="title">CERTIFICATE</div>
+            <div class="given">Given to:</div>
+            <div class="name">{{ enrollment.student.get_full_name|default:enrollment.student.username }}</div>
+            <div class="body-text">
+                This certifies that the student has successfully completed the course
+                <strong>{{ course.title }}</strong> and met all requirements for completion.
+            </div>
+            <div class="meta">Completion Date: {{ enrollment.completed_at|date:"M d, Y" }}</div>
+
+            <table class="signatures">
+                <tr>
+                    <td style="width:50%;">
+                        <div class="sig-line"></div>
+                        <div class="sig-name">IGIRANEZA Boaz</div>
+                    </td>
+                    <td style="width:50%; text-align:right;">
+                        <div class="sig-line" style="margin-left:auto;"></div>
+                        <div class="sig-name">{{ enrollment.student.get_full_name|default:enrollment.student.username }}</div>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="certificate-id">Certificate ID: {{ certificate.certificate_id }}</div>
+        </div>
+    </div>
+</body>
+</html>

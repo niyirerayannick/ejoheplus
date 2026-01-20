@@ -1,0 +1,110 @@
+{% extends "dashboard/base_mentor_dashboard.html" %}
+
+{% block dashboard_content %}
+<div class="mb-6">
+    <a href="{% url 'mentorship:mentor_resources' %}" class="text-blue-600 hover:underline">
+        <i class="fas fa-arrow-left mr-2"></i>Back to Resources
+    </a>
+</div>
+
+<div class="bg-white rounded-lg shadow-md p-8 max-w-3xl">
+    <h1 class="text-3xl font-bold text-gray-900 mb-6">{{ page_title }}</h1>
+
+    <form method="post" enctype="multipart/form-data" class="space-y-6">
+        {% csrf_token %}
+        
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Title *</label>
+            {{ form.title }}
+            {% if form.title.errors %}
+                <p class="text-red-500 text-xs mt-1">{{ form.title.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+            {{ form.description }}
+            {% if form.description.errors %}
+                <p class="text-red-500 text-xs mt-1">{{ form.description.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Resource Type *</label>
+            {{ form.resource_type }}
+            {% if form.resource_type.errors %}
+                <p class="text-red-500 text-xs mt-1">{{ form.resource_type.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div id="file-field">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Upload File</label>
+            {{ form.file }}
+            {% if resource and resource.file %}
+            <p class="text-gray-500 text-xs mt-1">Current: <a href="{{ resource.file.url }}" target="_blank" class="text-blue-600 hover:underline">{{ resource.file.name }}</a></p>
+            {% endif %}
+            {% if form.file.errors %}
+                <p class="text-red-500 text-xs mt-1">{{ form.file.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div id="url-field" style="display: none;">
+            <label class="block text-sm font-medium text-gray-700 mb-2">External URL</label>
+            {{ form.external_url }}
+            <p class="text-gray-500 text-xs mt-1">For videos, links, or external resources</p>
+            {% if form.external_url.errors %}
+                <p class="text-red-500 text-xs mt-1">{{ form.external_url.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div>
+            <label class="flex items-center space-x-2">
+                {{ form.is_public }}
+                <span class="text-sm font-medium text-gray-700">Make this resource public (available to all mentees)</span>
+            </label>
+            {% if form.is_public.errors %}
+                <p class="text-red-500 text-xs mt-1">{{ form.is_public.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Share with Specific Mentees</label>
+            {{ form.connections }}
+            <p class="text-gray-500 text-xs mt-1">Select specific mentees (leave empty if public or you want to share later)</p>
+            {% if form.connections.errors %}
+                <p class="text-red-500 text-xs mt-1">{{ form.connections.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div class="flex justify-end space-x-4 pt-4">
+            <a href="{% url 'mentorship:mentor_resources' %}" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+                Cancel
+            </a>
+            <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+                {% if resource %}Update Resource{% else %}Upload Resource{% endif %}
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Show/hide file/url fields based on resource type
+    const resourceType = document.getElementById('id_resource_type');
+    const fileField = document.getElementById('file-field');
+    const urlField = document.getElementById('url-field');
+    
+    function toggleFields() {
+        const type = resourceType.value;
+        if (type === 'link' || type === 'video') {
+            fileField.style.display = 'none';
+            urlField.style.display = 'block';
+        } else {
+            fileField.style.display = 'block';
+            urlField.style.display = 'none';
+        }
+    }
+    
+    resourceType.addEventListener('change', toggleFields);
+    toggleFields(); // Initial call
+</script>
+{% endblock %}

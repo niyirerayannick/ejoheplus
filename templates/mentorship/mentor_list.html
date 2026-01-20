@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Find a Mentor - EjoHePlus{% endblock %}
+
+{% block extra_css %}
+{% include "partials/home_styles.html" %}
+{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <p class="section-subtitle"><i class="fas fa-users mr-2"></i>Find Mentor</p>
+                <h2 class="section-title">Connect with mentors for your career path</h2>
+                <p class="text-xs text-gray-500">Personalized suggestions based on your Career Discovery results.</p>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap gap-2 mb-6">
+            <a href="{% url 'mentorship:mentor_list' %}" class="course-pill {% if not active_category %}active{% else %}draft{% endif %}">All</a>
+            {% for category in categories %}
+                <a href="{% url 'mentorship:mentor_list' %}?category={{ category.slug }}" class="course-pill {% if active_category == category.slug %}active{% else %}draft{% endif %}">
+                    {{ category.name }}
+                </a>
+            {% endfor %}
+            <a href="{% url 'mentorship:mentor_list' %}?level=O-Level" class="course-pill {% if active_level == 'O-Level' %}active{% else %}draft{% endif %}">O-Level</a>
+            <a href="{% url 'mentorship:mentor_list' %}?level=A-Level" class="course-pill {% if active_level == 'A-Level' %}active{% else %}draft{% endif %}">A-Level</a>
+        </div>
+
+        {% if recommended_mentors %}
+        <div class="mb-8">
+            <h3 class="text-xl font-semibold mb-4">Recommended for you</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {% for mentor in recommended_mentors %}
+                <div class="course-card p-5">
+                    <div class="mentor-avatar w-16 h-16 mx-auto">
+                        {% if mentor.profile_picture %}
+                            <img src="{{ mentor.profile_picture.url }}" alt="{{ mentor.get_full_name|default:mentor.username }}">
+                        {% else %}
+                            <img src="{% static 'image/1481.jpg' %}" alt="{{ mentor.get_full_name|default:mentor.username }}">
+                        {% endif %}
+                    </div>
+                    <div class="font-semibold text-center mt-3">{{ mentor.get_full_name|default:mentor.username }}</div>
+                    <div class="text-xs text-gray-500 text-center">{{ mentor.mentor_profile.professional_title|default:"Mentor" }}</div>
+                    <a href="{% url 'mentorship:mentor_detail' mentor.id %}" class="course-primary-btn w-full mt-4 text-center">View Profile</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for mentor in mentors %}
+            <div class="course-card p-5">
+                <div class="mentor-avatar w-16 h-16 mx-auto">
+                    {% if mentor.profile_picture %}
+                        <img src="{{ mentor.profile_picture.url }}" alt="{{ mentor.get_full_name|default:mentor.username }}">
+                    {% else %}
+                        <img src="{% static 'image/1481.jpg' %}" alt="{{ mentor.get_full_name|default:mentor.username }}">
+                    {% endif %}
+                </div>
+                <div class="font-semibold text-center mt-3">{{ mentor.get_full_name|default:mentor.username }}</div>
+                <div class="text-xs text-gray-500 text-center">{{ mentor.mentor_profile.professional_title|default:"Mentor" }}</div>
+                <div class="flex flex-wrap gap-1 justify-center mt-3">
+                    {% for cat in mentor.mentor_profile.career_categories.all %}
+                        <span class="course-pill draft">{{ cat.name }}</span>
+                    {% empty %}
+                        <span class="course-pill draft">General</span>
+                    {% endfor %}
+                </div>
+                <div class="grid grid-cols-1 gap-2 mt-4">
+                    <a href="{% url 'mentorship:mentor_detail' mentor.id %}" class="course-secondary-btn w-full text-center">View Profile</a>
+                    {% if user.is_authenticated and user.is_student %}
+                        <form method="post" action="{% url 'mentorship:request_mentor' mentor.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="course-primary-btn w-full">Ask to be your mentor</button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+            <div class="text-sm text-gray-500">No mentors available.</div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Career Discovery - Questionnaire{% endblock %}
+
+{% block extra_css %}
+{% include "partials/home_styles.html" %}
+{% endblock %}
+
+{% block content %}
+<section class="section course-ui">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <p class="text-xs text-gray-500">Question {{ step }} of {{ total }}</p>
+                    <h2 class="text-xl font-semibold">{{ question.get_category_display }}</h2>
+                </div>
+                <span class="course-pill active">{{ progress }}%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2 mb-4">
+                <div class="bg-blue-600 h-2 rounded-full" style="width: {{ progress }}%"></div>
+            </div>
+            <p class="text-lg font-semibold text-gray-900">{{ question.prompt }}</p>
+        </div>
+
+        <form method="post" class="space-y-3">
+            {% csrf_token %}
+            {% if level %}
+                <input type="hidden" name="level" value="{{ level }}">
+            {% endif %}
+            {% for option in question.options.all %}
+            <label class="flex items-center gap-3 bg-white rounded-xl shadow-sm border border-gray-200 p-4 cursor-pointer hover:shadow-md">
+                <input type="radio" name="option" value="{{ option.id }}" class="text-blue-600">
+                <span class="text-sm text-gray-700">{{ option.text }}</span>
+            </label>
+            {% endfor %}
+            <div class="flex justify-between mt-6">
+                <a href="{% url 'careers:discovery_questions' %}?step={{ step|add:'-1' }}" class="course-secondary-btn {% if step == 1 %}opacity-50 pointer-events-none{% endif %}">Back</a>
+                <button type="submit" class="course-primary-btn">{% if step == total %}View Results{% else %}Next{% endif %}</button>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

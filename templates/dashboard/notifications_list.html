@@ -1,0 +1,59 @@
+{% extends "dashboard/base_student_dashboard.html" %}
+
+{% block dashboard_content %}
+<div class="mb-6 flex justify-between items-center">
+    <div>
+        <h1 class="text-3xl font-bold text-gray-900">My Notifications</h1>
+        <p class="text-gray-600 mt-2">
+            {% if unread_count %}
+                You have {{ unread_count }} unread notification{{ unread_count|pluralize }}
+            {% else %}
+                All notifications are read
+            {% endif %}
+        </p>
+    </div>
+</div>
+
+<div class="bg-white rounded-lg shadow-md p-6">
+    {% if notifications %}
+        <div class="space-y-4">
+            {% for notification in notifications %}
+            <div class="border border-gray-200 rounded-lg p-6 hover:bg-gray-50 {% if not notification.is_read %}bg-blue-50 border-blue-200{% endif %}">
+                <div class="flex justify-between items-start">
+                    <div class="flex-1">
+                        <div class="flex items-center mb-2">
+                            {% if not notification.is_read %}
+                            <i class="fas fa-circle text-blue-600 text-xs mr-2"></i>
+                            {% endif %}
+                            <h3 class="text-lg font-semibold {% if not notification.is_read %}text-blue-900{% else %}text-gray-900{% endif %}">
+                                {{ notification.title }}
+                            </h3>
+                            <span class="ml-3 px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">
+                                {{ notification.get_notification_type_display }}
+                            </span>
+                        </div>
+                        <p class="text-gray-700 mb-2">{{ notification.message }}</p>
+                        <p class="text-gray-500 text-xs">{{ notification.created_at|date:"F d, Y g:i A" }}</p>
+                    </div>
+                    <div class="ml-4 flex space-x-2">
+                        {% if notification.related_url %}
+                        <a href="{{ notification.related_url }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm">
+                            View
+                        </a>
+                        {% endif %}
+                        <a href="{% url 'dashboard:notification_delete' notification.id %}" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 text-sm">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center py-12">
+            <i class="fas fa-bell-slash text-6xl text-gray-400 mb-4"></i>
+            <p class="text-gray-600 text-xl">No notifications yet.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,177 @@
+{
+  "version": "1.0",
+  "audience_levels": ["O-Level", "A-Level"],
+  "scoring_scale": {
+    "min": 0,
+    "max": 4,
+    "meaning": {
+      "0": "Not at all",
+      "1": "Slightly",
+      "2": "Moderately",
+      "3": "Very",
+      "4": "Extremely"
+    }
+  },
+  "categories": [
+    {
+      "id": "interests",
+      "label": "Interests",
+      "questions": [
+        {
+          "id": "int_01",
+          "type": "likert",
+          "prompt": "I enjoy solving complex problems and puzzles.",
+          "options": [
+            { "label": "Not at all", "weight": 0, "tags": ["logic", "analysis"] },
+            { "label": "Slightly", "weight": 1, "tags": ["logic", "analysis"] },
+            { "label": "Moderately", "weight": 2, "tags": ["logic", "analysis"] },
+            { "label": "Very", "weight": 3, "tags": ["logic", "analysis"] },
+            { "label": "Extremely", "weight": 4, "tags": ["logic", "analysis"] }
+          ],
+          "scoring_hints": {
+            "career_tags": ["engineering", "data_science", "cybersecurity", "accounting"]
+          }
+        },
+        {
+          "id": "int_02",
+          "type": "likert",
+          "prompt": "I like creating designs, art, or visual presentations.",
+          "options": [
+            { "label": "Not at all", "weight": 0, "tags": ["creative", "visual"] },
+            { "label": "Slightly", "weight": 1, "tags": ["creative", "visual"] },
+            { "label": "Moderately", "weight": 2, "tags": ["creative", "visual"] },
+            { "label": "Very", "weight": 3, "tags": ["creative", "visual"] },
+            { "label": "Extremely", "weight": 4, "tags": ["creative", "visual"] }
+          ],
+          "scoring_hints": {
+            "career_tags": ["design", "architecture", "marketing", "media"]
+          }
+        },
+        {
+          "id": "int_03",
+          "type": "likert",
+          "prompt": "I enjoy helping others learn or solve their problems.",
+          "options": [
+            { "label": "Not at all", "weight": 0, "tags": ["helping", "social"] },
+            { "label": "Slightly", "weight": 1, "tags": ["helping", "social"] },
+            { "label": "Moderately", "weight": 2, "tags": ["helping", "social"] },
+            { "label": "Very", "weight": 3, "tags": ["helping", "social"] },
+            { "label": "Extremely", "weight": 4, "tags": ["helping", "social"] }
+          ],
+          "scoring_hints": {
+            "career_tags": ["education", "healthcare", "counseling", "social_work"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "skills",
+      "label": "Skills & Abilities",
+      "questions": [
+        {
+          "id": "sk_01",
+          "type": "single_choice",
+          "prompt": "Which activity do you do best?",
+          "options": [
+            { "label": "Analyzing data or numbers", "weight": 4, "tags": ["analysis", "quant"] },
+            { "label": "Explaining ideas clearly", "weight": 4, "tags": ["communication", "teaching"] },
+            { "label": "Building or fixing things", "weight": 4, "tags": ["technical", "hands_on"] },
+            { "label": "Organizing people and tasks", "weight": 4, "tags": ["leadership", "planning"] }
+          ],
+          "scoring_hints": {
+            "career_tags_map": {
+              "analysis": ["data_science", "finance", "engineering"],
+              "communication": ["education", "law", "media"],
+              "technical": ["engineering", "mechanical", "construction"],
+              "leadership": ["business", "management", "entrepreneurship"]
+            }
+          }
+        },
+        {
+          "id": "sk_02",
+          "type": "likert",
+          "prompt": "I can stay focused on a task for a long time.",
+          "options": [
+            { "label": "Not at all", "weight": 0, "tags": ["focus"] },
+            { "label": "Slightly", "weight": 1, "tags": ["focus"] },
+            { "label": "Moderately", "weight": 2, "tags": ["focus"] },
+            { "label": "Very", "weight": 3, "tags": ["focus"] },
+            { "label": "Extremely", "weight": 4, "tags": ["focus"] }
+          ],
+          "scoring_hints": {
+            "career_tags": ["research", "engineering", "medicine", "law"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "personality",
+      "label": "Personality",
+      "questions": [
+        {
+          "id": "ps_01",
+          "type": "likert",
+          "prompt": "I enjoy leading groups or projects.",
+          "options": [
+            { "label": "Not at all", "weight": 0, "tags": ["leadership"] },
+            { "label": "Slightly", "weight": 1, "tags": ["leadership"] },
+            { "label": "Moderately", "weight": 2, "tags": ["leadership"] },
+            { "label": "Very", "weight": 3, "tags": ["leadership"] },
+            { "label": "Extremely", "weight": 4, "tags": ["leadership"] }
+          ],
+          "scoring_hints": {
+            "career_tags": ["management", "entrepreneurship", "public_service"]
+          }
+        },
+        {
+          "id": "ps_02",
+          "type": "likert",
+          "prompt": "I prefer structured tasks with clear rules.",
+          "options": [
+            { "label": "Not at all", "weight": 0, "tags": ["structure"] },
+            { "label": "Slightly", "weight": 1, "tags": ["structure"] },
+            { "label": "Moderately", "weight": 2, "tags": ["structure"] },
+            { "label": "Very", "weight": 3, "tags": ["structure"] },
+            { "label": "Extremely", "weight": 4, "tags": ["structure"] }
+          ],
+          "scoring_hints": {
+            "career_tags": ["accounting", "law", "quality_assurance", "administration"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "subjects",
+      "label": "Favorite Subjects",
+      "questions": [
+        {
+          "id": "sb_01",
+          "type": "multi_select",
+          "prompt": "Which subjects do you enjoy most? (Select all that apply)",
+          "options": [
+            { "label": "Mathematics", "weight": 4, "tags": ["math"] },
+            { "label": "Physics", "weight": 4, "tags": ["physics"] },
+            { "label": "Biology", "weight": 4, "tags": ["biology"] },
+            { "label": "Chemistry", "weight": 4, "tags": ["chemistry"] },
+            { "label": "Literature/English", "weight": 4, "tags": ["language"] },
+            { "label": "History/Geography", "weight": 4, "tags": ["social_science"] },
+            { "label": "Computer Studies", "weight": 4, "tags": ["computing"] },
+            { "label": "Art/Design", "weight": 4, "tags": ["creative"] }
+          ],
+          "scoring_hints": {
+            "career_tags_map": {
+              "math": ["engineering", "data_science", "finance"],
+              "physics": ["engineering", "architecture", "aviation"],
+              "biology": ["medicine", "public_health", "agriculture"],
+              "chemistry": ["pharmacy", "chemical_engineering", "lab_science"],
+              "language": ["journalism", "law", "education"],
+              "social_science": ["public_service", "policy", "international_relations"],
+              "computing": ["software_engineering", "cybersecurity", "data_science"],
+              "creative": ["design", "media", "architecture"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

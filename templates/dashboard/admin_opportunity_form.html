@@ -1,0 +1,54 @@
+{% extends "dashboard/base_admin_dashboard.html" %}
+
+{% block dashboard_content %}
+<div class="bg-white rounded-lg shadow-md p-6">
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-gray-900">{{ page_title }}</h2>
+        <p class="text-gray-600">Manage opportunity details</p>
+    </div>
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+            {{ form.title }}
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Slug</label>
+            {{ form.slug }}
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Type</label>
+            {{ form.type }}
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+            {{ form.category }}
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+            {{ form.description }}
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Requirements</label>
+            {{ form.requirements }}
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Benefits</label>
+            {{ form.benefits }}
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Deadline</label>
+            {{ form.deadline }}
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Created By</label>
+            {{ form.created_by }}
+        </div>
+        <div class="flex items-center gap-2">
+            {{ form.is_active }}
+            <span class="text-sm text-gray-700">Active</span>
+        </div>
+        <button type="submit" class="section-button">Save</button>
+    </form>
+</div>
+{% endblock %}

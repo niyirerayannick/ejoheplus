@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Career Discovery Results{% endblock %}
+
+{% block extra_css %}
+{% include "partials/home_styles.html" %}
+{% endblock %}
+
+{% block content %}
+<section class="section course-ui">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="course-header mb-8">
+            <div class="course-badge"><i class="fas fa-star"></i> Your Career Matches</div>
+            <h1 class="text-3xl font-bold mt-3">Your personalized recommendations</h1>
+            <p class="text-sm text-white/80">
+                We matched your answers to careers and programs that align with your strengths.
+                {% if level_key %}
+                    Showing programs for {{ level_key|title }} level in Rwanda.
+                {% endif %}
+            </p>
+        </div>
+
+        <div class="mb-8">
+            <h2 class="text-xl font-semibold mb-4">Best Matches</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {% for item in best_matches %}
+                <div class="course-card p-5">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-semibold text-gray-900">{{ item.career.title }}</h3>
+                        <span class="course-pill active">{{ item.percentage }}% Match</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2">{{ item.career.overview|truncatewords:20 }}</p>
+                    <div class="mt-3">
+                        <p class="text-xs text-gray-500 font-semibold mb-1">Why this fits you</p>
+                        <ul class="text-xs text-gray-600 space-y-1">
+                            {% for reason in item.reasons %}
+                            <li><i class="fas fa-check-circle text-blue-600 mr-2"></i>{{ reason }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="mt-3">
+                        <p class="text-xs text-gray-500 font-semibold mb-1">University programs</p>
+                        {% if item.programs %}
+                        <ul class="text-xs text-gray-600 space-y-1">
+                            {% for program in item.programs %}
+                            <li>
+                                {{ program.name }} • {{ program.get_institution_type_display }}
+                                • {{ program.get_level_display }} • {{ program.country }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% else %}
+                        <p class="text-xs text-gray-500">Programs not yet mapped for this level.</p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-sm text-gray-600">No matches available yet. Please contact support.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="mb-8">
+            <h2 class="text-xl font-semibold mb-4">Good Alternatives</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {% for item in alternatives %}
+                <div class="course-card p-5">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-semibold text-gray-900">{{ item.career.title }}</h3>
+                        <span class="course-pill draft">{{ item.percentage }}%</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2">{{ item.career.overview|truncatewords:18 }}</p>
+                    <p class="text-xs text-gray-500 mt-3">Explore this path if you want more options.</p>
+                </div>
+                {% empty %}
+                <p class="text-sm text-gray-600">No alternatives yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-md p-6 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div>
+                <h3 class="text-lg font-semibold">Want to revisit your answers?</h3>
+                <p class="text-sm text-gray-600">You can retake the questionnaire anytime to refine results.</p>
+            </div>
+            <a href="{% url 'careers:discovery_intro' %}" class="course-primary-btn">Retake Discovery</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

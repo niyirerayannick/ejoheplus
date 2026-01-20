@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Careers Library - EjoHePlus{% endblock %}
+
+{% block extra_css %}
+{% include "partials/home_styles.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 course-ui">
+    <div class="mb-8">
+        <h1 class="text-4xl font-bold text-gray-900 mb-2">Careers Library</h1>
+        <p class="text-gray-600 mb-4">Explore career paths and see the programs that lead there.</p>
+        <a href="{% url 'careers:discovery_intro' %}" class="course-primary-btn">Try Career Discovery</a>
+    </div>
+
+    <!-- Search and Filters -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+        <form method="get" class="flex gap-4">
+            <input 
+                type="text" 
+                name="search" 
+                value="{{ search_query }}" 
+                placeholder="Search careers..." 
+                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+            >
+            <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+                <i class="fas fa-search mr-2"></i>Search
+            </button>
+        </form>
+    </div>
+
+    <!-- Careers Grid -->
+    {% if careers %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for career in careers %}
+            <div class="course-card">
+                <div class="h-48 bg-gray-200"></div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">{{ career.title }}</h3>
+                    <p class="text-gray-600 mb-4 line-clamp-3">{{ career.overview|truncatewords:20 }}</p>
+                    <a href="{% url 'careers:detail' career.slug %}" class="course-secondary-btn">Learn More</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="bg-white rounded-lg shadow-md p-12 text-center">
+            <i class="fas fa-search text-6xl text-gray-400 mb-4"></i>
+            <p class="text-gray-600 text-xl">No careers found. Try adjusting your search.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

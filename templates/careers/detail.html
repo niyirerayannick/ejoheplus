@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}{{ career.title }} - EjoHePlus{% endblock %}
+
+{% block extra_css %}
+{% include "partials/home_styles.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 course-ui">
+    <div class="mb-6">
+        <a href="{% url 'careers:list' %}" class="text-blue-600 hover:underline">
+            <i class="fas fa-arrow-left mr-2"></i>Back to Careers
+        </a>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-md p-8">
+        <h1 class="text-4xl font-bold text-gray-900 mb-6">{{ career.title }}</h1>
+        
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-4">Overview</h2>
+            <p class="text-gray-700 leading-relaxed">{{ career.overview }}</p>
+        </div>
+
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-4">Required Skills</h2>
+            <div class="bg-gray-50 rounded-lg p-6">
+                <p class="text-gray-700 whitespace-pre-line">{{ career.skills }}</p>
+            </div>
+        </div>
+
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-4">Education Path</h2>
+            <div class="bg-gray-50 rounded-lg p-6">
+                <p class="text-gray-700 whitespace-pre-line">{{ career.education_path }}</p>
+            </div>
+        </div>
+
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-4">Recommended Institutions</h2>
+            <div class="bg-gray-50 rounded-lg p-6">
+                <p class="text-gray-700 whitespace-pre-line">{{ career.institutions }}</p>
+            </div>
+        </div>
+
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-4">Future Prospects</h2>
+            <div class="bg-gray-50 rounded-lg p-6">
+                <p class="text-gray-700 whitespace-pre-line">{{ career.future_prospects }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

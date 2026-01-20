@@ -1,0 +1,80 @@
+{% extends "dashboard/base_partner_dashboard.html" %}
+
+{% block dashboard_content %}
+<!-- Stats Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm">Opportunities</p>
+                <p class="text-3xl font-bold text-gray-900">{{ stats.opportunities }}</p>
+            </div>
+            <div class="bg-blue-100 p-3 rounded-full">
+                <i class="fas fa-briefcase text-blue-600 text-2xl"></i>
+            </div>
+        </div>
+    </div>
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm">Applications</p>
+                <p class="text-3xl font-bold text-gray-900">{{ stats.applications }}</p>
+            </div>
+            <div class="bg-green-100 p-3 rounded-full">
+                <i class="fas fa-file-alt text-green-600 text-2xl"></i>
+            </div>
+        </div>
+    </div>
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm">Events</p>
+                <p class="text-3xl font-bold text-gray-900">{{ stats.events }}</p>
+            </div>
+            <div class="bg-purple-100 p-3 rounded-full">
+                <i class="fas fa-calendar-alt text-purple-600 text-2xl"></i>
+            </div>
+        </div>
+    </div>
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm">Courses</p>
+                <p class="text-3xl font-bold text-gray-900">{{ stats.courses }}</p>
+            </div>
+            <div class="bg-yellow-100 p-3 rounded-full">
+                <i class="fas fa-graduation-cap text-yellow-600 text-2xl"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Post Opportunity -->
+<div class="bg-white rounded-lg shadow-md p-6 mb-8">
+    <h2 class="text-2xl font-bold text-gray-900 mb-4">Post New Opportunity</h2>
+    <p class="text-gray-600 mb-4">Create a new opportunity for students to apply</p>
+    <a href="{% url 'dashboard:opportunity_create' %}" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 inline-flex items-center">
+        <i class="fas fa-plus mr-2"></i>Create Opportunity
+    </a>
+</div>
+
+<!-- Recent Applications -->
+<div class="bg-white rounded-lg shadow-md p-6">
+    <h2 class="text-2xl font-bold text-gray-900 mb-4">Recent Applications</h2>
+    {% if recent_applications %}
+        <div class="space-y-4">
+            {% for application in recent_applications %}
+            <div class="flex items-center justify-between border-b pb-4">
+                <div>
+                    <h3 class="font-semibold">{{ application.student.get_full_name|default:application.student.username }}</h3>
+                    <p class="text-gray-600 text-sm">{{ application.opportunity.title }} • {{ application.applied_at|date:"M d, Y" }}</p>
+                </div>
+                <div class="text-sm text-gray-500">{{ application.status|title }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-sm text-gray-500">No recent applications yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

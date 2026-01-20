@@ -1,0 +1,371 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home - EjoHePlus{% endblock %}
+
+{% block extra_css %}
+{% include "partials/home_styles.html" %}
+{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="hero-card">
+            <div class="hero-decoration">
+                <svg viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="200" cy="120" r="120" fill="white" opacity="0.15"/>
+                    <circle cx="900" cy="180" r="160" fill="white" opacity="0.12"/>
+                    <circle cx="620" cy="420" r="140" fill="white" opacity="0.12"/>
+                    <rect x="420" y="200" width="220" height="220" fill="white" opacity="0.08" transform="rotate(45 530 310)"/>
+                </svg>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center relative z-10">
+                <div>
+                    <div class="hero-badge">
+                        <i class="fas fa-award"></i>
+                        Empowering Students Across Rwanda
+                    </div>
+                    <h1 class="hero-title">
+                        Make Informed <span class="underline">Education</span> Choices And Build Your <span class="underline">Future</span>
+                    </h1>
+                    <p class="hero-text">
+                        EjoHe Initiative (EHI) supports students with guidance, mentorship, sponsorships, and community programs.
+                    </p>
+                    <div class="flex flex-wrap gap-3 mt-4">
+                        <a href="{% url 'careers:discovery_intro' %}" class="section-button">
+                            Start Your Career Discovery
+                        </a>
+                        <a href="{% url 'courses:index' %}" class="section-button">
+                            Start Learning
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-visual">
+                    <div class="stats-card">
+                        <div class="stats-icon"><i class="fas fa-user-graduate"></i></div>
+                        <div>
+                            <div class="text-sm font-bold">15k+</div>
+                            <div class="text-[10px] text-gray-500">Active Students</div>
+                        </div>
+                    </div>
+                    <div class="hero-person">
+                        <img src="{% static 'image/3705.jpg' %}" alt="EjoHePlus Hero">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-strip mt-2">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="category-card">
+                    <div class="category-icon orange"><i class="fas fa-bullhorn"></i></div>
+                    <div>
+                        <h4>Career Guidance</h4>
+                        <span>05 Courses</span>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon blue"><i class="fas fa-palette"></i></div>
+                    <div>
+                        <h4>Digital Skills</h4>
+                        <span>06 Courses</span>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon purple"><i class="fas fa-code"></i></div>
+                    <div>
+                        <h4>Professional Growth</h4>
+                        <span>04 Courses</span>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon red"><i class="fas fa-cube"></i></div>
+                    <div>
+                        <h4>Leadership</h4>
+                        <span>07 Courses</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mentor-highlight grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div class="grid grid-cols-2 gap-4">
+                <div class="bg-white/10 rounded-xl p-4">
+                    <div class="h-32 bg-white/20 rounded-lg mb-3" style="background-image:url('{% static 'image/1481.jpg' %}'); background-size: cover; background-position: center;"></div>
+                    <div class="mentor-stat">6,570+ Active Student</div>
+                </div>
+                <div class="bg-white/10 rounded-xl p-4">
+                    <div class="h-28 bg-white/20 rounded-lg mb-3" style="background-image:url('{% static 'image/3755.jpg' %}'); background-size: cover; background-position: center;"></div>
+                    <div class="mentor-stat">★★★★★ (15k Reviews)</div>
+                </div>
+                <div class="bg-white/10 rounded-xl p-4 col-span-2">
+                    <div class="flex items-center gap-3">
+                        <div class="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-sm">Professional Mentors</div>
+                            <div class="text-xs text-white/70">Guiding your career journey</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p class="section-subtitle text-white"><i class="fas fa-book mr-2"></i>About Us — EjoHe Initiative (EHI)</p>
+                <h3>Empowering students to make <span class="highlight">informed</span> education and career decisions</h3>
+                <p>
+                    EjoHe Initiative (EHI) is a non-profit organization in Rwanda dedicated to empowering students to make
+                    informed decisions about their education and career paths. The organization focuses on guidance,
+                    mentorship, sponsorship, and community engagement to help young people build meaningful futures.
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-5 text-sm">
+                    <div><i class="fas fa-check-circle mr-2"></i>Career guidance & life planning</div>
+                    <div><i class="fas fa-check-circle mr-2"></i>Mentorship & sponsorship support</div>
+                    <div><i class="fas fa-check-circle mr-2"></i>Community & parent engagement</div>
+                </div>
+                <div class="mt-6">
+                    <a href="{% url 'mentorship:index' %}" class="section-button">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-8">
+            <p class="section-subtitle"><i class="fas fa-users mr-2"></i>Find a Mentor</p>
+            <h2 class="section-title">Meet mentors who guide <span class="highlight">your path</span></h2>
+            <p class="text-xs text-gray-500">Connect with mentors who can guide you in your career path.</p>
+        </div>
+        <div id="featured-mentors-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+        <div class="flex justify-center mt-6">
+            <a href="{% url 'mentorship:index' %}" class="section-button">Find a Mentor</a>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="dark-section grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div>
+                <p class="section-subtitle text-white"><i class="fas fa-layer-group mr-2"></i>Our Programs</p>
+                <h2 class="section-title text-white">Programs that empower students</h2>
+                <p class="text-xs text-white/70">
+                    Education Program: Career guidance and life planning education for students.
+                    Sponsorships for Underprivileged Students (SUS Program): Scholarships, mentorship, and academic support.
+                    Alumni Mentorship Program: Alumni supporting current students through mentorship.
+                    Parent Engagement Program: Workshops and joint planning sessions with parents.
+                    Community Engagement Program: Partnerships with communities to reinforce education, mentorship, and support systems.
+                </p>
+                <a href="{% url 'opportunities:list' %}" class="section-button mt-4">Find Opportunities</a>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="dark-card"><i class="fas fa-graduation-cap"></i> Education Program</div>
+                <div class="dark-card"><i class="fas fa-hand-holding-heart"></i> SUS Program</div>
+                <div class="dark-card"><i class="fas fa-users"></i> Alumni Mentorship</div>
+                <div class="dark-card"><i class="fas fa-people-arrows"></i> Parent Engagement</div>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+            <div class="promo-card orange">
+                <div class="w-16 h-16 rounded-full bg-white/30 flex items-center justify-center">
+                    <i class="fas fa-hands-helping"></i>
+                </div>
+                <div>
+                    <h4 class="font-semibold">Community Engagement Program</h4>
+                    <p class="text-xs text-white/80">Partnering with communities to reinforce mentorship and support.</p>
+                </div>
+            </div>
+            <div class="promo-card purple">
+                <div class="w-16 h-16 rounded-full bg-white/30 flex items-center justify-center">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <div>
+                    <h4 class="font-semibold">Start Learning</h4>
+                    <p class="text-xs text-white/80">Explore career guidance courses and build your skills.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section course-ui">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <p class="section-subtitle"><i class="fas fa-briefcase mr-2"></i>Opportunities</p>
+                <h2 class="section-title">Latest <span class="highlight">Opportunities</span></h2>
+            </div>
+            <a href="{% url 'opportunities:list' %}" class="course-primary-btn">View All Opportunities</a>
+        </div>
+        {% if latest_opportunities %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for opportunity in latest_opportunities %}
+            <div class="course-card">
+                <div class="h-32 bg-gray-200" style="background-image:url('{% static 'image/6456.jpg' %}'); background-size: cover; background-position: center;"></div>
+                <div class="p-4">
+                    <span class="course-pill active">{{ opportunity.category|default:opportunity.get_type_display }}</span>
+                    <h4 class="font-semibold text-gray-900 mt-2">{{ opportunity.title }}</h4>
+                    <p class="text-sm text-gray-600 mt-2">{{ opportunity.description|truncatewords:14 }}</p>
+                    <div class="text-xs text-gray-500 mt-3">
+                        <i class="far fa-calendar mr-1"></i>Deadline: {{ opportunity.deadline|date:"M d, Y" }}
+                    </div>
+                    <a href="{% url 'opportunities:detail' opportunity.slug %}" class="course-primary-btn inline-block mt-4">View Details</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="bg-gray-50 rounded-lg p-8 text-center text-gray-600">
+            No opportunities available right now.
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<section class="section course-ui">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="course-header flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div>
+                <p class="text-sm text-white/80"><i class="fas fa-compass mr-2"></i>🎯 Start by Choosing Your Career</p>
+                <h2 class="text-3xl font-bold">Find the right career path</h2>
+                <p class="text-sm text-white/80">Answer a few questions to get clear, explainable career matches.</p>
+            </div>
+            <a href="{% url 'careers:discovery_intro' %}" class="course-primary-btn">Start Your Career Discovery</a>
+        </div>
+    </div>
+</section>
+
+<section id="blog" class="section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-8">
+            <p class="section-subtitle"><i class="fas fa-pen mr-2"></i>📰 Latest Blog</p>
+            <h2 class="section-title">Latest <span class="highlight">Blog</span></h2>
+            <p class="text-xs text-gray-500">News, stories, and updates from EjoHe Initiative.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for i in "123"|make_list %}
+            <div class="blog-card">
+                <div class="blog-thumb" style="background-image:url('{% static 'image/4337.jpg' %}'); background-size: cover; background-position: center;"></div>
+                <div class="p-4">
+                    <div class="text-xs text-blue-600 font-semibold">Education</div>
+                    <div class="training-title mt-2">Career Growth: Skills that Matter in 2024</div>
+                    <div class="text-xs text-gray-500"><i class="far fa-calendar mr-2"></i>September 10, 2023</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="flex justify-center gap-2 mt-6">
+            <span class="w-3 h-3 rounded-full bg-blue-600"></span>
+            <span class="w-3 h-3 rounded-full bg-gray-300"></span>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-6">
+            <p class="section-subtitle"><i class="fas fa-handshake mr-2"></i>Our Partners</p>
+            <h2 class="section-title">Our Trusted <span class="highlight">Partners</span></h2>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
+            {% for i in "12345"|make_list %}
+            <div class="partner-logo">Partner {{ i }}</div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<script>
+    const fallbackCardImage = "{% static 'image/6456.jpg' %}";
+    const fallbackMentorImage = "{% static 'image/1481.jpg' %}";
+
+    const buildTrainingCard = (item) => `
+        <a href="/courses/${item.slug}/" class="training-card">
+            <div class="training-thumb" style="background-image:url('${item.thumbnail || fallbackCardImage}'); background-size: cover; background-position: center;">
+                <span class="training-tag">${item.category || item.level}</span>
+                <i class="fas fa-chalkboard-teacher"></i>
+            </div>
+            <div class="training-body">
+                <div class="training-title">${item.title}</div>
+                <div class="training-meta">
+                    <span><i class="fas fa-clock mr-1"></i>${item.duration_hours || 0} hrs</span>
+                    <span class="training-price">${item.is_free ? 'Free' : `$${item.price}`}</span>
+                </div>
+            </div>
+        </a>
+    `;
+
+    const buildOpportunityCard = (item, icon) => `
+        <div class="training-card">
+            <div class="training-thumb">
+                <span class="training-tag">${item.category || item.type}</span>
+                <i class="fas ${icon}"></i>
+            </div>
+            <div class="training-body">
+                <div class="training-title">${item.title}</div>
+                <div class="training-meta">
+                    <span><i class="far fa-calendar mr-1"></i>${item.deadline || ''}</span>
+                    <span class="training-price">Apply</span>
+                </div>
+            </div>
+        </div>
+    `;
+
+    const buildMentorCard = (item) => `
+        <div class="mentor-card">
+            <div class="mentor-avatar">
+                <img src="${item.profile_picture || fallbackMentorImage}" alt="${item.full_name}" />
+            </div>
+            <div class="font-semibold text-sm">${item.full_name}</div>
+            <div class="text-xs text-gray-500">${item.professional_title || 'Mentor'}</div>
+        </div>
+    `;
+
+    fetch('/api/courses/?limit=4')
+        .then(r => r.json())
+        .then(data => {
+            const grid = document.getElementById('upcoming-training-grid');
+            if (!grid) return;
+            const items = data.results || data;
+            grid.innerHTML = items.map(buildTrainingCard).join('');
+        });
+
+    fetch('/api/jobs/?limit=4')
+        .then(r => r.json())
+        .then(data => {
+            const grid = document.getElementById('latest-jobs-grid');
+            if (!grid) return;
+            const items = data.results || data;
+            grid.innerHTML = items.map(item => buildOpportunityCard(item, 'fa-briefcase')).join('');
+        });
+
+    fetch('/api/scholarships/?limit=4')
+        .then(r => r.json())
+        .then(data => {
+            const grid = document.getElementById('scholarships-grid');
+            if (!grid) return;
+            const items = data.results || data;
+            grid.innerHTML = items.map(item => buildOpportunityCard(item, 'fa-award')).join('');
+        });
+
+    fetch('/api/mentors/?limit=4')
+        .then(r => r.json())
+        .then(data => {
+            const grid = document.getElementById('featured-mentors-grid');
+            if (!grid) return;
+            const items = data.results || data;
+            grid.innerHTML = items.map(buildMentorCard).join('');
+        });
+</script>
+{% endblock content %}
+
+\n

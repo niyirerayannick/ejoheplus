@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Career Discovery - EjoHePlus{% endblock %}
+
+{% block extra_css %}
+{% include "partials/home_styles.html" %}
+{% endblock %}
+
+{% block content %}
+<section class="section course-ui">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="course-header">
+            <div class="course-badge"><i class="fas fa-compass"></i> Career Discovery</div>
+            <h1 class="text-3xl font-bold mt-3">Find careers that match your strengths</h1>
+            <p class="text-sm text-white/80">Answer a short set of questions to identify your interests, skills, and subjects you enjoy.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-3">What you will discover</h2>
+                <ul class="text-sm text-gray-600 space-y-2">
+                    <li><i class="fas fa-check-circle text-blue-600 mr-2"></i>Best-fit career paths</li>
+                    <li><i class="fas fa-check-circle text-blue-600 mr-2"></i>Relevant university programs</li>
+                    <li><i class="fas fa-check-circle text-blue-600 mr-2"></i>Clear explanations for each match</li>
+                </ul>
+            </div>
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-3">Choose your level</h2>
+                <form method="post" action="{% url 'careers:discovery_questions' %}">
+                    {% csrf_token %}
+                    <label class="text-xs text-gray-500">Current Level</label>
+                    <select name="level" class="w-full px-4 py-2 border border-gray-200 rounded-lg text-sm mt-2">
+                        <option value="">Select level</option>
+                        <option value="O-Level">O-Level</option>
+                        <option value="A-Level">A-Level</option>
+                    </select>
+                    <button type="submit" class="course-primary-btn mt-4">Start Career Discovery</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

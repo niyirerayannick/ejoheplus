@@ -1,0 +1,27 @@
+{% extends base_template %}
+
+{% block dashboard_content %}
+<div class="bg-white rounded-xl shadow-md p-6">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+        <div>
+            <p class="section-subtitle"><i class="fas fa-pen-nib mr-2"></i>Articles</p>
+            <h2 class="section-title">My <span class="highlight">Articles</span></h2>
+        </div>
+        <a href="{% url 'dashboard:article_create' %}" class="section-button">Create Article</a>
+    </div>
+
+    {% if articles %}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {% for article in articles %}
+                <div class="about-card">
+                    <h3 class="font-semibold text-gray-900 mb-1">{{ article.title }}</h3>
+                    <p class="text-xs text-gray-500 mb-3">{{ article.status|title }} • {{ article.created_at|date:"M d, Y" }}</p>
+                    <p class="text-sm text-gray-600 line-clamp-3">{{ article.excerpt|default:article.content|truncatewords:24 }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-sm text-gray-500">You have not created any articles yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

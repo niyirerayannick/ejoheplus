@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Articles - EjoHePlus{% endblock %}
+
+{% block extra_css %}
+{% include "partials/home_styles.html" %}
+{% endblock %}
+
+{% block content %}
+<section class="py-12 bg-gradient-to-r from-[#0b2f6b] to-[#0b3a8a] text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+        <div>
+            <h1 class="text-3xl font-bold mb-2">Blog Grid</h1>
+            <p class="text-sm text-white/80">Home / Blog Grid</p>
+        </div>
+        <div class="hidden md:flex gap-4">
+            <div class="w-20 h-20 bg-white/10 rounded-xl"></div>
+            <div class="w-20 h-20 bg-white/10 rounded-xl"></div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {% for article in page_obj %}
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                        <div class="h-40 bg-gray-200" style="background-image:url('{% if article.cover_image %}{{ article.cover_image.url }}{% else %}{% static 'image/6456.jpg' %}{% endif %}'); background-size: cover; background-position: center;"></div>
+                        <div class="p-4">
+                            {% if article.category %}
+                                <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">{{ article.category }}</span>
+                            {% endif %}
+                            <h3 class="font-semibold text-gray-900 mt-2">{{ article.title }}</h3>
+                            <div class="text-xs text-gray-500 mt-2">
+                                <i class="far fa-calendar mr-1"></i>{{ article.published_at|date:"M d, Y" }}
+                            </div>
+                            <p class="text-sm text-gray-600 mt-2">{{ article.excerpt|default:article.content|truncatewords:18 }}</p>
+                            <a href="{% url 'blog_detail' article.slug %}" class="text-blue-600 text-sm mt-3 inline-block">Read More</a>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-gray-600">No articles published yet.</p>
+                    {% endfor %}
+                </div>
+
+                {% if page_obj.has_other_pages %}
+                <div class="flex items-center justify-center gap-2 mt-10">
+                    {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-2 bg-white border rounded-lg text-sm">Previous</a>
+                    {% endif %}
+                    <span class="px-3 py-2 bg-blue-600 text-white rounded-lg text-sm">{{ page_obj.number }}</span>
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-2 bg-white border rounded-lg text-sm">Next</a>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+
+            <aside class="space-y-6">
+                <div class="bg-white rounded-xl shadow-md p-4">
+                    <h4 class="font-semibold text-gray-900 mb-3">Search</h4>
+                    <form method="get" class="flex">
+                        <input type="text" name="q" value="{{ query }}" placeholder="Search here" class="flex-1 px-3 py-2 border border-gray-200 rounded-l-lg text-sm">
+                        <button class="px-3 py-2 bg-blue-600 text-white rounded-r-lg"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md p-4">
+                    <h4 class="font-semibold text-gray-900 mb-3">Categories</h4>
+                    <div class="space-y-2 text-sm text-gray-600">
+                        {% for name, count in categories.items %}
+                            <div class="flex justify-between"><span>{{ name }}</span><span>({{ count }})</span></div>
+                        {% empty %}
+                            <div>No categories</div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md p-4">
+                    <h4 class="font-semibold text-gray-900 mb-3">Recent Post</h4>
+                    <div class="space-y-3">
+                        {% for post in recent_posts %}
+                        <a href="{% url 'blog_detail' post.slug %}" class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-lg bg-gray-200" style="background-image:url('{% if post.cover_image %}{{ post.cover_image.url }}{% else %}{% static 'image/6456.jpg' %}{% endif %}'); background-size: cover; background-position: center;"></div>
+                            <div>
+                                <div class="text-xs text-gray-500">{{ post.published_at|date:"M d, Y" }}</div>
+                                <div class="text-sm text-gray-900">{{ post.title }}</div>
+                            </div>
+                        </a>
+                        {% empty %}
+                        <div class="text-sm text-gray-600">No recent posts</div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md p-4">
+                    <h4 class="font-semibold text-gray-900 mb-3">Tags</h4>
+                    <div class="flex flex-wrap gap-2 text-xs">
+                        {% for tag in tags %}
+                            <span class="px-2 py-1 bg-gray-100 rounded">{{ tag }}</span>
+                        {% empty %}
+                            <span class="text-gray-600">No tags</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+{% endblock %}

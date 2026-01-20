@@ -1,0 +1,74 @@
+{% extends base_template %}
+{% load static %}
+
+{% block dashboard_content %}
+<div class="course-ui">
+<div class="course-header mb-6">
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h2 class="text-2xl font-bold text-gray-900">My Courses</h2>
+            <p class="text-white/80 text-sm">Manage courses, chapters, resources, and assessments</p>
+        </div>
+        <a href="{% url 'courses:course_create' %}" class="course-primary-btn">Create Course</a>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+    <div class="course-stat-card">
+        <p class="course-meta">Total Courses</p>
+        <h4>{{ stats.total }}</h4>
+    </div>
+    <div class="course-stat-card">
+        <p class="course-meta">Active Courses</p>
+        <h4>{{ stats.active }}</h4>
+    </div>
+    <div class="course-stat-card">
+        <p class="course-meta">Draft Courses</p>
+        <h4>{{ stats.drafts }}</h4>
+    </div>
+</div>
+
+{% if courses %}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for course in courses %}
+        <div class="course-card">
+            <div class="h-32 bg-gray-200" style="background-image:url('{% if course.thumbnail %}{{ course.thumbnail.url }}{% else %}{% static 'image/6456.jpg' %}{% endif %}'); background-size: cover; background-position: center;"></div>
+            <div class="p-4">
+                <div class="flex items-start justify-between mb-2">
+                    <div>
+                        <h3 class="font-semibold text-gray-900">{{ course.title }}</h3>
+                        <p class="text-xs text-gray-500">{{ course.category|default:"General" }}</p>
+                    </div>
+                    <span class="course-pill {% if course.is_active %}active{% else %}draft{% endif %}">
+                        {{ course.is_active|yesno:"Published,Draft" }}
+                    </span>
+                </div>
+                <p class="text-sm text-gray-600 mb-3">{{ course.description|truncatewords:14 }}</p>
+                <div class="text-xs text-gray-500 mb-3">
+                    <i class="far fa-calendar mr-1"></i>{{ course.created_at|date:"M d, Y" }}
+                </div>
+                <div class="grid grid-cols-2 gap-2 text-xs text-gray-600 mb-4">
+                    <div class="bg-gray-50 rounded-lg p-2 text-center">
+                        <div class="font-semibold text-gray-900">{{ course.enrollment_count }}</div>
+                        <div>Students</div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-2 text-center">
+                        <div class="font-semibold text-gray-900">{{ course.materials_count }}</div>
+                        <div>Materials</div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between text-sm">
+                    <a href="{% url 'dashboard:course_manage' course.id %}" class="course-primary-btn">Manage Course</a>
+                    <a href="{% url 'courses:course_detail' course.slug %}" class="course-secondary-btn">View</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="bg-gray-50 rounded-lg p-8 text-center text-gray-600">
+        No courses yet. <a href="{% url 'courses:course_create' %}" class="text-blue-600 hover:underline">Create your first course</a>.
+    </div>
+{% endif %}
+{% endblock %}
+</div>

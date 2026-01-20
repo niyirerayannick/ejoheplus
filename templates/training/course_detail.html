@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block title %}{{ course.title }} - EjoHePlus{% endblock %}
+
+{% block extra_css %}
+{% include "partials/home_styles.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-6">
+        <a href="{% url 'courses:index' %}" class="text-blue-600 hover:underline">
+            <i class="fas fa-arrow-left mr-2"></i>Back to Courses
+        </a>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2">
+            <div class="bg-white rounded-lg shadow-md p-8 mb-6">
+                <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm font-semibold mb-4 inline-block">
+                    {{ course.get_level_display }}
+                </span>
+                <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ course.title }}</h1>
+                
+                <div class="mb-6">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Overview</h2>
+                    <p class="text-gray-700 leading-relaxed whitespace-pre-line">{{ course.overview }}</p>
+                </div>
+
+                <div class="mb-6">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Description</h2>
+                    <p class="text-gray-700 leading-relaxed">{{ course.description }}</p>
+                </div>
+
+                {% if chapters %}
+                <div class="mb-6">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Course Content</h2>
+                    <div class="space-y-3">
+                        {% for chapter in chapters %}
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <i class="fas fa-layer-group text-blue-600 text-xl mr-4"></i>
+                                    <div>
+                                        <h4 class="font-semibold">{{ chapter.title }}</h4>
+                                        <p class="text-gray-600 text-sm">{{ chapter.contents.count }} materials</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs text-gray-500">Module {{ chapter.order }}</span>
+                            </div>
+                            <div class="flex-1">
+                                {% if chapter.description %}
+                                    <p class="text-gray-600 text-sm mt-2">{{ chapter.description }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="lg:col-span-1">
+            <div class="bg-white rounded-lg shadow-md p-6 sticky top-24">
+                <div class="mb-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-3xl font-bold text-gray-900">
+                            {% if course.is_free %}Free{% else %}${{ course.price }}{% endif %}
+                        </span>
+                    </div>
+                    <div class="space-y-3 text-gray-600 mb-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-clock mr-3"></i>
+                            <span>{{ course.duration_hours }} hours</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-signal mr-3"></i>
+                            <span>{{ course.get_level_display }} Level</span>
+                        </div>
+                        {% if course.instructor %}
+                        <div class="flex items-center">
+                            <i class="fas fa-user-tie mr-3"></i>
+                            <span>{{ course.instructor.get_full_name|default:course.instructor.username }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% if user.is_authenticated and user.is_student %}
+                    {% if is_enrolled %}
+                        <a href="{% url 'courses:course_learn' course.slug %}" class="block w-full bg-blue-600 text-white text-center px-4 py-2 rounded-lg hover:bg-blue-700 mb-3">
+                            <i class="fas fa-play mr-2"></i>Continue Learning
+                        </a>
+                    {% else %}
+                        <form method="post" action="{% url 'courses:enroll' course.slug %}">
+                            {% csrf_token %}
+                            <button type="submit" class="block w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 mb-3">
+                                <i class="fas fa-plus mr-2"></i>Enroll Now
+                            </button>
+                        </form>
+                    {% endif %}
+                {% elif user.is_authenticated %}
+                    {% if user.is_mentor or user.is_partner or user.is_administrator %}
+                        <a href="{% url 'courses:course_manage' course.slug %}" class="block w-full bg-gray-900 text-white text-center px-4 py-2 rounded-lg hover:bg-black mb-3">
+                            <i class="fas fa-cog mr-2"></i>Manage Course
+                        </a>
+                    {% endif %}
+                {% elif not user.is_authenticated %}
+                    <div class="bg-blue-50 border border-blue-200 text-blue-700 px-4 py-3 rounded-lg text-sm mb-3">
+                        <a href="{% url 'accounts:login' %}" class="font-semibold hover:underline">Login</a> or 
+                        <a href="{% url 'accounts:register' %}?role=student" class="font-semibold hover:underline">Register</a> to enroll
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

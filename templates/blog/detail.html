@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ article.title }} - EjoHePlus{% endblock %}
+
+{% block extra_css %}
+{% include "partials/home_styles.html" %}
+{% endblock %}
+
+{% block content %}
+<section class="py-12 bg-gradient-to-r from-[#0b2f6b] to-[#0b3a8a] text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+        <div>
+            <h1 class="text-3xl font-bold mb-2">Event Details</h1>
+            <p class="text-sm text-white/80">Home / Blog / {{ article.title }}</p>
+        </div>
+        <div class="hidden md:flex gap-4">
+            <div class="w-20 h-20 bg-white/10 rounded-xl"></div>
+            <div class="w-20 h-20 bg-white/10 rounded-xl"></div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3 space-y-8">
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="h-72 bg-gray-200" style="background-image:url('{% if article.cover_image %}{{ article.cover_image.url }}{% else %}{% static 'image/6456.jpg' %}{% endif %}'); background-size: cover; background-position: center;"></div>
+                    <div class="p-6">
+                        <h2 class="text-2xl font-semibold text-gray-900 mb-2">{{ article.title }}</h2>
+                        <div class="text-xs text-gray-500 mb-4">
+                            <i class="far fa-calendar mr-1"></i>{{ article.published_at|date:"M d, Y" }}
+                        </div>
+                        {% if article.excerpt %}
+                        <p class="text-sm text-gray-600 mb-4">{{ article.excerpt }}</p>
+                        {% endif %}
+                        <p class="text-gray-700 whitespace-pre-line">{{ article.content }}</p>
+                    </div>
+                </div>
+
+                {% if tag_list %}
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h3 class="text-lg font-semibold mb-3">Key Topics</h3>
+                    <div class="flex flex-wrap gap-2 text-xs">
+                        {% for tag in tag_list %}
+                            <span class="px-2 py-1 bg-gray-100 rounded">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if recent_posts %}
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Recent Posts</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        {% for post in recent_posts %}
+                        <a href="{% url 'blog_detail' post.slug %}" class="bg-white rounded-xl shadow-md p-4">
+                            <div class="h-24 bg-gray-200 rounded-lg mb-3" style="background-image:url('{% if post.cover_image %}{{ post.cover_image.url }}{% else %}{% static 'image/6456.jpg' %}{% endif %}'); background-size: cover; background-position: center;"></div>
+                            <div class="text-xs text-gray-500">{{ post.published_at|date:"M d, Y" }}</div>
+                            <div class="text-sm text-gray-900 mt-1">{{ post.title }}</div>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <aside class="space-y-6">
+                <div class="bg-white rounded-xl shadow-md p-4">
+                    <h4 class="font-semibold text-gray-900 mb-3">Article Info</h4>
+                    <div class="space-y-2 text-sm text-gray-600">
+                        <div class="flex items-center gap-2">
+                            <i class="far fa-calendar text-blue-600"></i>
+                            <span>{{ article.published_at|date:"F d, Y" }}</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="far fa-user text-blue-600"></i>
+                            <span>{{ article.author.get_full_name|default:article.author.username }}</span>
+                        </div>
+                        {% if article.category %}
+                        <div class="flex items-center gap-2">
+                            <i class="far fa-folder-open text-blue-600"></i>
+                            <span>{{ article.category }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md p-4">
+                    <h4 class="font-semibold text-gray-900 mb-3">Explore More</h4>
+                    <a href="{% url 'blog_list' %}" class="w-full inline-flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-lg text-sm">View All Articles</a>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md p-4">
+                    <h4 class="font-semibold text-gray-900 mb-3">Recent Post</h4>
+                    <div class="space-y-3">
+                        {% for post in recent_posts %}
+                        <a href="{% url 'blog_detail' post.slug %}" class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-lg bg-gray-200" style="background-image:url('{% if post.cover_image %}{{ post.cover_image.url }}{% else %}{% static 'image/6456.jpg' %}{% endif %}'); background-size: cover; background-position: center;"></div>
+                            <div>
+                                <div class="text-xs text-gray-500">{{ post.published_at|date:"M d, Y" }}</div>
+                                <div class="text-sm text-gray-900">{{ post.title }}</div>
+                            </div>
+                        </a>
+                        {% empty %}
+                        <div class="text-sm text-gray-600">No recent posts</div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md p-4">
+                    <h4 class="font-semibold text-gray-900 mb-3">Tags</h4>
+                    <div class="flex flex-wrap gap-2 text-xs">
+                        {% if tag_list %}
+                            {% for tag in tag_list %}
+                                <span class="px-2 py-1 bg-gray-100 rounded">{{ tag }}</span>
+                            {% endfor %}
+                        {% else %}
+                            <span class="text-gray-600">No tags</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+{% endblock %}

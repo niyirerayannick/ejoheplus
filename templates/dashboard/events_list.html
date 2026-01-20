@@ -1,0 +1,30 @@
+{% extends base_template %}
+
+{% block dashboard_content %}
+<div class="bg-white rounded-xl shadow-md p-6">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+        <div>
+            <p class="section-subtitle"><i class="fas fa-calendar-alt mr-2"></i>Events</p>
+            <h2 class="section-title">My <span class="highlight">Events</span></h2>
+        </div>
+        <a href="{% url 'dashboard:event_create' %}" class="section-button">Create Event</a>
+    </div>
+
+    {% if events %}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {% for event in events %}
+                <div class="about-card">
+                    <h3 class="font-semibold text-gray-900 mb-1">{{ event.title }}</h3>
+                    <p class="text-xs text-gray-500 mb-2">{{ event.start_date|date:"M d, Y H:i" }}</p>
+                    <p class="text-sm text-gray-600 line-clamp-3">{{ event.description|truncatewords:24 }}</p>
+                    {% if event.location %}
+                        <p class="text-xs text-gray-500 mt-2"><i class="fas fa-map-marker-alt mr-1"></i>{{ event.location }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-sm text-gray-500">You have not created any events yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

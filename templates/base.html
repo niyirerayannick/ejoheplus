@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>{% block title %}EjoHePlus - Career Empowerment & Mentorship Platform{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="bg-gray-50">
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row justify-between items-center text-sm">
+                <div class="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-6 mb-2 sm:mb-0">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-envelope"></i>
+                        <span>info@ejohe.org</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-phone"></i>
+                        <span>+250 780 474 044</span>
+                    </div>
+                </div>
+                <div class="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-6">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-location-dot"></i>
+                        <span>Kigali, Rwanda</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <a href="#" class="hover:opacity-80"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="hover:opacity-80"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="hover:opacity-80"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Navigation -->
+    <nav class="main-nav bg-white sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center">
+                    <a href="{% url 'home' %}" class="brand-text flex items-center">
+                        <span class="brand-icon"></span>
+                        <span class="brand-name">EjoHePlus</span>
+                    </a>
+                </div>
+                
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="{% url 'home' %}" class="nav-link transition">Home</a>
+                    <a href="{% url 'about' %}" class="nav-link transition">About Us</a>
+                    <a href="{% url 'mentorship:mentor_list' %}" class="nav-link transition">Find Mentor</a>
+                    <a href="{% url 'courses:index' %}" class="nav-link transition">Courses</a>
+                    <a href="{% url 'careers:discovery_intro' %}" class="nav-link transition">Career Discovery</a>
+                    <a href="{% url 'opportunities:list' %}" class="nav-link transition">Opportunities</a>
+                    <a href="{% url 'blog_list' %}" class="nav-link transition">Articles</a>
+                    <a href="{% url 'home' %}#contact" class="nav-link transition">Contact Us</a>
+            </div>
+                
+                <div class="hidden lg:flex items-center space-x-4">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'dashboard:index' %}" class="nav-link flex items-center space-x-2">
+                            <i class="fas fa-user-circle text-xl"></i>
+                            <span class="font-medium">Dashboard</span>
+                        </a>
+                        <a href="{% url 'accounts:logout' %}" class="free-trial-btn">
+                            <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                        </a>
+                        <button class="icon-square" type="button">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    {% else %}
+                        <a href="{% url 'accounts:login' %}" class="nav-link flex items-center space-x-2">
+                            <i class="fas fa-user text-xl"></i>
+                            <span class="font-medium">Login</span>
+                        </a>
+                        <a href="{% url 'accounts:register' %}" class="free-trial-btn">
+                            Join Now
+                        </a>
+                    {% endif %}
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="lg:hidden">
+                    <button class="text-gray-700" id="mobile-menu-button">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div class="lg:hidden hidden" id="mobile-menu">
+            <div class="px-4 pt-2 pb-4 space-y-2 bg-white border-t">
+                <a href="{% url 'home' %}" class="block px-3 py-2 text-gray-700">Home</a>
+                <a href="{% url 'about' %}" class="block px-3 py-2 text-gray-700">About Us</a>
+                <a href="{% url 'mentorship:mentor_list' %}" class="block px-3 py-2 text-gray-700">Find Mentor</a>
+                <a href="{% url 'courses:index' %}" class="block px-3 py-2 text-gray-700">Courses</a>
+                <a href="{% url 'careers:discovery_intro' %}" class="block px-3 py-2 text-gray-700">Career Discovery</a>
+                <a href="{% url 'opportunities:list' %}" class="block px-3 py-2 text-gray-700">Opportunities</a>
+                <a href="{% url 'blog_list' %}" class="block px-3 py-2 text-gray-700">Articles</a>
+                <a href="{% url 'home' %}#contact" class="block px-3 py-2 text-gray-700">Contact Us</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'dashboard:index' %}" class="block px-3 py-2 text-gray-700">Dashboard</a>
+                    <a href="{% url 'accounts:logout' %}" class="block px-3 py-2 text-gray-700">Logout</a>
+                {% else %}
+                    <a href="{% url 'accounts:login' %}" class="block px-3 py-2 text-gray-700">Login</a>
+                    <a href="{% url 'accounts:register' %}" class="block px-3 py-2 text-gray-700 bg-blue-600 text-white rounded-lg text-center">Start Free Trial</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Messages -->
+    {% if messages %}
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+            {% for message in messages %}
+                <div class="bg-{% if message.tags == 'error' %}red{% elif message.tags == 'success' %}green{% elif message.tags == 'warning' %}yellow{% else %}blue{% endif %}-100 border border-{% if message.tags == 'error' %}red{% elif message.tags == 'success' %}green{% elif message.tags == 'warning' %}yellow{% else %}blue{% endif %}-400 text-{% if message.tags == 'error' %}red{% elif message.tags == 'success' %}green{% elif message.tags == 'warning' %}yellow{% else %}blue{% endif %}-700 px-4 py-3 rounded mb-4">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    {% block content %}{% endblock %}
+
+    <!-- Footer - Will be overridden by pages that need custom footer -->
+    {% block footer %}
+    <footer class="bg-[#082c63] text-white pt-10 pb-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div class="footer-card">
+                    <i class="fas fa-phone text-lg mb-2"></i>
+                    <div class="text-sm font-semibold">Call Us</div>
+                    <div class="text-xs text-white/70">(+684) 555-0102</div>
+                </div>
+                <div class="footer-card">
+                    <i class="fas fa-envelope text-lg mb-2"></i>
+                    <div class="text-sm font-semibold">Email Us</div>
+                    <div class="text-xs text-white/70">info@ejoheplus.com</div>
+                </div>
+                <div class="footer-card">
+                    <i class="fas fa-clock text-lg mb-2"></i>
+                    <div class="text-sm font-semibold">Open Hours</div>
+                    <div class="text-xs text-white/70">8.00am - 4.00pm</div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-sm text-white/70">
+                <div>
+                    <div class="font-semibold text-white mb-3">EjoHePlus</div>
+                    <p class="text-xs">Subscribe for EjoHePlus updates.</p>
+                    <div class="mt-3 flex">
+                        <input type="email" class="flex-1 px-3 py-2 rounded-l-md text-gray-900 text-xs" placeholder="Your email">
+                        <button class="bg-blue-500 px-3 py-2 rounded-r-md text-xs"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+                <div>
+                    <div class="font-semibold text-white mb-3">Quick Link</div>
+                    <ul class="space-y-2 text-xs">
+                        <li>About EjoHePlus</li>
+                        <li>Our Mission</li>
+                        <li>View All Courses</li>
+                        <li>Mentorship</li>
+                        <li><a href="{% url 'opportunities:list' %}">Opportunities</a></li>
+                        <li>Contact Us</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="font-semibold text-white mb-3">Courses</div>
+                    <ul class="space-y-2 text-xs">
+                        <li>Career Guidance</li>
+                        <li>Digital Skills</li>
+                        <li>Mentorship</li>
+                        <li>Leadership</li>
+                        <li>Professional Growth</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="font-semibold text-white mb-3">View On Map</div>
+                    <div class="h-24 rounded-lg bg-white/10 flex items-center justify-center text-xs text-white/60">Map View</div>
+                </div>
+            </div>
+            <div class="border-t border-white/10 mt-8 pt-4 text-xs text-white/60 flex flex-col md:flex-row justify-between">
+                <span>© EjoHePlus. 2024 | All Rights Reserved.</span>
+                <span>Terms & Condition · Privacy Policy</span>
+            </div>
+        </div>
+    </footer>
+    {% endblock %}
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button')?.addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

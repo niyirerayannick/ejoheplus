@@ -1,0 +1,41 @@
+{% extends base_template %}
+
+{% block dashboard_content %}
+<div class="bg-white rounded-lg shadow-md p-6">
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-gray-900">{{ page_title }}</h2>
+        <p class="text-gray-600">Add choices for: {{ question.text }}</p>
+    </div>
+    <form method="post" class="space-y-4 mb-6">
+        {% csrf_token %}
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Choice</label>
+            {{ form.text }}
+        </div>
+        <div class="flex items-center gap-2">
+            {{ form.is_correct }}
+            <span class="text-sm text-gray-700">Correct Answer</span>
+        </div>
+        <button type="submit" class="section-button">Add Choice</button>
+    </form>
+
+    {% if choices %}
+    <div class="space-y-2">
+        {% for choice in choices %}
+        <div class="flex items-center justify-between border border-gray-200 rounded-lg p-3">
+            <div>
+                <span class="font-semibold">{{ choice.text }}</span>
+                {% if choice.is_correct %}
+                    <span class="text-xs text-green-600 ml-2">Correct</span>
+                {% endif %}
+            </div>
+            <form method="post" action="{% url 'courses:choice_delete' choice.id %}">
+                {% csrf_token %}
+                <button class="text-red-600 hover:underline" type="submit">Delete</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

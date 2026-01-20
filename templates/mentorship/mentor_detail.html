@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ page_title }} - EjoHePlus{% endblock %}
+
+{% block extra_css %}
+{% include "partials/home_styles.html" %}
+{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+            <div class="flex flex-col md:flex-row md:items-center gap-6">
+                <div class="mentor-avatar w-24 h-24 md:w-28 md:h-28 text-2xl">
+                    {% if mentor.profile_picture %}
+                        <img src="{{ mentor.profile_picture.url }}" alt="{{ mentor.get_full_name|default:mentor.username }}">
+                    {% else %}
+                        <img src="{% static 'image/1481.jpg' %}" alt="{{ mentor.get_full_name|default:mentor.username }}">
+                    {% endif %}
+                </div>
+                <div class="flex-1">
+                    <p class="section-subtitle"><i class="fas fa-user-tie mr-2"></i>Mentor Profile</p>
+                    <h2 class="section-title">{{ mentor.get_full_name|default:mentor.username }}</h2>
+                    <p class="text-sm text-gray-600">{{ profile.professional_title|default:"Mentor" }}</p>
+                    {% if profile.company %}
+                        <p class="text-xs text-gray-500 mt-1">{{ profile.company }}</p>
+                    {% endif %}
+                </div>
+                {% if request.user.is_student %}
+                    <div>
+                        {% if connection %}
+                            <span class="inline-flex items-center px-3 py-2 rounded-full text-xs bg-gray-100 text-gray-600">
+                                Request: {{ connection.status|title }}
+                            </span>
+                        {% else %}
+                            <form method="post" action="{% url 'mentorship:request_mentor' mentor.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="course-primary-btn">Ask to be your mentor</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="about-card">
+                    <h3 class="font-semibold text-gray-900 mb-2">Expertise Areas</h3>
+                    <p class="text-sm text-gray-600">{{ profile.expertise_areas|default:"No expertise areas listed yet." }}</p>
+                </div>
+                <div class="about-card">
+                    <h3 class="font-semibold text-gray-900 mb-2">Career Focus</h3>
+                    {% if profile.career_focuses.all %}
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            {% for career in profile.career_focuses.all %}
+                                <li>{{ career.title }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-sm text-gray-600">General guidance</p>
+                    {% endif %}
+                </div>
+                <div class="about-card">
+                    <h3 class="font-semibold text-gray-900 mb-2">Experience</h3>
+                    <p class="text-sm text-gray-600">{{ profile.years_of_experience|default:0 }} years</p>
+                </div>
+                <div class="about-card">
+                    <h3 class="font-semibold text-gray-900 mb-2">Student Levels</h3>
+                    <p class="text-sm text-gray-600">{{ profile.student_levels|default:"O-Level, A-Level" }}</p>
+                </div>
+                <div class="about-card">
+                    <h3 class="font-semibold text-gray-900 mb-2">Education</h3>
+                    <p class="text-sm text-gray-600">{{ profile.education|default:"No education details provided." }}</p>
+                </div>
+                <div class="about-card">
+                    <h3 class="font-semibold text-gray-900 mb-2">Availability</h3>
+                    <p class="text-sm text-gray-600">{{ profile.availability_hours|default:"Not specified." }}</p>
+                </div>
+            </div>
+
+            <div class="mt-8">
+                <h3 class="font-semibold text-gray-900 mb-2">Achievements</h3>
+                <p class="text-sm text-gray-600">{{ profile.achievements|default:"No achievements listed yet." }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

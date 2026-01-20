@@ -1,0 +1,38 @@
+[
+  {
+    "full_name": "Savannah Nguyen",
+    "email": "savannah@ejoheplus.com",
+    "phone": "+990 111 222 333",
+    "bio": "Career coach with experience in talent development and leadership.",
+    "professional_title": "Career Coach",
+    "company": "EjoHePlus",
+    "years_of_experience": 8,
+    "expertise_areas": ["Career Strategy", "Interview Prep"],
+    "availability_hours": "Mon - Fri, 9am - 5pm",
+    "status": "approved"
+  },
+  {
+    "full_name": "Dianne Russell",
+    "email": "dianne@ejoheplus.com",
+    "phone": "+990 444 555 666",
+    "bio": "Product designer mentoring learners on UX fundamentals and portfolios.",
+    "professional_title": "Product Designer",
+    "company": "DesignLab",
+    "years_of_experience": 6,
+    "expertise_areas": ["UX Design", "Portfolio Review"],
+    "availability_hours": "Tue - Thu, 10am - 4pm",
+    "status": "approved"
+  },
+  {
+    "full_name": "Theresa Webb",
+    "email": "theresa@ejoheplus.com",
+    "phone": "+990 777 888 999",
+    "bio": "Software engineer guiding learners through modern web development.",
+    "professional_title": "Software Engineer",
+    "company": "TechCore",
+    "years_of_experience": 7,
+    "expertise_areas": ["Web Development", "Career Growth"],
+    "availability_hours": "Sat, 10am - 2pm",
+    "status": "approved"
+  }
+]

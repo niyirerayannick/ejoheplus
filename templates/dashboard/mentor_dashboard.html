@@ -1,0 +1,161 @@
+{% extends "dashboard/base_mentor_dashboard.html" %}
+
+{% block dashboard_content %}
+<!-- Stats Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
+    <a href="{% url 'mentorship:mentor_mentees' %}" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition cursor-pointer">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm">Mentees</p>
+                <p class="text-3xl font-bold text-gray-900">{{ stats.mentees }}</p>
+            </div>
+            <div class="bg-blue-100 p-3 rounded-full">
+                <i class="fas fa-user-graduate text-blue-600 text-2xl"></i>
+            </div>
+        </div>
+    </a>
+    <a href="{% url 'courses:course_create' %}" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition cursor-pointer">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm">Courses</p>
+                <p class="text-3xl font-bold text-gray-900">{{ stats.courses }}</p>
+            </div>
+            <div class="bg-green-100 p-3 rounded-full">
+                <i class="fas fa-graduation-cap text-green-600 text-2xl"></i>
+            </div>
+        </div>
+    </a>
+    <a href="{% url 'dashboard:events_list' %}" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition cursor-pointer">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm">Events</p>
+                <p class="text-3xl font-bold text-gray-900">{{ stats.events }}</p>
+            </div>
+            <div class="bg-purple-100 p-3 rounded-full">
+                <i class="fas fa-calendar-check text-purple-600 text-2xl"></i>
+            </div>
+        </div>
+    </a>
+    <a href="{% url 'dashboard:messages_list' %}" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition cursor-pointer {% if stats.messages > 0 %}border-2 border-yellow-300{% endif %}">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm">Messages</p>
+                <p class="text-3xl font-bold text-gray-900">{{ stats.messages }}</p>
+                {% if stats.messages > 0 %}
+                <p class="text-yellow-600 text-xs mt-1">Unread</p>
+                {% endif %}
+            </div>
+            <div class="bg-yellow-100 p-3 rounded-full">
+                <i class="fas fa-envelope text-yellow-600 text-2xl"></i>
+            </div>
+        </div>
+    </a>
+    <a href="{% url 'dashboard:notifications_list' %}" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition cursor-pointer {% if stats.notifications > 0 %}border-2 border-red-300{% endif %}">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm">Notifications</p>
+                <p class="text-3xl font-bold text-gray-900">{{ stats.notifications }}</p>
+                {% if stats.notifications > 0 %}
+                <p class="text-red-600 text-xs mt-1">Unread</p>
+                {% endif %}
+            </div>
+            <div class="bg-red-100 p-3 rounded-full">
+                <i class="fas fa-bell text-red-600 text-2xl"></i>
+            </div>
+        </div>
+    </a>
+</div>
+
+<!-- Professional Profile -->
+<div class="bg-white rounded-lg shadow-md p-6 mb-8">
+    <div class="flex justify-between items-center">
+        <div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">Professional Profile</h2>
+            <p class="text-gray-600">Manage your professional profile and expertise areas</p>
+        </div>
+        <a href="{% url 'mentorship:mentor_profile_edit' %}" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+            Edit Profile
+        </a>
+    </div>
+</div>
+
+<!-- My Mentees -->
+<div class="bg-white rounded-lg shadow-md p-6 mb-8">
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold text-gray-900">My Mentees</h2>
+        <a href="{% url 'mentorship:mentor_mentees' %}" class="text-blue-600 hover:underline">View All</a>
+    </div>
+    {% if recent_mentees %}
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {% for connection in recent_mentees %}
+            <div class="border border-gray-200 rounded-lg p-4">
+                <div class="flex items-center mb-3">
+                    <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white font-bold">
+                        {{ connection.mentee.get_full_name|default:connection.mentee.username|first|upper }}
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="font-semibold">{{ connection.mentee.get_full_name|default:connection.mentee.username }}</h3>
+                        <p class="text-gray-600 text-sm">Since {{ connection.accepted_at|date:"M Y" }}</p>
+                    </div>
+                </div>
+                <a href="{% url 'mentorship:mentee_detail' connection.mentee.id %}" class="block w-full bg-green-50 text-green-600 px-4 py-2 rounded-lg hover:bg-green-100 text-center">
+                    View Profile
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-gray-600">You don't have any mentees yet.</p>
+    {% endif %}
+</div>
+
+<!-- Courses & Events -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl font-bold text-gray-900">My Courses</h2>
+            <a href="{% url 'courses:course_create' %}" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                <i class="fas fa-plus mr-2"></i>New Course
+            </a>
+        </div>
+        {% if recent_trainings %}
+            <div class="space-y-4">
+                {% for training in recent_trainings %}
+                <div class="flex items-center justify-between border-b pb-4">
+                    <div>
+                        <h3 class="font-semibold">{{ training.title }}</h3>
+                        <p class="text-gray-600 text-sm">{{ training.category|default:"General" }}</p>
+                    </div>
+                    <span class="text-xs text-gray-500">{{ training.created_at|date:"M d, Y" }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-gray-600">No courses yet. <a href="{% url 'courses:course_create' %}" class="text-blue-600 hover:underline">Create one now!</a></p>
+        {% endif %}
+    </div>
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl font-bold text-gray-900">My Events</h2>
+            <a href="{% url 'dashboard:event_create' %}" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                <i class="fas fa-plus mr-2"></i>New Event
+            </a>
+        </div>
+        {% if recent_events %}
+            <div class="space-y-4">
+                {% for event in recent_events %}
+                <div class="flex items-center justify-between border-b pb-4">
+                    <div>
+                        <h3 class="font-semibold">{{ event.title }}</h3>
+                        <p class="text-gray-600 text-sm">{{ event.start_date|date:"M d, Y H:i" }}</p>
+                    </div>
+                    <a href="{% url 'dashboard:events_list' %}" class="text-blue-600 hover:underline">View</a>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-gray-600">No events yet. <a href="{% url 'dashboard:event_create' %}" class="text-blue-600 hover:underline">Create one now!</a></p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

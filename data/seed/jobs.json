@@ -1,0 +1,38 @@
+[
+  {
+    "title": "Junior Data Analyst",
+    "slug": "junior-data-analyst",
+    "category": "Data & Analytics",
+    "type": "job",
+    "description": "Support data cleaning, reporting, and dashboard updates for growth teams.",
+    "requirements": "Excel/Sheets, basic SQL, attention to detail.",
+    "benefits": "Remote-friendly, learning stipend, mentorship.",
+    "deadline": "2026-03-15",
+    "partner_email": "partner@ejoheplus.com",
+    "status": "active"
+  },
+  {
+    "title": "Product Design Intern",
+    "slug": "product-design-intern",
+    "category": "Design",
+    "type": "job",
+    "description": "Assist product designers with research, wireframes, and UI assets.",
+    "requirements": "Figma basics, portfolio, curiosity.",
+    "benefits": "Portfolio feedback, certificate, flexible schedule.",
+    "deadline": "2026-04-01",
+    "partner_email": "partner@ejoheplus.com",
+    "status": "active"
+  },
+  {
+    "title": "Frontend Developer (Entry)",
+    "slug": "frontend-developer-entry",
+    "category": "Software",
+    "type": "job",
+    "description": "Build responsive UI components and contribute to feature delivery.",
+    "requirements": "HTML, CSS, JavaScript, Git.",
+    "benefits": "Growth path, mentorship, remote work.",
+    "deadline": "2026-04-20",
+    "partner_email": "partner@ejoheplus.com",
+    "status": "active"
+  }
+]

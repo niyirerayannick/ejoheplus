@@ -1,0 +1,100 @@
+{% extends "dashboard/base_mentor_dashboard.html" %}
+
+{% block dashboard_content %}
+<div class="mb-6">
+    <a href="{% url 'mentorship:mentor_mentees' %}" class="text-blue-600 hover:underline">
+        <i class="fas fa-arrow-left mr-2"></i>Back to Mentees
+    </a>
+</div>
+
+<div class="bg-white rounded-lg shadow-md p-8">
+    <div class="flex items-center mb-8">
+        <div class="w-24 h-24 bg-green-600 rounded-full flex items-center justify-center text-white text-3xl font-bold">
+            {{ mentee.get_full_name|default:mentee.username|first|upper }}
+        </div>
+        <div class="ml-6">
+            <h1 class="text-3xl font-bold text-gray-900">{{ mentee.get_full_name|default:mentee.username }}</h1>
+            <p class="text-gray-600 text-lg">{{ mentee.email }}</p>
+            {% if connection %}
+            <p class="text-gray-500 text-sm mt-1">
+                Connected since: {{ connection.accepted_at|date:"F d, Y" }}
+            </p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+        <div>
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Contact Information</h2>
+            <div class="space-y-2 text-gray-600">
+                <p><i class="fas fa-envelope mr-2"></i>{{ mentee.email }}</p>
+                {% if mentee.phone %}
+                <p><i class="fas fa-phone mr-2"></i>{{ mentee.phone }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <div>
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Bio</h2>
+            <p class="text-gray-600">{{ mentee.bio|default:"No bio provided." }}</p>
+        </div>
+    </div>
+
+    {% if connection and connection.notes %}
+    <div class="mb-8">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Mentorship Notes</h2>
+        <div class="bg-gray-50 rounded-lg p-4">
+            <p class="text-gray-700 whitespace-pre-line">{{ connection.notes }}</p>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Quick Actions -->
+    <div class="mb-8 flex space-x-3">
+        <a href="{% url 'dashboard:message_create' %}?recipient={{ mentee.id }}" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+            <i class="fas fa-envelope mr-2"></i>Send Message
+        </a>
+        <a href="{% url 'mentorship:session_create' %}" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700">
+            <i class="fas fa-calendar mr-2"></i>Schedule Session
+        </a>
+    </div>
+
+    <!-- Sessions -->
+    <div>
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-semibold text-gray-900">Mentorship Sessions</h2>
+            <a href="{% url 'mentorship:session_create' %}" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                <i class="fas fa-plus mr-2"></i>Schedule Session
+            </a>
+        </div>
+        {% if sessions %}
+            <div class="space-y-4">
+                {% for session in sessions %}
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-semibold text-lg">{{ session.title }}</h3>
+                            <p class="text-gray-600 text-sm mt-1">
+                                <i class="fas fa-calendar mr-2"></i>
+                                {{ session.scheduled_date|date:"F d, Y g:i A" }}
+                            </p>
+                            <p class="text-gray-600 text-sm">
+                                <i class="fas fa-clock mr-2"></i>
+                                Duration: {{ session.duration_minutes }} minutes
+                            </p>
+                            <span class="inline-block mt-2 px-3 py-1 bg-{% if session.status == 'completed' %}green{% elif session.status == 'scheduled' %}blue{% else %}gray{% endif %}-100 text-{% if session.status == 'completed' %}green{% elif session.status == 'scheduled' %}blue{% else %}gray{% endif %}-600 rounded-full text-sm">
+                                {{ session.get_status_display }}
+                            </span>
+                        </div>
+                        <a href="{% url 'mentorship:session_detail' session.id %}" class="text-blue-600 hover:underline">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-gray-600">No sessions scheduled yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

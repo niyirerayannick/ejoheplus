@@ -1,0 +1,104 @@
+{% extends "dashboard/base_student_dashboard.html" %}
+
+{% block dashboard_content %}
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+    <div class="lg:col-span-3 space-y-6">
+        <h1 class="text-3xl font-bold text-gray-900">{{ course.title }}</h1>
+
+        {% for chapter in chapters %}
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-900">{{ chapter.title }}</h2>
+                    {% if chapter.description %}
+                        <p class="text-sm text-gray-600">{{ chapter.description }}</p>
+                    {% endif %}
+                </div>
+                <div class="flex items-center gap-3">
+                    {% if chapter.id in completed_chapter_ids %}
+                        <span class="text-xs text-green-600">Completed</span>
+                    {% endif %}
+                    <form method="post" action="{% url 'courses:chapter_complete' chapter.id %}">
+                        {% csrf_token %}
+                        <button class="text-xs bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700">Mark Complete</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                {% for content in chapter.contents.all %}
+                <div class="flex items-center justify-between border border-gray-200 rounded-lg p-4">
+                    <div>
+                        <h4 class="font-semibold">{{ content.title }}</h4>
+                        <p class="text-xs text-gray-500">{{ content.get_content_type_display }}</p>
+                        {% if content.content_type == 'text' and content.text_content %}
+                            <p class="text-sm text-gray-600 mt-2">{{ content.text_content }}</p>
+                        {% endif %}
+                    </div>
+                    {% if content.content_type == 'video' and content.video_url %}
+                        <a href="{{ content.video_url }}" class="text-blue-600 hover:underline">Watch</a>
+                    {% elif content.file %}
+                        <a href="{{ content.file.url }}" class="text-blue-600 hover:underline">Download</a>
+                    {% endif %}
+                </div>
+                {% empty %}
+                <p class="text-sm text-gray-600">No content yet.</p>
+                {% endfor %}
+            </div>
+
+            {% for quiz in chapter.quizzes.all %}
+            <div class="mt-4 flex items-center justify-between border border-gray-200 rounded-lg p-4 bg-gray-50">
+                <div>
+                    <h4 class="font-semibold">{{ quiz.title }}</h4>
+                    <p class="text-xs text-gray-500">Pass score: {{ quiz.pass_score }}%</p>
+                </div>
+                <a href="{% url 'courses:take_quiz' quiz.id %}" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Take Quiz</a>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+
+        {% if final_exam %}
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-900">{{ final_exam.title }}</h2>
+                    <p class="text-xs text-gray-500">Final Exam • Pass score {{ final_exam.pass_score }}%</p>
+                </div>
+                <a href="{% url 'courses:take_quiz' final_exam.id %}" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Start Final Exam</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="lg:col-span-1">
+        <div class="bg-white rounded-lg shadow-md p-6 sticky top-24">
+            <h3 class="font-semibold mb-4">Course Progress</h3>
+            <div class="mb-4">
+                <div class="flex justify-between text-sm text-gray-600 mb-1">
+                    <span>Completed</span>
+                    <span>{{ progress_percent }}%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div class="bg-blue-600 h-2 rounded-full" style="width: {{ progress_percent }}%"></div>
+                </div>
+            </div>
+            <div class="text-sm text-gray-600 mb-4">
+                {{ completed_chapters }} of {{ total_chapters }} chapters completed
+            </div>
+            {% if enrollment.is_completed %}
+            <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-4">
+                <i class="fas fa-check-circle mr-2"></i>Course Completed!
+            </div>
+            <a href="{% url 'courses:download_certificate' course.slug %}" class="block w-full bg-green-600 text-white text-center px-4 py-2 rounded-lg hover:bg-green-700">
+                <i class="fas fa-download mr-2"></i>View Certificate
+            </a>
+            {% else %}
+            <button class="w-full bg-gray-200 text-gray-600 px-4 py-2 rounded-lg cursor-not-allowed">
+                Complete to get certificate
+            </button>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

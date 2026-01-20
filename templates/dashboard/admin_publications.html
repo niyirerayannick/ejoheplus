@@ -1,0 +1,36 @@
+{% extends "dashboard/base_admin_dashboard.html" %}
+
+{% block dashboard_content %}
+<div class="bg-white rounded-lg shadow-md p-6">
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-gray-900">Publications</h2>
+        <p class="text-gray-600">All published and draft articles</p>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="min-w-full text-sm">
+            <thead class="text-left text-gray-500 border-b">
+                <tr>
+                    <th class="py-2">Title</th>
+                    <th class="py-2">Author</th>
+                    <th class="py-2">Status</th>
+                    <th class="py-2">Created</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for article in publications %}
+                <tr class="border-b last:border-0">
+                    <td class="py-3">{{ article.title }}</td>
+                    <td class="py-3">{{ article.author.get_full_name|default:article.author.username }}</td>
+                    <td class="py-3">{{ article.status|title }}</td>
+                    <td class="py-3 text-gray-500">{{ article.created_at|date:"M d, Y" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="py-4 text-gray-500">No publications yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

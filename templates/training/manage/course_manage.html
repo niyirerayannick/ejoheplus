@@ -1,0 +1,97 @@
+{% extends base_template %}
+
+{% block dashboard_content %}
+<div class="space-y-6">
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <h2 class="text-2xl font-bold text-gray-900">{{ course.title }}</h2>
+                <p class="text-gray-600">Manage chapters, content, and assessments</p>
+            </div>
+            <a href="{% url 'courses:chapter_create' course.slug %}" class="section-button">Add Chapter</a>
+        </div>
+    </div>
+
+    {% for chapter in chapters %}
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div>
+                <h3 class="text-xl font-semibold">{{ chapter.title }}</h3>
+                <p class="text-sm text-gray-600">Module {{ chapter.order }}</p>
+            </div>
+            <div class="flex gap-3">
+                <a href="{% url 'courses:content_create' chapter.id %}" class="text-blue-600 hover:underline">Add Content</a>
+                <a href="{% url 'courses:chapter_quiz_create' course.slug chapter.id %}" class="text-blue-600 hover:underline">Add Quiz</a>
+                <a href="{% url 'courses:chapter_edit' chapter.id %}" class="text-blue-600 hover:underline">Edit</a>
+                <form method="post" action="{% url 'courses:chapter_delete' chapter.id %}">
+                    {% csrf_token %}
+                    <button class="text-red-600 hover:underline" type="submit">Delete</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="space-y-3">
+            {% for content in chapter.contents.all %}
+            <div class="border border-gray-200 rounded-lg p-4 flex items-center justify-between">
+                <div>
+                    <h4 class="font-semibold">{{ content.title }}</h4>
+                    <p class="text-xs text-gray-500">{{ content.get_content_type_display }}</p>
+                </div>
+                <div class="flex gap-2">
+                    <a href="{% url 'courses:content_edit' content.id %}" class="text-blue-600 hover:underline">Edit</a>
+                    <form method="post" action="{% url 'courses:content_delete' content.id %}">
+                        {% csrf_token %}
+                        <button class="text-red-600 hover:underline" type="submit">Delete</button>
+                    </form>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-sm text-gray-500">No content added yet.</p>
+            {% endfor %}
+        </div>
+
+        <div class="mt-4 space-y-2">
+            {% for quiz in chapter.quizzes.all %}
+            <div class="flex items-center justify-between border border-gray-200 rounded-lg p-4 bg-gray-50">
+                <div>
+                    <h4 class="font-semibold">{{ quiz.title }}</h4>
+                    <p class="text-xs text-gray-500">Pass score {{ quiz.pass_score }}%</p>
+                </div>
+                <div class="flex gap-2">
+                    <a href="{% url 'courses:question_create' quiz.id %}" class="text-blue-600 hover:underline">Add Questions</a>
+                    <a href="{% url 'courses:quiz_edit' quiz.id %}" class="text-blue-600 hover:underline">Edit</a>
+                    <form method="post" action="{% url 'courses:quiz_delete' quiz.id %}">
+                        {% csrf_token %}
+                        <button class="text-red-600 hover:underline" type="submit">Delete</button>
+                    </form>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-sm text-gray-500">No quiz yet for this chapter.</p>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <h3 class="text-xl font-semibold">Final Exam</h3>
+                <p class="text-sm text-gray-600">Required for course completion</p>
+            </div>
+            {% if final_exam %}
+                <div class="flex gap-2">
+                <a href="{% url 'courses:question_create' final_exam.id %}" class="text-blue-600 hover:underline">Add Questions</a>
+                <a href="{% url 'courses:quiz_edit' final_exam.id %}" class="text-blue-600 hover:underline">Edit</a>
+                <form method="post" action="{% url 'courses:quiz_delete' final_exam.id %}">
+                        {% csrf_token %}
+                        <button class="text-red-600 hover:underline" type="submit">Delete</button>
+                    </form>
+                </div>
+            {% else %}
+                <a href="{% url 'courses:quiz_create' course.slug %}" class="section-button">Add Final Exam</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+[
+  {
+    "title": "Career Growth Essentials",
+    "slug": "career-growth-essentials",
+    "category": "Career Guidance",
+    "description": "Build a clear career roadmap and master professional habits.",
+    "overview": "A structured program covering career planning, networking, and execution.",
+    "level": "beginner",
+    "duration_hours": 6,
+    "price": "0.00",
+    "is_free": true,
+    "instructor_email": "savannah@ejoheplus.com",
+    "status": "active"
+  },
+  {
+    "title": "Digital Skills Bootcamp",
+    "slug": "digital-skills-bootcamp",
+    "category": "Digital Skills",
+    "description": "Learn practical digital tools for modern workplaces.",
+    "overview": "Hands-on lessons in productivity, collaboration, and digital workflows.",
+    "level": "beginner",
+    "duration_hours": 10,
+    "price": "49.00",
+    "is_free": false,
+    "instructor_email": "theresa@ejoheplus.com",
+    "status": "active"
+  },
+  {
+    "title": "Leadership & Communication",
+    "slug": "leadership-communication",
+    "category": "Leadership",
+    "description": "Develop leadership confidence and communication skills.",
+    "overview": "Focus on stakeholder management, storytelling, and leadership habits.",
+    "level": "intermediate",
+    "duration_hours": 8,
+    "price": "59.00",
+    "is_free": false,
+    "instructor_email": "dianne@ejoheplus.com",
+    "status": "active"
+  }
+]

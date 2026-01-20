@@ -1,0 +1,18 @@
+{
+  "name": "Trainings",
+  "fields": [
+    "title",
+    "slug",
+    "category",
+    "description",
+    "overview",
+    "level",
+    "duration_hours",
+    "price",
+    "is_free",
+    "thumbnail",
+    "status",
+    "instructor_email",
+    "created_at"
+  ]
+}

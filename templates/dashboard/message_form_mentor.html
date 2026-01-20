@@ -1,0 +1,51 @@
+{% extends "dashboard/base_mentor_dashboard.html" %}
+
+{% block dashboard_content %}
+<div class="mb-6">
+    <a href="{% url 'dashboard:messages_list' %}" class="text-blue-600 hover:underline">
+        <i class="fas fa-arrow-left mr-2"></i>Back to Messages
+    </a>
+</div>
+
+<div class="bg-white rounded-lg shadow-md p-8 max-w-3xl">
+    <h1 class="text-3xl font-bold text-gray-900 mb-6">Compose Message</h1>
+
+    <form method="post" class="space-y-6">
+        {% csrf_token %}
+        
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">To *</label>
+            {{ form.recipient }}
+            <p class="text-gray-500 text-xs mt-1">You can message your mentees, students, and administrators</p>
+            {% if form.recipient.errors %}
+                <p class="text-red-500 text-xs mt-1">{{ form.recipient.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Subject *</label>
+            {{ form.subject }}
+            {% if form.subject.errors %}
+                <p class="text-red-500 text-xs mt-1">{{ form.subject.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Message *</label>
+            {{ form.body }}
+            {% if form.body.errors %}
+                <p class="text-red-500 text-xs mt-1">{{ form.body.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div class="flex justify-end space-x-4 pt-4">
+            <a href="{% url 'dashboard:messages_list' %}" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+                Cancel
+            </a>
+            <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+                <i class="fas fa-paper-plane mr-2"></i>Send Message
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "dashboard/base_admin_dashboard.html" %}
+
+{% block dashboard_content %}
+<div class="bg-white rounded-lg shadow-md p-6">
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h2 class="text-2xl font-bold text-gray-900">Careers</h2>
+            <p class="text-gray-600">Manage career library</p>
+        </div>
+        <a href="{% url 'dashboard:admin_career_create' %}" class="section-button">Add Career</a>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="min-w-full text-sm">
+            <thead class="text-left text-gray-500 border-b">
+                <tr>
+                    <th class="py-2">Title</th>
+                    <th class="py-2">Created</th>
+                    <th class="py-2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for career in careers %}
+                <tr class="border-b last:border-0">
+                    <td class="py-3">{{ career.title }}</td>
+                    <td class="py-3 text-gray-500">{{ career.created_at|date:"M d, Y" }}</td>
+                    <td class="py-3">
+                        <div class="flex gap-2">
+                            <a href="{% url 'dashboard:admin_career_edit' career.id %}" class="text-blue-600 hover:underline">Edit</a>
+                            <form method="post" action="{% url 'dashboard:admin_career_delete' career.id %}">
+                                {% csrf_token %}
+                                <button class="text-red-600 hover:underline" type="submit">Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="py-4 text-gray-500">No careers found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

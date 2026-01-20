@@ -1,0 +1,101 @@
+{% extends "dashboard/base_student_dashboard.html" %}
+
+{% block dashboard_content %}
+<div class="mb-6 flex justify-between items-center">
+    <h1 class="text-3xl font-bold text-gray-900">CV Preview</h1>
+    <div class="flex space-x-3">
+        <a href="{% url 'dashboard:cv_builder' %}" class="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700">
+            <i class="fas fa-edit mr-2"></i>Edit CV
+        </a>
+        <button onclick="window.print()" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+            <i class="fas fa-print mr-2"></i>Print / Save as PDF
+        </button>
+    </div>
+</div>
+
+<div class="bg-white rounded-lg shadow-md p-12 max-w-4xl mx-auto">
+    <!-- Header -->
+    <div class="text-center border-b pb-6 mb-6">
+        <h1 class="text-4xl font-bold text-gray-900 mb-2">{{ cv.full_name }}</h1>
+        <div class="flex justify-center items-center space-x-4 text-gray-600">
+            {% if cv.email %}<span>{{ cv.email }}</span>{% endif %}
+            {% if cv.phone %}<span>•</span><span>{{ cv.phone }}</span>{% endif %}
+        </div>
+        {% if cv.address %}<p class="text-gray-600 mt-2">{{ cv.address }}</p>{% endif %}
+        <div class="flex justify-center space-x-4 mt-2">
+            {% if cv.linkedin_url %}<a href="{{ cv.linkedin_url }}" target="_blank" class="text-blue-600 hover:underline">LinkedIn</a>{% endif %}
+            {% if cv.website_url %}<a href="{{ cv.website_url }}" target="_blank" class="text-blue-600 hover:underline">Website</a>{% endif %}
+        </div>
+    </div>
+
+    <!-- Professional Summary -->
+    {% if cv.summary %}
+    <div class="mb-6">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-3 border-b pb-2">Professional Summary</h2>
+        <p class="text-gray-700 leading-relaxed">{{ cv.summary }}</p>
+    </div>
+    {% endif %}
+
+    <!-- Skills -->
+    {% if cv.skills %}
+    <div class="mb-6">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-3 border-b pb-2">Skills</h2>
+        <p class="text-gray-700">{{ cv.skills }}</p>
+    </div>
+    {% endif %}
+
+    <!-- Languages -->
+    {% if cv.languages %}
+    <div class="mb-6">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-3 border-b pb-2">Languages</h2>
+        <p class="text-gray-700">{{ cv.languages }}</p>
+    </div>
+    {% endif %}
+
+    <!-- Experience (if available) -->
+    {% if cv.experience_json %}
+    <div class="mb-6">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-3 border-b pb-2">Experience</h2>
+        {% for exp in cv.experience_json %}
+        <div class="mb-4">
+            <h3 class="text-lg font-semibold">{{ exp.title }}</h3>
+            <p class="text-gray-600">{{ exp.company }} • {{ exp.period }}</p>
+            <p class="text-gray-700 mt-1">{{ exp.description }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Education (if available) -->
+    {% if cv.education_json %}
+    <div class="mb-6">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-3 border-b pb-2">Education</h2>
+        {% for edu in cv.education_json %}
+        <div class="mb-4">
+            <h3 class="text-lg font-semibold">{{ edu.degree }}</h3>
+            <p class="text-gray-600">{{ edu.institution }} • {{ edu.period }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Certifications (if available) -->
+    {% if cv.certifications_json %}
+    <div class="mb-6">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-3 border-b pb-2">Certifications</h2>
+        {% for cert in cv.certifications_json %}
+        <div class="mb-2">
+            <p class="text-gray-700">{{ cert.name }} - {{ cert.issuer }} ({{ cert.date }})</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+<style>
+@media print {
+    .bg-gray-50, nav, aside, .mb-6:has(button) { display: none; }
+    .bg-white { box-shadow: none; }
+}
+</style>
+{% endblock %}

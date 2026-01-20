@@ -1,0 +1,115 @@
+{% extends "dashboard/base_mentor_dashboard.html" %}
+
+{% block dashboard_content %}
+<div class="mb-6">
+    <h1 class="text-3xl font-bold text-gray-900">Edit Professional Profile</h1>
+    <p class="text-gray-600 mt-2">Update your professional information and expertise areas</p>
+</div>
+
+<div class="bg-white rounded-lg shadow-md p-8 max-w-3xl">
+    <form method="post" class="space-y-6">
+        {% csrf_token %}
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Professional Title</label>
+                {{ form.professional_title }}
+                {% if form.professional_title.errors %}
+                    <p class="text-red-500 text-xs mt-1">{{ form.professional_title.errors }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Company/Organization</label>
+                {{ form.company }}
+                {% if form.company.errors %}
+                    <p class="text-red-500 text-xs mt-1">{{ form.company.errors }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Years of Experience</label>
+            {{ form.years_of_experience }}
+            {% if form.years_of_experience.errors %}
+                <p class="text-red-500 text-xs mt-1">{{ form.years_of_experience.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Expertise Areas *</label>
+            {{ form.expertise_areas }}
+            <p class="text-gray-500 text-xs mt-1">List your areas of expertise (comma-separated)</p>
+            {% if form.expertise_areas.errors %}
+                <p class="text-red-500 text-xs mt-1">{{ form.expertise_areas.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Education</label>
+            {{ form.education }}
+            {% if form.education.errors %}
+                <p class="text-red-500 text-xs mt-1">{{ form.education.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Achievements</label>
+            {{ form.achievements }}
+            {% if form.achievements.errors %}
+                <p class="text-red-500 text-xs mt-1">{{ form.achievements.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Availability Hours</label>
+            {{ form.availability_hours }}
+            <p class="text-gray-500 text-xs mt-1">e.g., "Monday-Friday, 9 AM - 5 PM"</p>
+            {% if form.availability_hours.errors %}
+                <p class="text-red-500 text-xs mt-1">{{ form.availability_hours.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Maximum Mentees</label>
+            {{ form.max_mentees }}
+            <p class="text-gray-500 text-xs mt-1">Maximum number of mentees you can mentor simultaneously</p>
+            {% if form.max_mentees.errors %}
+                <p class="text-red-500 text-xs mt-1">{{ form.max_mentees.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">LinkedIn URL</label>
+                {{ form.linkedin_url }}
+                {% if form.linkedin_url.errors %}
+                    <p class="text-red-500 text-xs mt-1">{{ form.linkedin_url.errors }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Website URL</label>
+                {{ form.website_url }}
+                {% if form.website_url.errors %}
+                    <p class="text-red-500 text-xs mt-1">{{ form.website_url.errors }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-6">
+            <p class="text-blue-700 text-sm">
+                <i class="fas fa-info-circle mr-2"></i>
+                Current mentee count: <strong>{{ profile.current_mentee_count }}</strong> / {{ profile.max_mentees|default:"Not set" }}
+            </p>
+        </div>
+
+        <div class="flex justify-end space-x-4 pt-4">
+            <a href="{% url 'dashboard:mentor_dashboard' %}" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+                Cancel
+            </a>
+            <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+                Save Profile
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

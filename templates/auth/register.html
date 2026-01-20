@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}Register - EjoHePlus{% endblock %}
+
+{% block extra_css %}
+{% include "partials/home_styles.html" %}
+{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="about-card max-w-3xl mx-auto">
+            <h2 class="section-title mb-2">Create your account</h2>
+            <p class="text-xs text-gray-500 mb-6">
+                Already have an account?
+                <a href="{% url 'accounts:login' %}" class="text-blue-600 font-semibold">Sign in here</a>
+            </p>
+            <form class="space-y-4" method="post">
+                {% csrf_token %}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-xs text-gray-500">Username</label>
+                        {{ form.username }}
+                        {% if form.username.errors %}
+                            <p class="text-red-500 text-xs mt-1">{{ form.username.errors }}</p>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <label class="text-xs text-gray-500">Email</label>
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                            <p class="text-red-500 text-xs mt-1">{{ form.email.errors }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-xs text-gray-500">First Name</label>
+                        {{ form.first_name }}
+                        {% if form.first_name.errors %}
+                            <p class="text-red-500 text-xs mt-1">{{ form.first_name.errors }}</p>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <label class="text-xs text-gray-500">Last Name</label>
+                        {{ form.last_name }}
+                        {% if form.last_name.errors %}
+                            <p class="text-red-500 text-xs mt-1">{{ form.last_name.errors }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div>
+                    <label class="text-xs text-gray-500 block mb-2">I want to join as:</label>
+                    <div class="space-y-2 text-sm">
+                        {% for choice in form.role %}
+                            <div class="flex items-center">
+                                {{ choice.tag }}
+                                <label for="{{ choice.id_for_label }}" class="ml-2 text-gray-600">
+                                    {{ choice.choice_label }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% if form.role.errors %}
+                        <p class="text-red-500 text-xs mt-1">{{ form.role.errors }}</p>
+                    {% endif %}
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-xs text-gray-500">Password</label>
+                        {{ form.password1 }}
+                        {% if form.password1.errors %}
+                            <p class="text-red-500 text-xs mt-1">{{ form.password1.errors }}</p>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <label class="text-xs text-gray-500">Confirm Password</label>
+                        {{ form.password2 }}
+                        {% if form.password2.errors %}
+                            <p class="text-red-500 text-xs mt-1">{{ form.password2.errors }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% if form.non_field_errors %}
+                    <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+                <button type="submit" class="section-button w-full justify-center">Create Account</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

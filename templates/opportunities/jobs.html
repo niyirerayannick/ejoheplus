@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Jobs - EjoHePlus{% endblock %}
+
+{% block extra_css %}
+{% include "partials/home_styles.html" %}
+{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <p class="section-subtitle"><i class="fas fa-briefcase mr-2"></i>Jobs</p>
+                <h2 class="section-title">Latest <span class="highlight">Jobs</span></h2>
+            </div>
+        </div>
+        <div id="jobs-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+    </div>
+</section>
+
+<script>
+    fetch('/api/jobs/?limit=8')
+        .then(response => response.json())
+        .then(data => {
+            const grid = document.getElementById('jobs-grid');
+            if (!grid) return;
+            const items = data.results || data;
+            if (!items.length) {
+                grid.innerHTML = '<div class="text-sm text-gray-500">No jobs available.</div>';
+                return;
+            }
+            grid.innerHTML = items.map(item => `
+                <div class="training-card">
+                    <div class="training-thumb">
+                        <span class="training-tag">${item.category || 'Job'}</span>
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="training-body">
+                        <div class="training-title">${item.title}</div>
+                        <div class="training-meta">
+                            <span><i class="far fa-calendar mr-1"></i>${item.deadline || ''}</span>
+                            <span class="training-price">Apply</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        });
+</script>
+{% endblock %}

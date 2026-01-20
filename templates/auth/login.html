@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Login - EjoHePlus{% endblock %}
+
+{% block extra_css %}
+{% include "partials/home_styles.html" %}
+{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div class="hero-card">
+                <div class="hero-decoration">
+                    <svg viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="200" cy="120" r="120" fill="white" opacity="0.15"/>
+                        <circle cx="900" cy="180" r="160" fill="white" opacity="0.12"/>
+                        <circle cx="620" cy="420" r="140" fill="white" opacity="0.12"/>
+                        <rect x="420" y="200" width="220" height="220" fill="white" opacity="0.08" transform="rotate(45 530 310)"/>
+                    </svg>
+                </div>
+                <div class="relative z-10 text-white">
+                    <div class="hero-badge"><i class="fas fa-user-shield"></i> Secure Sign In</div>
+                    <h1 class="hero-title">Welcome Back to EjoHePlus</h1>
+                    <p class="hero-text">Sign in to continue your mentorship, course, and opportunity journey.</p>
+                </div>
+            </div>
+            <div class="about-card">
+                <h2 class="section-title mb-4">Sign in to your account</h2>
+                <p class="text-xs text-gray-500 mb-6">
+                    New here?
+                    <a href="{% url 'accounts:register' %}" class="text-blue-600 font-semibold">Create an account</a>
+                </p>
+                <form method="post" class="space-y-4">
+                    {% csrf_token %}
+                    <div>
+                        <label class="text-xs text-gray-500">Email</label>
+                        {{ form.email }}
+                    </div>
+                    <div>
+                        <label class="text-xs text-gray-500">Password</label>
+                        {{ form.password }}
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <label class="flex items-center gap-2 text-xs text-gray-600">
+                            {{ form.remember_me }}
+                            Remember me
+                        </label>
+                        <a href="{% url 'accounts:password_reset' %}" class="text-xs text-blue-600 font-semibold">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="section-button w-full justify-center">Sign in</button>
+                </form>
+                <div class="my-4 flex items-center gap-3 text-xs text-gray-400">
+                    <div class="flex-1 h-px bg-gray-200"></div>
+                    Or
+                    <div class="flex-1 h-px bg-gray-200"></div>
+                </div>
+                <a href="/accounts/google/login/" class="w-full flex items-center justify-center gap-2 border border-gray-200 rounded-lg py-2 text-xs font-semibold text-gray-600 hover:text-blue-600">
+                    <i class="fab fa-google"></i> Continue with Google
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
