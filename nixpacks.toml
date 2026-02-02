@@ -3,6 +3,7 @@ aptPkgs = [
   "bash",
   "libcairo2-dev",
   "libxcb1-dev",
+  "libxcb-dev",
   "libxcb-shm0-dev",
   "libxrender-dev",
   "libxext-dev",
