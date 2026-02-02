@@ -1,5 +1,6 @@
 [phases.setup]
 aptPkgs = [
+  "bash",
   "libcairo2-dev",
   "pkg-config"
 ]
