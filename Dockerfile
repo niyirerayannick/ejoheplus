@@ -12,16 +12,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libgdk-pixbuf-2.0-dev \
     libffi-dev \
     pkg-config \
-    meson \
-    ninja-build \
-    python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt /app/
-
-# 👇 prevents pycairo source build when wheel exists
-RUN pip install --upgrade pip \
-    && pip install --no-cache-dir --only-binary=:all: -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . /app/
 

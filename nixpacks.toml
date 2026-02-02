@@ -1,20 +1,17 @@
 [phases.setup]
 aptPkgs = [
   "bash",
-  "build-essential",
-  "pkg-config",
-
   "libcairo2-dev",
-  "libpango1.0-dev",
-  "libgdk-pixbuf-2.0-dev",
-  "libffi-dev"
+  "libxcb1-dev",
+  "libxcb-shm0-dev",
+  "libxrender-dev",
+  "libxext-dev",
+  "pkg-config"
 ]
-
 cmds = [
   "if [ ! -e /bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi"
 ]
 
 [variables]
-CAIRO_NO_XCB = "1"
 NIXPACKS_SHELL = "/bin/sh"
 NIXPACKS_PATH = "/opt/venv/bin"
