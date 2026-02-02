@@ -7,16 +7,7 @@ aptPkgs = [
   "libcairo2-dev",
   "libpango1.0-dev",
   "libgdk-pixbuf-2.0-dev",
-  "libffi-dev",
-
-  "libxcb1-dev",
-  "libxcb-render0-dev",
-  "libxcb-shm0-dev",
-  "libxcb-xfixes0-dev",
-  "libxcb-randr0-dev",
-  "libxcb-image0-dev",
-  "libxcb-keysyms1-dev",
-  "libxcb-icccm4-dev"
+  "libffi-dev"
 ]
 
 cmds = [
@@ -24,5 +15,6 @@ cmds = [
 ]
 
 [variables]
+CAIRO_NO_XCB = "1"
 NIXPACKS_SHELL = "/bin/sh"
 NIXPACKS_PATH = "/opt/venv/bin"
