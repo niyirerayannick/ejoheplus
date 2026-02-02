@@ -1,10 +1,20 @@
 [phases.setup]
 aptPkgs = [
   "bash",
+  "build-essential",
+  "pkg-config",
+
   "libcairo2-dev",
+  "libpango1.0-dev",
+  "libgdk-pixbuf-2.0-dev",
+  "libffi-dev",
+
   "libxcb1-dev",
-  "pkg-config"
+  "libxcb-render0-dev",
+  "libxcb-shm0-dev",
+  "libxcb-xfixes0-dev"
 ]
+
 cmds = [
   "if [ ! -e /bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi"
 ]
