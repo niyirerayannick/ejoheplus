@@ -5,7 +5,7 @@ aptPkgs = [
   "pkg-config"
 ]
 cmds = [
-  "ln -sf /usr/bin/bash /bin/bash"
+  "if [ ! -e /bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi"
 ]
 
 [variables]
