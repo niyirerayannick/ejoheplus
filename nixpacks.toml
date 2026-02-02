@@ -3,12 +3,12 @@ nixPkgs = [
   "bash",
   "cairo",
   "pkg-config",
-  "libxcb",
-  "libXrender",
-  "libXext",
-  "libX11",
-  "libXau",
-  "libXdmcp"
+  "xorg.libxcb",
+  "xorg.libXrender",
+  "xorg.libXext",
+  "xorg.libX11",
+  "xorg.libXau",
+  "xorg.libXdmcp"
 ]
 
 [variables]
