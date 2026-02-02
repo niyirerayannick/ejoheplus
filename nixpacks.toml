@@ -2,6 +2,7 @@
 aptPkgs = [
   "bash",
   "libcairo2-dev",
+  "libxcb1-dev",
   "pkg-config"
 ]
 cmds = [
