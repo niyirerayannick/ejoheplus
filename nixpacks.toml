@@ -1,16 +1,14 @@
 [phases.setup]
-aptPkgs = [
+nixPkgs = [
   "bash",
-  "libcairo2-dev",
-  "libxcb1-dev",
-  "libxcb-dev",
-  "libxcb-shm0-dev",
-  "libxrender-dev",
-  "libxext-dev",
-  "pkg-config"
-]
-cmds = [
-  "if [ ! -e /bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi"
+  "cairo",
+  "pkg-config",
+  "libxcb",
+  "libXrender",
+  "libXext",
+  "libX11",
+  "libXau",
+  "libXdmcp"
 ]
 
 [variables]
