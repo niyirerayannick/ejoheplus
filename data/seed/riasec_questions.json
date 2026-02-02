@@ -1,0 +1,782 @@
+[
+  {
+    "id": "R01",
+    "riasec": "R",
+    "question_text": "Fix or assemble mechanical or electronic devices.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "R02",
+    "riasec": "R",
+    "question_text": "Use tools to build or repair something at home or school.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "R03",
+    "riasec": "R",
+    "question_text": "Work outdoors with plants, animals, or nature.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "R04",
+    "riasec": "R",
+    "question_text": "Operate machines or equipment safely.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "R05",
+    "riasec": "R",
+    "question_text": "Drive or operate vehicles for work tasks.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "R06",
+    "riasec": "R",
+    "question_text": "Install equipment or set up technical devices.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "R07",
+    "riasec": "R",
+    "question_text": "Measure, cut, or assemble materials accurately.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "R08",
+    "riasec": "R",
+    "question_text": "Set up sports or event equipment.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "R09",
+    "riasec": "R",
+    "question_text": "Repair simple items like furniture, bicycles, or appliances.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "R10",
+    "riasec": "R",
+    "question_text": "Work with your hands to solve practical problems.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "I01",
+    "riasec": "I",
+    "question_text": "Solve science or math problems.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "I02",
+    "riasec": "I",
+    "question_text": "Investigate how machines, systems, or nature work.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "I03",
+    "riasec": "I",
+    "question_text": "Analyze data to discover patterns.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "I04",
+    "riasec": "I",
+    "question_text": "Do laboratory experiments or research.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "I05",
+    "riasec": "I",
+    "question_text": "Read about new discoveries or inventions.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "I06",
+    "riasec": "I",
+    "question_text": "Design a study to test an idea.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "I07",
+    "riasec": "I",
+    "question_text": "Use a microscope, telescope, or scientific tools.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "I08",
+    "riasec": "I",
+    "question_text": "Use coding or technology to test ideas.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "I09",
+    "riasec": "I",
+    "question_text": "Explore topics like medicine, environment, or space.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "I10",
+    "riasec": "I",
+    "question_text": "Solve puzzles or complex problems.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "A01",
+    "riasec": "A",
+    "question_text": "Write stories, poems, or scripts.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "A02",
+    "riasec": "A",
+    "question_text": "Draw, paint, or design creative artwork.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "A03",
+    "riasec": "A",
+    "question_text": "Create posters, logos, or visual designs.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "A04",
+    "riasec": "A",
+    "question_text": "Play a musical instrument or sing.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "A05",
+    "riasec": "A",
+    "question_text": "Act, dance, or perform in front of others.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "A06",
+    "riasec": "A",
+    "question_text": "Create videos, photography, or visual stories.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "A07",
+    "riasec": "A",
+    "question_text": "Design clothing, fashion, or accessories.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "A08",
+    "riasec": "A",
+    "question_text": "Invent new ways to express ideas.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "A09",
+    "riasec": "A",
+    "question_text": "Write creative content for social media or blogs.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "A10",
+    "riasec": "A",
+    "question_text": "Create crafts or handmade products.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "S01",
+    "riasec": "S",
+    "question_text": "Teach or tutor someone who needs help.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "S02",
+    "riasec": "S",
+    "question_text": "Support people who are going through challenges.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "S03",
+    "riasec": "S",
+    "question_text": "Volunteer in community or school programs.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "S04",
+    "riasec": "S",
+    "question_text": "Work in teams to help others succeed.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "S05",
+    "riasec": "S",
+    "question_text": "Care for children, patients, or people who need support.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "S06",
+    "riasec": "S",
+    "question_text": "Organize events that bring people together.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "S07",
+    "riasec": "S",
+    "question_text": "Explain ideas so others can understand them.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "S08",
+    "riasec": "S",
+    "question_text": "Listen to people and help solve their problems.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "S09",
+    "riasec": "S",
+    "question_text": "Guide students or friends with their goals.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "S10",
+    "riasec": "S",
+    "question_text": "Work in health, teaching, or community service settings.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "E01",
+    "riasec": "E",
+    "question_text": "Lead a group project or club.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "E02",
+    "riasec": "E",
+    "question_text": "Start a small project or business idea.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "E03",
+    "riasec": "E",
+    "question_text": "Promote an idea or persuade others.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "E04",
+    "riasec": "E",
+    "question_text": "Speak in public or present to an audience.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "E05",
+    "riasec": "E",
+    "question_text": "Plan a business or marketing strategy.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "E06",
+    "riasec": "E",
+    "question_text": "Negotiate or make deals.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "E07",
+    "riasec": "E",
+    "question_text": "Organize fundraising or sales activities.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "E08",
+    "riasec": "E",
+    "question_text": "Make decisions in fast-moving situations.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "E09",
+    "riasec": "E",
+    "question_text": "Manage a team to achieve a goal.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "E10",
+    "riasec": "E",
+    "question_text": "Compete to achieve the best results.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "C01",
+    "riasec": "C",
+    "question_text": "Organize files, records, or folders.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "C02",
+    "riasec": "C",
+    "question_text": "Follow clear procedures or rules.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "C03",
+    "riasec": "C",
+    "question_text": "Work with numbers or budgets.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "C04",
+    "riasec": "C",
+    "question_text": "Plan schedules or track deadlines.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "C05",
+    "riasec": "C",
+    "question_text": "Use spreadsheets to organize information.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "C06",
+    "riasec": "C",
+    "question_text": "Record data carefully and accurately.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "C07",
+    "riasec": "C",
+    "question_text": "Check details to make sure work is correct.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "C08",
+    "riasec": "C",
+    "question_text": "Maintain inventory or stock lists.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "C09",
+    "riasec": "C",
+    "question_text": "Write clear reports or summaries.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  },
+  {
+    "id": "C10",
+    "riasec": "C",
+    "question_text": "Keep records neat, organized, and up to date.",
+    "type": "scale",
+    "options": [
+      { "label": "Strongly Dislike", "value": 1 },
+      { "label": "Dislike", "value": 2 },
+      { "label": "Neutral", "value": 3 },
+      { "label": "Like", "value": 4 },
+      { "label": "Strongly Like", "value": 5 }
+    ]
+  }
+]

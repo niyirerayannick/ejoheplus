@@ -20,6 +20,51 @@
             </p>
         </div>
 
+        <div class="bg-white rounded-xl shadow-md p-5 mb-8">
+            <div class="flex flex-wrap items-center gap-3 mb-4">
+                <span class="text-xs text-gray-500 font-semibold">Your RIASEC code:</span>
+                <span class="course-pill active">{{ riasec_code }}</span>
+                {% if level %}
+                    <span class="course-pill draft">{{ level }}</span>
+                {% endif %}
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {% for item in riasec_scores %}
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-bold">
+                        {{ item.code }}
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center justify-between text-xs text-gray-600 mb-1">
+                            <span>{{ item.label }}</span>
+                            <span>{{ item.score }}</span>
+                        </div>
+                        <div class="w-full bg-gray-100 rounded-full h-2">
+                            <div class="bg-blue-600 h-2 rounded-full" style="width: {{ item.percent }}%"></div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="mb-8">
+            <h2 class="text-xl font-semibold mb-4">Your top interests</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {% for item in top_interest_cards %}
+                <div class="course-card p-5">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+                            {{ item.code }}
+                        </div>
+                        <div class="font-semibold">{{ item.label }}</div>
+                    </div>
+                    <p class="text-sm text-gray-600">{{ item.explanation }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
         <div class="mb-8">
             <h2 class="text-xl font-semibold mb-4">Best Matches</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -82,8 +127,14 @@
             <div>
                 <h3 class="text-lg font-semibold">Want to revisit your answers?</h3>
                 <p class="text-sm text-gray-600">You can retake the questionnaire anytime to refine results.</p>
+                <p class="text-xs text-gray-500 mt-2">
+                    Career Discovery provides guidance, not a final decision. Students are encouraged to explore and consult mentors.
+                </p>
             </div>
-            <a href="{% url 'careers:discovery_intro' %}" class="course-primary-btn">Retake Discovery</a>
+            <div class="flex flex-wrap gap-3">
+                <a href="{% url 'careers:discovery_intro' %}" class="course-primary-btn">Retake Discovery</a>
+                <a href="{% url 'careers:list' %}" class="course-secondary-btn">Explore Careers</a>
+            </div>
         </div>
     </div>
 </section>

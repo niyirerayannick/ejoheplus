@@ -11,7 +11,7 @@ from .models import (
 
 @admin.register(Career)
 class CareerAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug', 'category', 'created_at']
+    list_display = ['title', 'slug', 'category', 'riasec_primary', 'riasec_secondary', 'created_at']
     prepopulated_fields = {'slug': ('title',)}
     search_fields = ['title', 'overview']
     list_filter = ['category']

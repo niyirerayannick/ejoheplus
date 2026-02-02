@@ -25,6 +25,16 @@ class Career(models.Model):
     institutions = models.TextField(help_text="Recommended institutions")
     future_prospects = models.TextField(help_text="Future career prospects")
     image = models.ImageField(upload_to='careers/', blank=True, null=True)
+    RIASEC_CHOICES = [
+        ('R', 'Realistic'),
+        ('I', 'Investigative'),
+        ('A', 'Artistic'),
+        ('S', 'Social'),
+        ('E', 'Enterprising'),
+        ('C', 'Conventional'),
+    ]
+    riasec_primary = models.CharField(max_length=1, choices=RIASEC_CHOICES, blank=True)
+    riasec_secondary = models.CharField(max_length=10, blank=True, help_text="Comma-separated secondary RIASEC codes, e.g. I,A")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
@@ -59,10 +69,12 @@ class CareerProgram(models.Model):
 
 class CareerQuestion(models.Model):
     CATEGORY_CHOICES = [
-        ('interests', 'Interests'),
-        ('skills', 'Skills & Abilities'),
-        ('personality', 'Personality'),
-        ('subjects', 'Favorite Subjects'),
+        ('R', 'Realistic'),
+        ('I', 'Investigative'),
+        ('A', 'Artistic'),
+        ('S', 'Social'),
+        ('E', 'Enterprising'),
+        ('C', 'Conventional'),
     ]
     prompt = models.TextField()
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
@@ -80,6 +92,7 @@ class CareerOption(models.Model):
     question = models.ForeignKey(CareerQuestion, on_delete=models.CASCADE, related_name='options')
     text = models.CharField(max_length=255)
     explanation = models.CharField(max_length=255, blank=True)
+    value = models.PositiveSmallIntegerField(default=3)
 
     def __str__(self):
         return self.text

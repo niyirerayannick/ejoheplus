@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.contrib import messages
-from django.db.models import Prefetch
+from django.db.models import Count
 from .models import (
     Career,
     CareerProgram,
@@ -98,44 +98,95 @@ def discovery_results(request):
         request.session.save()
 
     option_ids = [int(option_id) for option_id in answers.values()]
-    option_qs = CareerOption.objects.filter(id__in=option_ids).prefetch_related(
-        Prefetch('career_weights', queryset=CareerOptionWeight.objects.select_related('career'))
-    )
+    option_qs = CareerOption.objects.filter(id__in=option_ids).select_related('question')
 
-    scores = {}
-    reasons = {}
+    riasec_labels = {
+        'R': 'Realistic',
+        'I': 'Investigative',
+        'A': 'Artistic',
+        'S': 'Social',
+        'E': 'Enterprising',
+        'C': 'Conventional',
+    }
+    riasec_explanations = {
+        'R': 'You enjoy hands-on activities, practical tasks, and working with tools or systems.',
+        'I': 'You enjoy exploring ideas, solving problems, and learning how things work.',
+        'A': 'You enjoy creativity, self-expression, and artistic or innovative activities.',
+        'S': 'You enjoy helping, teaching, and working with people.',
+        'E': 'You enjoy leading, persuading, and taking initiative to achieve goals.',
+        'C': 'You enjoy organizing, planning, and working with data or structured tasks.',
+    }
+
+    riasec_scores = {key: 0 for key in riasec_labels}
     for option in option_qs:
-        for weight in option.career_weights.all():
-            scores.setdefault(weight.career, 0)
-            reasons.setdefault(weight.career, [])
-            scores[weight.career] += weight.weight
-            if option.explanation:
-                reasons[weight.career].append(option.explanation)
-            else:
-                reasons[weight.career].append(option.text)
+        if not option.question_id:
+            continue
+        riasec_key = option.question.category
+        if riasec_key in riasec_scores:
+            riasec_scores[riasec_key] += option.value
 
-    sorted_careers = sorted(scores.items(), key=lambda x: x[1], reverse=True)
-    top_score = sorted_careers[0][1] if sorted_careers else 1
+    ranked_riasec = sorted(riasec_scores.items(), key=lambda x: x[1], reverse=True)
+    top_three = [item[0] for item in ranked_riasec[:3]]
+    riasec_code = ''.join(top_three)
+    question_counts = {
+        item['category']: item['total']
+        for item in CareerQuestion.objects.filter(is_active=True).values('category').annotate(total=Count('id'))
+    }
+    riasec_breakdown = []
+    for code, score in ranked_riasec:
+        max_score = (question_counts.get(code, 1) * 5)
+        percent = int((score / max_score) * 100) if max_score else 0
+        riasec_breakdown.append({
+            'code': code,
+            'label': riasec_labels.get(code, code),
+            'score': score,
+            'percent': percent,
+        })
+    top_interest_cards = [
+        {
+            'code': code,
+            'label': riasec_labels.get(code, code),
+            'explanation': riasec_explanations.get(code, ''),
+        }
+        for code in top_three
+    ]
 
+    level = request.session.get('career_discovery_level', '')
     level_key = 'advanced' if level in ['A-Level', 'S4', 'S5', 'S6'] else 'ordinary' if level in ['O-Level', 'S1', 'S2', 'S3'] else ''
+
     results = []
-    for career, score in sorted_careers:
-        percentage = int((score / top_score) * 100)
+    careers = Career.objects.exclude(riasec_primary='').exclude(riasec_primary__isnull=True)
+    max_score = 7
+    for career in careers:
+        secondary_codes = [code.strip().upper() for code in career.riasec_secondary.split(',') if code.strip()]
+        score = 0
+        if career.riasec_primary:
+            if career.riasec_primary == top_three[0]:
+                score += 5
+            elif career.riasec_primary == top_three[1]:
+                score += 3
+            elif career.riasec_primary == top_three[2]:
+                score += 2
+        for code in secondary_codes:
+            if code in top_three:
+                score += 1
+        percentage = int((score / max_score) * 100)
         program_qs = CareerProgram.objects.filter(career=career)
         if level_key:
             program_qs = program_qs.filter(level=level_key)
+        reasons = [riasec_explanations.get(code) for code in top_three if code in riasec_explanations]
         results.append({
             'career': career,
             'score': score,
             'percentage': percentage,
-            'reasons': reasons.get(career, [])[:3],
+            'reasons': [reason for reason in reasons if reason][:2],
             'programs': program_qs[:3],
         })
 
-    best_matches = [item for item in results if item['percentage'] >= 75][:3]
-    alternatives = [item for item in results if item['percentage'] < 75][:3]
+    results = sorted(results, key=lambda x: x['percentage'], reverse=True)
+    best_matches = [item for item in results if item['percentage'] >= 70][:4]
+    alternatives = [item for item in results if item['percentage'] < 70][:4]
 
-    level = request.session.get('career_discovery_level', '')
     response = CareerDiscoveryResponse.objects.create(
         session_key=request.session.session_key or 'anonymous',
         level=level,
@@ -153,5 +204,9 @@ def discovery_results(request):
         'alternatives': alternatives,
         'level': level,
         'level_key': level_key,
+        'riasec_scores': riasec_breakdown,
+        'riasec_code': riasec_code,
+        'riasec_explanations': riasec_explanations,
+        'top_interest_cards': top_interest_cards,
     }
     return render(request, 'careers/discovery_results.html', context)

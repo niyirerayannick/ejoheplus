@@ -4,16 +4,38 @@ Django settings for ejoheplus project.
 import os
 from pathlib import Path
 
+import dj_database_url
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+def get_env_bool(key: str, default: bool = False) -> bool:
+    value = os.environ.get(key)
+    if value is None:
+        return default
+    return value.strip().lower() in {"1", "true", "yes", "on"}
+
+
+def get_env_list(key: str, default=None):
+    value = os.environ.get(key)
+    if value is None:
+        return default if default is not None else []
+    return [item.strip() for item in value.split(",") if item.strip()]
+
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ejoheplus-dev-key-change-in-production'
+SECRET_KEY = os.environ.get(
+    "DJANGO_SECRET_KEY",
+    "django-insecure-ejoheplus-dev-key-change-in-production",
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = get_env_bool("DJANGO_DEBUG", default=True)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = get_env_list(
+    "DJANGO_ALLOWED_HOSTS",
+    default=["*"] if DEBUG else [],
+)
 
 # Application definition
 INSTALLED_APPS = [
@@ -40,6 +62,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -70,12 +93,22 @@ TEMPLATES = [
 WSGI_APPLICATION = 'ejoheplus.wsgi.application'
 
 # Database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+DATABASE_URL = os.environ.get("DATABASE_URL")
+if DATABASE_URL:
+    DATABASES = {
+        'default': dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600,
+            conn_health_checks=True,
+        )
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # Custom User Model
 AUTH_USER_MODEL = 'accounts.User'
@@ -108,6 +141,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static']
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media files
 MEDIA_URL = 'media/'
@@ -120,9 +154,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 30  # 30 days
 SESSION_SAVE_EVERY_REQUEST = True
-SESSION_COOKIE_SECURE = False  # Set to True in production with HTTPS
+USE_HTTPS = get_env_bool("DJANGO_SECURE_SSL", default=False)
+SESSION_COOKIE_SECURE = USE_HTTPS
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = 'Lax'
+
+CSRF_COOKIE_SECURE = USE_HTTPS
+SECURE_SSL_REDIRECT = USE_HTTPS
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+CSRF_TRUSTED_ORIGINS = get_env_list("DJANGO_CSRF_TRUSTED_ORIGINS", default=[])
 
 # Login URLs
 LOGIN_URL = 'accounts:login'
