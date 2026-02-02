@@ -4,3 +4,6 @@ aptPkgs = [
   "libcairo2-dev",
   "pkg-config"
 ]
+
+[variables]
+NIXPACKS_SHELL = "/bin/sh"
