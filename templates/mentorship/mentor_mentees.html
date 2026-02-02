@@ -1,4 +1,5 @@
 {% extends "dashboard/base_mentor_dashboard.html" %}
+{% load static %}
 
 {% block dashboard_content %}
 <div class="mb-6">
@@ -15,8 +16,12 @@
         <div class="border border-gray-200 rounded-lg p-6">
             <div class="flex items-center justify-between">
                 <div class="flex items-center">
-                    <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center text-white text-xl font-bold">
-                        {{ connection.mentee.get_full_name|default:connection.mentee.username|first|upper }}
+                    <div class="w-16 h-16 rounded-full overflow-hidden bg-gray-200">
+                        {% if connection.mentee.profile_picture %}
+                            <img src="{{ connection.mentee.profile_picture.url }}" alt="{{ connection.mentee.get_full_name|default:connection.mentee.username }}" class="w-full h-full object-cover">
+                        {% else %}
+                            <img src="{% static 'image/1481.jpg' %}" alt="{{ connection.mentee.get_full_name|default:connection.mentee.username }}" class="w-full h-full object-cover">
+                        {% endif %}
                     </div>
                     <div class="ml-4">
                         <h3 class="text-xl font-semibold">{{ connection.mentee.get_full_name|default:connection.mentee.username }}</h3>
@@ -54,8 +59,12 @@
             {% for connection in connections %}
             <div class="border border-gray-200 rounded-lg p-6 hover:shadow-lg transition">
                 <div class="flex items-center mb-4">
-                    <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center text-white text-xl font-bold">
-                        {{ connection.mentee.get_full_name|default:connection.mentee.username|first|upper }}
+                    <div class="w-16 h-16 rounded-full overflow-hidden bg-gray-200">
+                        {% if connection.mentee.profile_picture %}
+                            <img src="{{ connection.mentee.profile_picture.url }}" alt="{{ connection.mentee.get_full_name|default:connection.mentee.username }}" class="w-full h-full object-cover">
+                        {% else %}
+                            <img src="{% static 'image/1481.jpg' %}" alt="{{ connection.mentee.get_full_name|default:connection.mentee.username }}" class="w-full h-full object-cover">
+                        {% endif %}
                     </div>
                     <div class="ml-4">
                         <h3 class="text-lg font-semibold">{{ connection.mentee.get_full_name|default:connection.mentee.username }}</h3>

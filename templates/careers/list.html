@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Careers Library - EjoHePlus{% endblock %}
 
@@ -35,7 +36,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {% for career in careers %}
             <div class="course-card">
-                <div class="h-48 bg-gray-200"></div>
+                <div class="h-48 bg-gray-200" style="background-image:url('{% if career.image %}{{ career.image.url }}{% else %}{% static 'image/6456.jpg' %}{% endif %}'); background-size: cover; background-position: center;"></div>
                 <div class="p-6">
                     <h3 class="text-xl font-semibold mb-2">{{ career.title }}</h3>
                     <p class="text-gray-600 mb-4 line-clamp-3">{{ career.overview|truncatewords:20 }}</p>

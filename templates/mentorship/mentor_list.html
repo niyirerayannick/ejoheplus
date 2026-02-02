@@ -34,7 +34,7 @@
             <h3 class="text-xl font-semibold mb-4">Recommended for you</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {% for mentor in recommended_mentors %}
-                <div class="course-card p-5">
+                <div class="course-card mentor-card p-5">
                     <div class="mentor-avatar w-16 h-16 mx-auto">
                         {% if mentor.profile_picture %}
                             <img src="{{ mentor.profile_picture.url }}" alt="{{ mentor.get_full_name|default:mentor.username }}">
@@ -53,7 +53,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {% for mentor in mentors %}
-            <div class="course-card p-5">
+            <div class="course-card mentor-card p-5">
                 <div class="mentor-avatar w-16 h-16 mx-auto">
                     {% if mentor.profile_picture %}
                         <img src="{{ mentor.profile_picture.url }}" alt="{{ mentor.get_full_name|default:mentor.username }}">
