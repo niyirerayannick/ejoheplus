@@ -4,7 +4,7 @@ from accounts.models import User
 
 class Course(models.Model):
     title = models.CharField(max_length=200)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, max_length=200)
     category = models.CharField(max_length=100, blank=True)
     description = models.TextField()
     overview = models.TextField()

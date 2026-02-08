@@ -199,7 +199,7 @@ def course_create(request):
         form = CourseForm(request.POST, request.FILES)
         if form.is_valid():
             course = form.save(commit=False)
-            base_slug = slugify(course.title)[:60] or f"course-{request.user.id}"
+            base_slug = slugify(course.title)[:180] or f"course-{request.user.id}"
             course.slug = _generate_unique_slug(Course, base_slug)
             course.created_by = request.user
             if request.user.is_mentor:
