@@ -4,10 +4,11 @@ from .models import User
 
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(
-        widget=forms.EmailInput(attrs={
+    login = forms.CharField(
+        label="Username or Email",
+        widget=forms.TextInput(attrs={
             'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent',
-            'placeholder': 'Enter your email'
+            'placeholder': 'Enter your username or email'
         })
     )
     password = forms.CharField(

@@ -3,66 +3,131 @@
 
 {% block title %}Login - EjoHePlus{% endblock %}
 
-{% block extra_css %}
-{% include "partials/home_styles.html" %}
-{% endblock %}
-
 {% block content %}
-<section class="section">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            <div class="hero-card">
-                <div class="hero-decoration">
-                    <svg viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="200" cy="120" r="120" fill="white" opacity="0.15"/>
-                        <circle cx="900" cy="180" r="160" fill="white" opacity="0.12"/>
-                        <circle cx="620" cy="420" r="140" fill="white" opacity="0.12"/>
-                        <rect x="420" y="200" width="220" height="220" fill="white" opacity="0.08" transform="rotate(45 530 310)"/>
-                    </svg>
-                </div>
-                <div class="relative z-10 text-white">
-                    <div class="hero-badge"><i class="fas fa-user-shield"></i> Secure Sign In</div>
-                    <h1 class="hero-title">Welcome Back to EjoHePlus</h1>
-                    <p class="hero-text">Sign in to continue your mentorship, course, and opportunity journey.</p>
-                    <div class="grid grid-cols-2 gap-3 mt-6">
-                        <div class="h-24 rounded-lg" style="background-image:url('{% static 'image/3705.jpg' %}'); background-size: cover; background-position: center;"></div>
-                        <div class="h-24 rounded-lg" style="background-image:url('{% static 'image/1481.jpg' %}'); background-size: cover; background-position: center;"></div>
+<section class="min-h-screen flex items-center justify-center py-20 bg-gray-50 relative overflow-hidden">
+    <!-- Abstract Background Decorations -->
+    <div class="absolute top-0 left-0 w-96 h-96 bg-[#003d29]/5 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl"></div>
+    <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#ff9800]/5 rounded-full translate-x-1/4 translate-y-1/4 blur-3xl"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none opacity-10">
+        <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path d="M0 100 C 20 0 50 0 100 100" stroke="#003d29" stroke-width="0.1" fill="none" />
+            <path d="M0 80 C 30 20 60 20 100 80" stroke="#ff9800" stroke-width="0.1" fill="none" />
+        </svg>
+    </div>
+
+    <div class="max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="bg-white rounded-[40px] shadow-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2 min-h-[700px]">
+            
+            <!-- Left Side: Brand & Visuals -->
+            <div class="bg-[#003d29] p-12 lg:p-20 text-white relative flex flex-col justify-between overflow-hidden">
+                <!-- Decorative Circles -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full translate-x-1/3 -translate-y-1/3"></div>
+                <div class="absolute bottom-0 left-0 w-48 h-48 bg-[#ff9800]/10 rounded-full -translate-x-1/4 translate-y-1/4"></div>
+                
+                <div class="relative z-10">
+                    <div class="inline-flex items-center space-x-2 px-4 py-2 bg-white/10 rounded-full border border-white/20 mb-8 backdrop-blur-sm">
+                        <span class="w-2 h-2 bg-[#ff9800] rounded-full animate-pulse"></span>
+                        <span class="text-xs font-bold tracking-widest uppercase">Welcome Back</span>
                     </div>
+                    <h1 class="text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+                        Unlock Your <br>
+                        <span class="text-[#ff9800]">Future</span> Today.
+                    </h1>
+                    <p class="text-white/70 text-lg max-w-md leading-relaxed">
+                        Sign in to access your personalized mentorship, premium courses, and global career opportunities.
+                    </p>
+                </div>
+
+                <div class="relative z-10 mt-12">
+                    <div class="flex -space-x-4 mb-6">
+                        <img class="w-12 h-12 rounded-full border-4 border-[#003d29] object-cover" src="{% static 'image/305.jpg' %}" alt="User">
+                        <img class="w-12 h-12 rounded-full border-4 border-[#003d29] object-cover" src="{% static 'image/1481.jpg' %}" alt="User">
+                        <img class="w-12 h-12 rounded-full border-4 border-[#003d29] object-cover" src="{% static 'image/3705.jpg' %}" alt="User">
+                        <div class="w-12 h-12 rounded-full border-4 border-[#003d29] bg-[#ff9800] flex items-center justify-center text-xs font-bold">10k+</div>
+                    </div>
+                    <p class="text-sm font-medium text-white/60">Join 10,000+ students already learning with us.</p>
                 </div>
             </div>
-            <div class="about-card">
-                <h2 class="section-title mb-4">Sign in to your account</h2>
-                <p class="text-xs text-gray-500 mb-6">
-                    New here?
-                    <a href="{% url 'accounts:register' %}" class="text-blue-600 font-semibold">Create an account</a>
-                </p>
-                <form method="post" class="space-y-4">
-                    {% csrf_token %}
-                    <div>
-                        <label class="text-xs text-gray-500">Email</label>
-                        {{ form.email }}
+
+            <!-- Right Side: Login Form -->
+            <div class="p-12 lg:p-20 flex flex-col justify-center bg-white">
+                <div class="max-w-md mx-auto w-full">
+                    <div class="mb-10">
+                        <h2 class="text-3xl font-black text-gray-900 mb-2">Login to Account</h2>
+                        <p class="text-gray-500">
+                            Don't have an account? 
+                            <a href="{% url 'accounts:register' %}" class="text-[#003d29] font-bold hover:underline">Register here</a>
+                        </p>
                     </div>
-                    <div>
-                        <label class="text-xs text-gray-500">Password</label>
-                        {{ form.password }}
+
+                    <form method="post" class="space-y-6">
+                        {% csrf_token %}
+                        
+                        {% if form.non_field_errors %}
+                        <div class="p-4 bg-red-50 border-l-4 border-red-500 text-red-700 text-sm rounded-r-xl">
+                            {% for error in form.non_field_errors %}{{ error }}{% endfor %}
+                        </div>
+                        {% endif %}
+
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold text-gray-700 ml-1">Username or Email</label>
+                            <div class="relative group">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-[#003d29] transition-colors">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <input type="text" name="login" required id="id_login" 
+                                    class="block w-full pl-11 pr-4 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#003d29]/20 focus:border-[#003d29] transition-all"
+                                    placeholder="Username or email">
+                            </div>
+                            {% if form.login.errors %}
+                                <p class="text-xs text-red-500 mt-1 ml-1">{{ form.login.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between ml-1">
+                                <label class="text-sm font-bold text-gray-700">Password</label>
+                                <a href="{% url 'accounts:password_reset' %}" class="text-xs font-bold text-[#003d29] hover:underline">Forgot?</a>
+                            </div>
+                            <div class="relative group">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-[#003d29] transition-colors">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                                <input type="password" name="password" required id="id_password"
+                                    class="block w-full pl-11 pr-4 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#003d29]/20 focus:border-[#003d29] transition-all"
+                                    placeholder="••••••••">
+                            </div>
+                            {% if form.password.errors %}
+                                <p class="text-xs text-red-500 mt-1 ml-1">{{ form.password.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="flex items-center ml-1">
+                            <input type="checkbox" name="remember_me" id="id_remember_me" 
+                                class="w-4 h-4 text-[#003d29] border-gray-300 rounded focus:ring-[#003d29] accent-[#003d29]">
+                            <label for="id_remember_me" class="ml-2 text-sm text-gray-600 font-medium cursor-pointer">Remember me for 30 days</label>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 bg-[#003d29] hover:bg-[#002a1c] text-white font-black rounded-2xl shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1 flex items-center justify-center space-x-2 group">
+                            <span>Sign In</span>
+                            <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </form>
+
+                    <div class="mt-10">
+                        <div class="relative flex items-center justify-center mb-8">
+                            <div class="flex-grow border-t border-gray-100"></div>
+                            <span class="flex-shrink mx-4 text-gray-400 text-xs font-bold uppercase tracking-widest">Or login with</span>
+                            <div class="flex-grow border-t border-gray-100"></div>
+                        </div>
+
+                        {% load socialaccount %}
+                        <a href="{% provider_login_url 'google' %}" class="w-full flex items-center justify-center gap-3 border border-gray-100 rounded-2xl py-4 text-sm font-bold text-gray-700 hover:bg-gray-50 transition-all shadow-sm">
+                            <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" alt="Google">
+                            <span>Continue with Google</span>
+                        </a>
                     </div>
-                    <div class="flex items-center justify-between">
-                        <label class="flex items-center gap-2 text-xs text-gray-600">
-                            {{ form.remember_me }}
-                            Remember me
-                        </label>
-                        <a href="{% url 'accounts:password_reset' %}" class="text-xs text-blue-600 font-semibold">Forgot password?</a>
-                    </div>
-                    <button type="submit" class="section-button w-full justify-center">Sign in</button>
-                </form>
-                <div class="my-4 flex items-center gap-3 text-xs text-gray-400">
-                    <div class="flex-1 h-px bg-gray-200"></div>
-                    Or
-                    <div class="flex-1 h-px bg-gray-200"></div>
                 </div>
-                <a href="/accounts/google/login/" class="w-full flex items-center justify-center gap-2 border border-gray-200 rounded-lg py-2 text-xs font-semibold text-gray-600 hover:text-blue-600">
-                    <i class="fab fa-google"></i> Continue with Google
-                </a>
             </div>
         </div>
     </div>

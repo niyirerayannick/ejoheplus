@@ -15,15 +15,22 @@ def login_view(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            email = form.cleaned_data['email']
+            login_identifier = form.cleaned_data['login']
             password = form.cleaned_data['password']
             
-            # Try to authenticate with email
-            try:
-                user = User.objects.get(email=email)
-                user = authenticate(request, username=user.username, password=password)
-            except User.DoesNotExist:
-                user = None
+            # Try to authenticate with either email or username
+            user = None
+            if '@' in login_identifier:
+                # If it looks like an email, try to find user by email first
+                try:
+                    user_obj = User.objects.get(email=login_identifier)
+                    user = authenticate(request, username=user_obj.username, password=password)
+                except User.DoesNotExist:
+                    pass
+            
+            # If not found by email or doesn't look like an email, try username directly
+            if user is None:
+                user = authenticate(request, username=login_identifier, password=password)
             
             if user is not None:
                 login(request, user)
@@ -44,7 +51,7 @@ def login_view(request):
                 else:
                     return redirect('dashboard:student_dashboard')
             else:
-                messages.error(request, 'Invalid email or password.')
+                messages.error(request, 'Invalid username/email or password.')
     else:
         form = LoginForm()
     

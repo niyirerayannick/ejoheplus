@@ -3,112 +3,167 @@
 
 {% block title %}Register - EjoHePlus{% endblock %}
 
-{% block extra_css %}
-{% include "partials/home_styles.html" %}
-{% endblock %}
-
 {% block content %}
-<section class="section">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            <div class="hero-card">
-                <div class="hero-decoration">
-                    <svg viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="200" cy="120" r="120" fill="white" opacity="0.15"/>
-                        <circle cx="900" cy="180" r="160" fill="white" opacity="0.12"/>
-                        <circle cx="620" cy="420" r="140" fill="white" opacity="0.12"/>
-                        <rect x="420" y="200" width="220" height="220" fill="white" opacity="0.08" transform="rotate(45 530 310)"/>
-                    </svg>
+<section class="min-h-screen flex items-center justify-center py-20 bg-gray-50 relative overflow-hidden">
+    <!-- Abstract Background Decorations -->
+    <div class="absolute top-0 right-0 w-96 h-96 bg-[#003d29]/5 rounded-full translate-x-1/2 -translate-y-1/2 blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#ff9800]/5 rounded-full -translate-x-1/4 translate-y-1/4 blur-3xl"></div>
+    
+    <div class="max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="bg-white rounded-[40px] shadow-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2">
+            
+            <!-- Left Side: Brand & Visuals -->
+            <div class="bg-[#003d29] p-12 lg:p-20 text-white relative flex flex-col justify-between overflow-hidden">
+                <!-- Decorative Circles -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full translate-x-1/3 -translate-y-1/3"></div>
+                <div class="absolute bottom-0 left-0 w-48 h-48 bg-[#ff9800]/10 rounded-full -translate-x-1/4 translate-y-1/4"></div>
+                
+                <div class="relative z-10">
+                    <div class="inline-flex items-center space-x-2 px-4 py-2 bg-white/10 rounded-full border border-white/20 mb-8 backdrop-blur-sm">
+                        <span class="w-2 h-2 bg-[#ff9800] rounded-full animate-pulse"></span>
+                        <span class="text-xs font-bold tracking-widest uppercase">Start Your Journey</span>
+                    </div>
+                    <h1 class="text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+                        Join the <br>
+                        <span class="text-[#ff9800]">Movement.</span>
+                    </h1>
+                    <p class="text-white/70 text-lg max-w-md leading-relaxed">
+                        Create your account today and get access to mentorship, professional courses, and career opportunities.
+                    </p>
                 </div>
-                <div class="relative z-10 text-white">
-                    <div class="hero-badge"><i class="fas fa-user-plus"></i> Join EjoHePlus</div>
-                    <h1 class="hero-title">Create your account</h1>
-                    <p class="hero-text">Get guidance, mentorship, and opportunities built for student success.</p>
-                    <div class="grid grid-cols-2 gap-3 mt-6">
-                        <div class="h-24 rounded-lg" style="background-image:url('{% static 'image/3705.jpg' %}'); background-size: cover; background-position: center;"></div>
-                        <div class="h-24 rounded-lg" style="background-image:url('{% static 'image/1481.jpg' %}'); background-size: cover; background-position: center;"></div>
+
+                <div class="relative z-10 mt-12">
+                    <div class="space-y-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center border border-white/20">
+                                <i class="fas fa-graduation-cap text-[#ff9800]"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold">Expert Mentorship</h3>
+                                <p class="text-sm text-white/50">Learn from industry leaders</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center border border-white/20">
+                                <i class="fas fa-briefcase text-[#ff9800]"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold">Global Opportunities</h3>
+                                <p class="text-sm text-white/50">Access worldwide job openings</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="about-card">
-                <h2 class="section-title mb-2">Create your account</h2>
-                <p class="text-xs text-gray-500 mb-6">
-                    Already have an account?
-                    <a href="{% url 'accounts:login' %}" class="text-blue-600 font-semibold">Sign in here</a>
-                </p>
-                <form class="space-y-4" method="post">
-                    {% csrf_token %}
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="text-xs text-gray-500">Username</label>
-                            {{ form.username }}
-                            {% if form.username.errors %}
-                                <p class="text-red-500 text-xs mt-1">{{ form.username.errors }}</p>
-                            {% endif %}
-                        </div>
-                        <div>
-                            <label class="text-xs text-gray-500">Email</label>
-                            {{ form.email }}
-                            {% if form.email.errors %}
-                                <p class="text-red-500 text-xs mt-1">{{ form.email.errors }}</p>
-                            {% endif %}
-                        </div>
+
+            <!-- Right Side: Register Form -->
+            <div class="p-12 lg:p-20 flex flex-col justify-center bg-white">
+                <div class="max-w-md mx-auto w-full">
+                    <div class="mb-10">
+                        <h2 class="text-3xl font-black text-gray-900 mb-2">Create Account</h2>
+                        <p class="text-gray-500">
+                            Already have an account? 
+                            <a href="{% url 'accounts:login' %}" class="text-[#003d29] font-bold hover:underline">Login here</a>
+                        </p>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="text-xs text-gray-500">First Name</label>
-                            {{ form.first_name }}
-                            {% if form.first_name.errors %}
-                                <p class="text-red-500 text-xs mt-1">{{ form.first_name.errors }}</p>
-                            {% endif %}
+
+                    <form method="post" class="space-y-5">
+                        {% csrf_token %}
+                        
+                        {% if form.non_field_errors %}
+                        <div class="p-4 bg-red-50 border-l-4 border-red-500 text-red-700 text-sm rounded-r-xl mb-4">
+                            {% for error in form.non_field_errors %}{{ error }}{% endfor %}
                         </div>
-                        <div>
-                            <label class="text-xs text-gray-500">Last Name</label>
-                            {{ form.last_name }}
-                            {% if form.last_name.errors %}
-                                <p class="text-red-500 text-xs mt-1">{{ form.last_name.errors }}</p>
-                            {% endif %}
+                        {% endif %}
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-gray-700 ml-1">First Name</label>
+                                <input type="text" name="first_name" required id="id_first_name" 
+                                    class="block w-full px-4 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#003d29]/20 focus:border-[#003d29] transition-all"
+                                    placeholder="John">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-gray-700 ml-1">Last Name</label>
+                                <input type="text" name="last_name" required id="id_last_name" 
+                                    class="block w-full px-4 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#003d29]/20 focus:border-[#003d29] transition-all"
+                                    placeholder="Doe">
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <label class="text-xs text-gray-500 block mb-2">I want to join as:</label>
-                        <div class="space-y-2 text-sm">
-                            {% for choice in form.role %}
-                                <div class="flex items-center">
-                                    {{ choice.tag }}
-                                    <label for="{{ choice.id_for_label }}" class="ml-2 text-gray-600">
+
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold text-gray-700 ml-1">Username</label>
+                            <div class="relative group">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-[#003d29] transition-colors">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <input type="text" name="username" required id="id_username" 
+                                    class="block w-full pl-11 pr-4 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#003d29]/20 focus:border-[#003d29] transition-all"
+                                    placeholder="johndoe123">
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold text-gray-700 ml-1">Email Address</label>
+                            <div class="relative group">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-[#003d29] transition-colors">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <input type="email" name="email" required id="id_email" 
+                                    class="block w-full pl-11 pr-4 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#003d29]/20 focus:border-[#003d29] transition-all"
+                                    placeholder="name@company.com">
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold text-gray-700 ml-1 block">I want to join as:</label>
+                            <div class="grid grid-cols-3 gap-3">
+                                {% for choice in form.role %}
+                                <div class="relative">
+                                    <input type="radio" name="role" value="{{ choice.data.value }}" id="{{ choice.id_for_label }}" class="peer hidden" {% if choice.data.selected %}checked{% endif %}>
+                                    <label for="{{ choice.id_for_label }}" class="flex items-center justify-center px-2 py-3 bg-gray-50 border border-gray-100 rounded-xl cursor-pointer peer-checked:border-[#003d29] peer-checked:bg-[#003d29]/5 peer-checked:text-[#003d29] font-bold text-[10px] sm:text-xs transition-all hover:bg-gray-100 text-center min-h-[50px]">
                                         {{ choice.choice_label }}
                                     </label>
                                 </div>
-                            {% endfor %}
+                                {% endfor %}
+                            </div>
                         </div>
-                        {% if form.role.errors %}
-                            <p class="text-red-500 text-xs mt-1">{{ form.role.errors }}</p>
-                        {% endif %}
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-gray-700 ml-1">Password</label>
+                                <input type="password" name="password1" required id="id_password1"
+                                    class="block w-full px-4 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#003d29]/20 focus:border-[#003d29] transition-all"
+                                    placeholder="••••••••">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-gray-700 ml-1">Confirm</label>
+                                <input type="password" name="password2" required id="id_password2"
+                                    class="block w-full px-4 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#003d29]/20 focus:border-[#003d29] transition-all"
+                                    placeholder="••••••••">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 mt-4 bg-[#003d29] hover:bg-[#002a1c] text-white font-black rounded-2xl shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1 flex items-center justify-center space-x-2 group">
+                            <span>Create Account</span>
+                            <i class="fas fa-user-plus text-xs group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </form>
+
+                    <div class="mt-8">
+                        <div class="relative flex items-center justify-center mb-8">
+                            <div class="flex-grow border-t border-gray-100"></div>
+                            <span class="flex-shrink mx-4 text-gray-400 text-xs font-bold uppercase tracking-widest">Or register with</span>
+                            <div class="flex-grow border-t border-gray-100"></div>
+                        </div>
+
+                        {% load socialaccount %}
+                        <a href="{% provider_login_url 'google' %}" class="w-full flex items-center justify-center gap-3 border border-gray-100 rounded-2xl py-4 text-sm font-bold text-gray-700 hover:bg-gray-50 transition-all shadow-sm">
+                            <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" alt="Google">
+                            <span>Continue with Google</span>
+                        </a>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="text-xs text-gray-500">Password</label>
-                            {{ form.password1 }}
-                            {% if form.password1.errors %}
-                                <p class="text-red-500 text-xs mt-1">{{ form.password1.errors }}</p>
-                            {% endif %}
-                        </div>
-                        <div>
-                            <label class="text-xs text-gray-500">Confirm Password</label>
-                            {{ form.password2 }}
-                            {% if form.password2.errors %}
-                                <p class="text-red-500 text-xs mt-1">{{ form.password2.errors }}</p>
-                            {% endif %}
-                        </div>
-                    </div>
-                    {% if form.non_field_errors %}
-                        <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
-                            {{ form.non_field_errors }}
-                        </div>
-                    {% endif %}
-                    <button type="submit" class="section-button w-full justify-center">Create Account</button>
-                </form>
+                </div>
             </div>
         </div>
     </div>

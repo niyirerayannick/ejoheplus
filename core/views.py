@@ -3,6 +3,8 @@ from django.core.paginator import Paginator
 from django.utils import timezone
 from dashboard.models import Article
 from opportunities.models import Opportunity
+from training.models import Course
+from accounts.models import User
 
 
 def home(request):
@@ -10,9 +12,30 @@ def home(request):
     latest_opportunities = Opportunity.objects.filter(
         is_active=True
     ).order_by('?')[:4]
+    
+    # Fetch trending/featured courses
+    trending_courses = Course.objects.filter(
+        is_active=True
+    ).select_related('instructor').order_by('-created_at')[:3]
+
+    # Fetch featured mentors
+    featured_mentors = User.objects.filter(
+        role='mentor',
+        is_mentor_approved=True,
+        is_active=True
+    ).select_related('mentor_profile').prefetch_related('courses').order_by('?')[:4]
+
+    # Fetch latest articles
+    latest_articles = Article.objects.filter(
+        status='published'
+    ).order_by('-created_at')[:3]
+
     context = {
         'page_title': 'Home - EjoHePlus',
         'latest_opportunities': latest_opportunities,
+        'trending_courses': trending_courses,
+        'featured_mentors': featured_mentors,
+        'latest_articles': latest_articles,
     }
     return render(request, 'home.html', context)
 

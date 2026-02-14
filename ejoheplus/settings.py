@@ -171,7 +171,7 @@ LOGOUT_REDIRECT_URL = 'home'
 
 # Django Allauth
 ACCOUNT_EMAIL_VERIFICATION = 'none'
-ACCOUNT_LOGIN_METHODS = {'email'}
+ACCOUNT_LOGIN_METHODS = {'email', 'username'}
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
 
 SOCIALACCOUNT_PROVIDERS = {

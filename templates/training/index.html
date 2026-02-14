@@ -1,55 +1,172 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Courses - EjoHePlus{% endblock %}
 
-{% block extra_css %}
-{% include "partials/home_styles.html" %}
-{% endblock %}
-
 {% block content %}
-<section class="section">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between mb-6">
-            <div>
-                <p class="section-subtitle"><i class="fas fa-book-open mr-2"></i>Courses</p>
-                <h2 class="section-title">Upcoming <span class="highlight">Courses</span></h2>
+<!-- Modern Courses Hero Section -->
+<section class="relative bg-[#003d29] py-20 overflow-hidden">
+    <!-- Decorative Shapes -->
+    <div class="absolute top-0 left-0 w-32 h-32 bg-white/5 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+    <div class="absolute bottom-0 right-0 w-64 h-64 bg-[#ff9800]/10 rounded-full translate-x-1/3 translate-y-1/3"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="text-white space-y-6">
+                <nav class="flex items-center space-x-2 text-sm text-white/60 mb-8">
+                    <a href="{% url 'home' %}" class="hover:text-white transition"><i class="fas fa-home mr-2"></i>Home</a>
+                    <span>/</span>
+                    <span class="text-white">Our Courses</span>
+                </nav>
+                <h1 class="text-5xl md:text-6xl font-extrabold leading-tight">
+                    Our <span class="relative inline-block">
+                        Courses
+                        <svg class="absolute -bottom-2 left-0 w-full" height="8" viewBox="0 0 200 8" fill="none">
+                            <path d="M2 6C50 2 150 2 198 6" stroke="#ff9800" stroke-width="4" stroke-linecap="round"/>
+                        </svg>
+                    </span>
+                </h1>
+                <p class="text-white/80 text-lg max-w-lg leading-relaxed">
+                    Get access to 6800+ different courses from 680 professional teachers across the globe.
+                </p>
+              </div>
+            
+            <div class="hidden lg:flex justify-end relative">
+                <!-- Circular Image Frame Design -->
+                <div class="relative w-80 h-80">
+                    <div class="absolute inset-0 bg-[#ff9800] rounded-full scale-105 animate-pulse opacity-20"></div>
+                    <div class="absolute inset-0 border-4 border-[#ff9800] rounded-full translate-x-4 -translate-y-4"></div>
+                    <div class="relative w-full h-full rounded-full overflow-hidden border-8 border-white shadow-2xl">
+                        <img src="{% static 'image/6456.jpg' %}" alt="Learning" class="w-full h-full object-cover">
+                    </div>
+                    <!-- Floating Badge -->
+                    <div class="absolute -bottom-4 -left-4 bg-white p-4 rounded-2xl shadow-xl flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-[#003d29] rounded-full flex items-center justify-center text-white">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Quality Content</p>
+                            <p class="text-sm font-extrabold text-[#003d29]">Certified Courses</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            {% if user.is_authenticated %}
-                {% if user.is_mentor or user.is_partner or user.is_administrator %}
-                    <a href="{% url 'courses:course_create' %}" class="section-button">Create Course</a>
-                {% endif %}
-            {% endif %}
         </div>
-        <div id="trainings-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
     </div>
 </section>
 
-<script>
-    fetch('/api/courses/?limit=12')
-        .then(response => response.json())
-        .then(data => {
-            const grid = document.getElementById('trainings-grid');
-            if (!grid) return;
-            const items = data.results || data;
-            if (!items.length) {
-                grid.innerHTML = '<div class="text-sm text-gray-500">No courses available.</div>';
-                return;
-            }
-            grid.innerHTML = items.map(item => `
-                <a href="/courses/${item.slug}/" class="training-card">
-                    <div class="training-thumb" style="background-image:url('${item.thumbnail || ''}'); background-size: cover; background-position: center;">
-                        <span class="training-tag">${item.category || item.level}</span>
-                        <i class="fas fa-chalkboard-teacher"></i>
-                    </div>
-                    <div class="training-body">
-                        <div class="training-title">${item.title}</div>
-                        <div class="training-meta">
-                            <span><i class="fas fa-clock mr-1"></i>${item.duration_hours || 0} hrs</span>
-                            <span class="training-price">${item.is_free ? 'Free' : `$${item.price}`}</span>
+<!-- Courses Listing Section -->
+<section class="py-24 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header & Create Action -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between mb-12">
+            
+            {% if user.is_authenticated %}
+                {% if user.is_mentor or user.is_partner or user.is_administrator %}
+                <a href="{% url 'courses:course_create' %}" class="mt-4 md:mt-0 inline-flex items-center px-6 py-3 bg-[#10b981] hover:bg-[#059669] text-white font-bold rounded-full transition-all shadow-lg group">
+                    <i class="fas fa-plus mr-2"></i>
+                    Create New Course
+                </a>
+                {% endif %}
+            {% endif %}
+        </div>
+
+        <!-- Courses Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+            {% for course in courses %}
+            <div class="group bg-white rounded-[32px] overflow-hidden border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col h-full">
+                <!-- Thumbnail -->
+                <div class="relative h-64 overflow-hidden">
+                    {% if course.thumbnail %}
+                        <img src="{{ course.thumbnail.url }}" alt="{{ course.title }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    {% else %}
+                        <div class="w-full h-full bg-gray-100 flex items-center justify-center group-hover:scale-110 transition duration-700">
+                            <i class="fas fa-book-open text-4xl text-gray-200"></i>
+                        </div>
+                    {% endif %}
+                    <span class="absolute top-4 left-4 z-20 px-4 py-1.5 bg-[#10b981] text-white text-[10px] font-bold rounded-full uppercase tracking-wider shadow-lg">
+                        {{ course.category|default:course.get_level_display }}
+                    </span>
+                </div>
+
+                <!-- Body -->
+                <div class="p-8 flex-1 flex flex-col">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 group-hover:text-[#10b981] transition line-clamp-2 min-h-[3.5rem]">
+                        <a href="{% url 'courses:course_detail' course.slug %}">{{ course.title }}</a>
+                    </h3>
+                    
+                    <div class="flex items-center space-x-6 text-gray-500 text-sm mb-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-file-alt text-[#ff9800] mr-2"></i>
+                            <span class="font-medium">{{ course.lesson_count }} Lessons</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-clock text-[#ff9800] mr-2"></i>
+                            <span class="font-medium">{{ course.duration_hours }}h 15m</span>
                         </div>
                     </div>
-                </a>
-            `).join('');
-        });
-</script>
+
+                    <div class="mb-8">
+                        <!-- Price removed -->
+                    </div>
+
+                    <!-- Footer / Instructor -->
+                    <div class="mt-auto pt-6 border-t border-gray-50 flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full overflow-hidden bg-gray-100 border-2 border-white shadow-sm">
+                                {% if course.instructor and course.instructor.avatar %}
+                                    <img src="{{ course.instructor.avatar.url }}" alt="{{ course.instructor.get_full_name }}" class="w-full h-full object-cover">
+                                {% else %}
+                                    <img src="{% static 'image/305.jpg' %}" alt="Instructor" class="w-full h-full object-cover">
+                                {% endif %}
+                            </div>
+                            <span class="text-sm font-bold text-gray-700">
+                                {% if course.instructor %}
+                                    {{ course.instructor.get_full_name|default:course.instructor.username }}
+                                {% else %}
+                                    Staff
+                                {% endif %}
+                            </span>
+                        </div>
+                        <div class="flex items-center bg-[#ff9800] text-white px-3 py-1 rounded-full text-[10px] font-bold">
+                            <i class="fas fa-star mr-1"></i> 4.9
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-span-full py-20 text-center bg-white rounded-[40px] border border-dashed border-gray-200">
+                <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-book-open text-3xl text-gray-300"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">No Courses Found</h3>
+                <p class="text-gray-500 font-medium">We're currently preparing new learning materials for you.</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if courses.has_other_pages %}
+        <div class="flex items-center justify-center space-x-2">
+            {% if courses.has_previous %}
+                <a href="?page={{ courses.previous_page_number }}" class="px-6 py-3 bg-[#003d29] text-white font-bold rounded-full hover:bg-[#004d33] transition shadow-md">Prev</a>
+            {% endif %}
+
+            <div class="flex items-center bg-white rounded-full p-1 shadow-sm border border-gray-100">
+                {% for i in courses.paginator.page_range %}
+                    {% if courses.number == i %}
+                        <span class="w-10 h-10 flex items-center justify-center bg-gray-100 text-[#003d29] font-black rounded-full">{{ i }}</span>
+                    {% elif i > courses.number|add:'-3' and i < courses.number|add:'3' %}
+                        <a href="?page={{ i }}" class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-[#003d29] font-bold transition rounded-full">{{ i }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            {% if courses.has_next %}
+                <a href="?page={{ courses.next_page_number }}" class="px-6 py-3 bg-[#ff9800] text-white font-bold rounded-full hover:bg-[#e68900] transition shadow-md">Next</a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</section>
 {% endblock %}

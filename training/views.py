@@ -22,9 +22,18 @@ from .models import (
 from .forms import CourseForm, ChapterForm, ChapterContentForm, QuizForm, QuestionForm, ChoiceForm
 
 
+from django.core.paginator import Paginator
+from django.db.models import Count
+
 def index(request):
     """Course index page"""
-    courses = Course.objects.filter(is_active=True)[:6]
+    courses_list = Course.objects.filter(is_active=True).select_related('instructor').annotate(
+        lesson_count=Count('chapters__contents')
+    ).order_by('-created_at')
+    
+    paginator = Paginator(courses_list, 12)
+    page_number = request.GET.get('page')
+    courses = paginator.get_page(page_number)
     
     context = {
         'page_title': 'Courses',

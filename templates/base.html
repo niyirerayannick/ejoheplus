@@ -8,32 +8,59 @@
     <title>{% block title %}EjoHePlus - Career Empowerment & Mentorship Platform{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .pattern-strip {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 80px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='160' viewBox='0 0 80 160'%3E%3Crect width='80' height='160' fill='%23003d29'/%3E%3Cg fill='none' stroke='%231a5a45' stroke-width='8' opacity='0.5'%3E%3Cpath d='M40 20 L60 50 L40 80 L20 50 Z'/%3E%3Cpath d='M40 100 L60 130 L40 160 L20 130 Z'/%3E%3C/g%3E%3C/svg%3E");
+            background-repeat: repeat-y;
+            background-size: 100% 160px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .pattern-left { left: 0; }
+        .pattern-right { right: 0; }
+    </style>
     {% block extra_css %}{% endblock %}
 </head>
 <body class="bg-gray-50">
     <!-- Top Bar -->
-    <div class="top-bar hidden md:block">
+    <div class="bg-[#003d29] text-white py-2 hidden md:block border-b border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col sm:flex-row justify-between items-center text-sm">
-                <div class="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-6 mb-2 sm:mb-0">
-                    <div class="flex items-center space-x-2">
-                        <i class="fas fa-envelope"></i>
-                        <span>info@ejohe.org</span>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <i class="fas fa-phone"></i>
-                        <span>+250 780 474 044</span>
-                    </div>
+            <div class="flex justify-between items-center text-xs">
+                <!-- Social Icons -->
+                <div class="flex items-center space-x-2">
+                    <a href="#" class="w-7 h-7 flex items-center justify-center rounded-full border border-white/30 hover:bg-white/10 transition">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="w-7 h-7 flex items-center justify-center rounded-full border border-white/30 hover:bg-white/10 transition">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="w-7 h-7 flex items-center justify-center rounded-full border border-white/30 hover:bg-white/10 transition">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="w-7 h-7 flex items-center justify-center rounded-full border border-white/30 hover:bg-white/10 transition">
+                        <i class="fab fa-pinterest-p"></i>
+                    </a>
                 </div>
-                <div class="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-6">
+
+                <!-- Contact Info -->
+                <div class="flex items-center space-x-6">
                     <div class="flex items-center space-x-2">
-                        <i class="fas fa-location-dot"></i>
-                        <span>Kigali, Rwanda</span>
+                        <i class="fas fa-phone-alt text-white/70"></i>
+                        <span>Phone: +250 780 474 044</span>
                     </div>
-                    <div class="flex items-center space-x-3">
-                        <a href="#" class="hover:opacity-80"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="hover:opacity-80"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="hover:opacity-80"><i class="fab fa-linkedin"></i></a>
+                    <span class="text-white/30">|</span>
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-envelope text-white/70"></i>
+                        <span>Email: info@ejoheplus.com</span>
+                    </div>
+                    <span class="text-white/30">|</span>
+                    <div class="flex items-center space-x-2">
+                        <i class="far fa-clock text-white/70"></i>
+                        <span>Mon - Sat 8.00 - 18.00</span>
                     </div>
                 </div>
             </div>
@@ -41,76 +68,96 @@
     </div>
     
     <!-- Main Navigation -->
-    <nav class="main-nav bg-white sticky top-0 z-50">
+    <nav class="bg-[#003d29] sticky top-0 z-50 py-4">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
+            <div class="flex justify-between items-center">
+                <!-- Logo Container (White Pill) -->
                 <div class="flex items-center">
-                    <a href="{% url 'home' %}" class="brand-text flex items-center">
-                        <span class="brand-icon"></span>
-                        <span class="brand-name">EjoHePlus</span>
+                    <a href="{% url 'home' %}" class="bg-white rounded-r-full py-3 px-8 flex items-center -ml-8 pr-12">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-10 h-10 bg-[#003d29] rounded-lg flex items-center justify-center">
+                                <i class="fas fa-circle text-white text-xl"></i>
+                            </div>
+                            <span class="text-2xl font-bold text-gray-900 tracking-tight">EjoHePlus</span>
+                        </div>
                     </a>
                 </div>
                 
-                <div class="hidden lg:flex items-center space-x-8">
-                    <a href="{% url 'home' %}" class="nav-link transition">Home</a>
-                    <a href="{% url 'about' %}" class="nav-link transition">About Us</a>
-                    <a href="{% url 'mentorship:mentor_list' %}" class="nav-link transition">Find Mentor</a>
-                    <a href="{% url 'courses:index' %}" class="nav-link transition">Courses</a>
-                    <a href="{% url 'careers:discovery_intro' %}" class="nav-link transition">Career Discovery</a>
-                    <a href="{% url 'opportunities:list' %}" class="nav-link transition">Opportunities</a>
-                    <a href="{% url 'blog_list' %}" class="nav-link transition">Articles</a>
-                    <a href="{% url 'home' %}#contact" class="nav-link transition">Contact Us</a>
-            </div>
+                <!-- Nav Links -->
+                <div class="hidden lg:flex items-center space-x-6 text-white font-medium text-sm">
+                    <a href="{% url 'home' %}" class="flex items-center space-x-1 hover:text-[#ff9800] transition">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="{% url 'about' %}" class="hover:text-[#ff9800] transition">About Us</a>
+                    <a href="{% url 'mentorship:mentor_list' %}" class="hover:text-[#ff9800] transition">Find Mentor</a>
+                    <a href="{% url 'courses:index' %}" class="hover:text-[#ff9800] transition">Courses</a>
+                    <a href="{% url 'careers:discovery_intro' %}" class="hover:text-[#ff9800] transition">Career Discovery</a>
+                    <a href="{% url 'opportunities:list' %}" class="hover:text-[#ff9800] transition">Opportunities</a>
+                    <a href="{% url 'blog_list' %}" class="hover:text-[#ff9800] transition">Articles</a>
+                    <a href="{% url 'home' %}#contact" class="hover:text-[#ff9800] transition">Contact Us</a>
+                </div>
                 
-                <div class="hidden lg:flex items-center space-x-4">
+                <!-- Action Items -->
+                <div class="flex items-center space-x-5">
                     {% if user.is_authenticated %}
-                        <a href="{% url 'dashboard:index' %}" class="nav-link flex items-center space-x-2">
-                            <i class="fas fa-user-circle text-xl"></i>
-                            <span class="font-medium">Dashboard</span>
-                        </a>
-                        <a href="{% url 'accounts:logout' %}" class="free-trial-btn">
-                            <i class="fas fa-sign-out-alt mr-2"></i>Logout
-                        </a>
-                        <button class="icon-square" type="button">
-                            <i class="fas fa-plus"></i>
-                        </button>
+                        <div class="flex items-center space-x-4">
+                            <a href="{% url 'dashboard:index' %}" class="flex items-center space-x-3 group">
+                                <div class="relative">
+                                    {% if user.profile_picture %}
+                                        <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}" class="w-10 h-10 rounded-full border-2 border-[#ff9800] object-cover group-hover:scale-105 transition duration-300">
+                                    {% else %}
+                                        <div class="w-10 h-10 rounded-full border-2 border-[#ff9800] bg-white/10 flex items-center justify-center group-hover:scale-105 transition duration-300">
+                                            <i class="fas fa-user text-white"></i>
+                                        </div>
+                                    {% endif %}
+                                    <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-[#003d29] rounded-full"></div>
+                                </div>
+                                <div class="hidden md:block">
+                                    <p class="text-xs font-bold text-white leading-none">{{ user.get_full_name|default:user.username }}</p>
+                                    <p class="text-[10px] text-white/60 uppercase tracking-wider mt-1">{{ user.role|title }}</p>
+                                </div>
+                            </a>
+                        </div>
                     {% else %}
-                        <a href="{% url 'accounts:login' %}" class="nav-link flex items-center space-x-2">
-                            <i class="fas fa-user text-xl"></i>
-                            <span class="font-medium">Login</span>
-                        </a>
-                        <a href="{% url 'accounts:register' %}" class="free-trial-btn">
+                        <div class="hidden sm:flex items-center space-x-4 text-white">
+                            <a href="{% url 'accounts:login' %}" class="hover:text-[#ff9800] transition">
+                                <i class="far fa-user text-xl"></i>
+                            </a>
+                            <span class="text-white/30">|</span>
+                        </div>
+                        <a href="{% url 'accounts:register' %}" class="hidden sm:block bg-[#ff9800] hover:bg-[#f57c00] text-white px-6 py-3 rounded-full font-bold transition transform hover:scale-105">
                             Join Now
                         </a>
                     {% endif %}
-                </div>
-                
-                <!-- Mobile menu button -->
-                <div class="lg:hidden">
-                    <button class="text-gray-700" id="mobile-menu-button">
-                        <i class="fas fa-bars text-2xl"></i>
-                    </button>
+                    
+                    <!-- Mobile menu button -->
+                    <div class="lg:hidden">
+                        <button class="text-white" id="mobile-menu-button">
+                            <i class="fas fa-bars text-2xl"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
         
         <!-- Mobile menu -->
         <div class="lg:hidden hidden" id="mobile-menu">
-            <div class="px-4 pt-2 pb-4 space-y-2 bg-white border-t">
-                <a href="{% url 'home' %}" class="block px-3 py-2 text-gray-700">Home</a>
-                <a href="{% url 'about' %}" class="block px-3 py-2 text-gray-700">About Us</a>
-                <a href="{% url 'mentorship:mentor_list' %}" class="block px-3 py-2 text-gray-700">Find Mentor</a>
-                <a href="{% url 'courses:index' %}" class="block px-3 py-2 text-gray-700">Courses</a>
-                <a href="{% url 'careers:discovery_intro' %}" class="block px-3 py-2 text-gray-700">Career Discovery</a>
-                <a href="{% url 'opportunities:list' %}" class="block px-3 py-2 text-gray-700">Opportunities</a>
-                <a href="{% url 'blog_list' %}" class="block px-3 py-2 text-gray-700">Articles</a>
-                <a href="{% url 'home' %}#contact" class="block px-3 py-2 text-gray-700">Contact Us</a>
+            <div class="px-4 pt-2 pb-4 space-y-2 bg-[#003d29] border-t border-white/10 mt-4">
+                <a href="{% url 'home' %}" class="block px-3 py-2 text-white hover:text-[#ff9800]">Home</a>
+                <a href="{% url 'about' %}" class="block px-3 py-2 text-white hover:text-[#ff9800]">About Us</a>
+                <a href="{% url 'mentorship:mentor_list' %}" class="block px-3 py-2 text-white hover:text-[#ff9800]">Find Mentor</a>
+                <a href="{% url 'courses:index' %}" class="block px-3 py-2 text-white hover:text-[#ff9800]">Courses</a>
+                <a href="{% url 'careers:discovery_intro' %}" class="block px-3 py-2 text-white hover:text-[#ff9800]">Career Discovery</a>
+                <a href="{% url 'opportunities:list' %}" class="block px-3 py-2 text-white hover:text-[#ff9800]">Opportunities</a>
+                <a href="{% url 'blog_list' %}" class="block px-3 py-2 text-white hover:text-[#ff9800]">Articles</a>
+                <a href="{% url 'home' %}#contact" class="block px-3 py-2 text-white hover:text-[#ff9800]">Contact Us</a>
                 {% if user.is_authenticated %}
-                    <a href="{% url 'dashboard:index' %}" class="block px-3 py-2 text-gray-700">Dashboard</a>
-                    <a href="{% url 'accounts:logout' %}" class="block px-3 py-2 text-gray-700">Logout</a>
+                    <a href="{% url 'dashboard:index' %}" class="block px-3 py-2 text-white hover:text-[#ff9800]">Dashboard</a>
+                    <a href="{% url 'accounts:logout' %}" class="block px-3 py-2 text-white hover:text-[#ff9800]">Logout</a>
                 {% else %}
-                    <a href="{% url 'accounts:login' %}" class="block px-3 py-2 text-gray-700">Login</a>
-                    <a href="{% url 'accounts:register' %}" class="block px-3 py-2 text-gray-700 bg-blue-600 text-white rounded-lg text-center">Start Free Trial</a>
+                    <a href="{% url 'accounts:login' %}" class="block px-3 py-2 text-white hover:text-[#ff9800]">Login</a>
+                    <a href="{% url 'accounts:register' %}" class="block px-3 py-2 bg-[#ff9800] text-white rounded-lg text-center font-bold">Join Now</a>
                 {% endif %}
             </div>
         </div>
@@ -130,65 +177,102 @@
     <!-- Main Content -->
     {% block content %}{% endblock %}
 
-    <!-- Footer - Will be overridden by pages that need custom footer -->
+    <!-- Footer -->
     {% block footer %}
-    <footer class="bg-[#082c63] text-white pt-10 pb-6">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                <div class="footer-card">
-                    <i class="fas fa-phone text-lg mb-2"></i>
-                    <div class="text-sm font-semibold">Call Us</div>
-                    <div class="text-xs text-white/70">(+684) 555-0102</div>
+    <footer class="bg-[#003d29] text-white pt-32 pb-12 relative overflow-hidden">
+        <!-- Top Curve (White section) -->
+        <div class="absolute top-0 left-0 w-full h-24 bg-white" style="border-bottom-left-radius: 50% 100%; border-bottom-right-radius: 50% 100%;"></div>
+        <!-- Side pattern strips -->
+        <div class="pattern-strip pattern-left"></div>
+        <div class="pattern-strip pattern-right"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <!-- Newsletter Section -->
+            <div class="flex flex-col items-center text-center mb-20">
+                <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-6">
+                    <i class="fas fa-paper-plane text-2xl"></i>
                 </div>
-                <div class="footer-card">
-                    <i class="fas fa-envelope text-lg mb-2"></i>
-                    <div class="text-sm font-semibold">Email Us</div>
-                    <div class="text-xs text-white/70">info@ejoheplus.com</div>
-                </div>
-                <div class="footer-card">
-                    <i class="fas fa-clock text-lg mb-2"></i>
-                    <div class="text-sm font-semibold">Open Hours</div>
-                    <div class="text-xs text-white/70">8.00am - 4.00pm</div>
+                <h2 class="text-3xl font-bold mb-8 max-w-2xl leading-tight">Subscribe for our upcoming latest articles, updates and resources</h2>
+                <div class="relative w-full max-w-xl">
+                    <input type="email" placeholder="Enter your email..." class="w-full bg-transparent border border-white/30 rounded-full py-4 px-8 focus:outline-none focus:border-white transition">
+                    <button class="absolute right-2 top-2 bottom-2 bg-[#ff9800] hover:bg-[#f57c00] text-white px-8 rounded-full font-bold transition">
+                        Subscribe
+                    </button>
                 </div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-sm text-white/70">
+
+            <!-- Main Footer Content -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-white/10 pt-16">
+                <!-- Information -->
                 <div>
-                    <div class="font-semibold text-white mb-3">EjoHePlus</div>
-                    <p class="text-xs">Subscribe for EjoHePlus updates.</p>
-                    <div class="mt-3 flex">
-                        <input type="email" class="flex-1 px-3 py-2 rounded-l-md text-gray-900 text-xs" placeholder="Your email">
-                        <button class="bg-blue-500 px-3 py-2 rounded-r-md text-xs"><i class="fas fa-paper-plane"></i></button>
+                    <h3 class="text-xl font-bold mb-6">Information</h3>
+                    <p class="text-white/70 mb-8 leading-relaxed">
+                        Empowering the next generation through career guidance, digital skills, and professional mentorship. Join our community to grow your future.
+                    </p>
+                    <div class="flex items-center space-x-3">
+                        <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full border border-white/30 hover:bg-white/10 transition">
+                            <i class="fab fa-facebook-f text-sm"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full border border-white/30 hover:bg-white/10 transition">
+                            <i class="fab fa-twitter text-sm"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full border border-white/30 hover:bg-white/10 transition">
+                            <i class="fab fa-instagram text-sm"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full border border-white/30 hover:bg-white/10 transition">
+                            <i class="fab fa-pinterest-p text-sm"></i>
+                        </a>
                     </div>
                 </div>
+
+                <!-- Contact Info -->
                 <div>
-                    <div class="font-semibold text-white mb-3">Quick Link</div>
-                    <ul class="space-y-2 text-xs">
-                        <li>About EjoHePlus</li>
-                        <li>Our Mission</li>
-                        <li>View All Courses</li>
-                        <li>Mentorship</li>
-                        <li><a href="{% url 'opportunities:list' %}">Opportunities</a></li>
-                        <li>Contact Us</li>
+                    <h3 class="text-xl font-bold mb-6">Contact Info</h3>
+                    <ul class="space-y-4 text-white/70">
+                        <li class="flex items-start space-x-4">
+                            <div class="w-10 h-10 bg-[#ff9800] rounded-full flex items-center justify-center shrink-0">
+                                <i class="fas fa-map-marker-alt text-white"></i>
+                            </div>
+                            <span>Kigali, Rwanda, KN 2 St</span>
+                        </li>
+                        <li class="flex items-start space-x-4">
+                            <div class="w-10 h-10 bg-[#ff9800] rounded-full flex items-center justify-center shrink-0">
+                                <i class="fas fa-phone-alt text-white"></i>
+                            </div>
+                            <span>+250 780 474 044</span>
+                        </li>
+                        <li class="flex items-start space-x-4">
+                            <div class="w-10 h-10 bg-[#ff9800] rounded-full flex items-center justify-center shrink-0">
+                                <i class="fas fa-envelope text-white"></i>
+                            </div>
+                            <span>info@ejoheplus.com</span>
+                        </li>
                     </ul>
                 </div>
+
+                <!-- Quick Links -->
                 <div>
-                    <div class="font-semibold text-white mb-3">Courses</div>
-                    <ul class="space-y-2 text-xs">
-                        <li>Career Guidance</li>
-                        <li>Digital Skills</li>
-                        <li>Mentorship</li>
-                        <li>Leadership</li>
-                        <li>Professional Growth</li>
-                    </ul>
-                </div>
-                <div>
-                    <div class="font-semibold text-white mb-3">View On Map</div>
-                    <div class="h-24 rounded-lg bg-white/10 flex items-center justify-center text-xs text-white/60">Map View</div>
+                    <h3 class="text-xl font-bold mb-6">Quick Links</h3>
+                    <div class="grid grid-cols-2 gap-4 text-white/70">
+                        <ul class="space-y-3">
+                            <li><a href="{% url 'about' %}" class="hover:text-white transition flex items-center"><i class="fas fa-chevron-right text-[10px] mr-2 text-white/30"></i> About Us</a></li>
+                            <li><a href="{% url 'courses:index' %}" class="hover:text-white transition flex items-center"><i class="fas fa-chevron-right text-[10px] mr-2 text-white/30"></i> All Courses</a></li>
+                            <li><a href="{% url 'mentorship:mentor_list' %}" class="hover:text-white transition flex items-center"><i class="fas fa-chevron-right text-[10px] mr-2 text-white/30"></i> Mentorship</a></li>
+                            <li><a href="{% url 'opportunities:list' %}" class="hover:text-white transition flex items-center"><i class="fas fa-chevron-right text-[10px] mr-2 text-white/30"></i> Opportunities</a></li>
+                        </ul>
+                        <ul class="space-y-3">
+                            <li><a href="{% url 'careers:discovery_intro' %}" class="hover:text-white transition flex items-center"><i class="fas fa-chevron-right text-[10px] mr-2 text-white/30"></i> Career Guide</a></li>
+                            <li><a href="{% url 'blog_list' %}" class="hover:text-white transition flex items-center"><i class="fas fa-chevron-right text-[10px] mr-2 text-white/30"></i> Articles</a></li>
+                            <li><a href="{% url 'home' %}#contact" class="hover:text-white transition flex items-center"><i class="fas fa-chevron-right text-[10px] mr-2 text-white/30"></i> Contact Us</a></li>
+                            <li><a href="#" class="hover:text-white transition flex items-center"><i class="fas fa-chevron-right text-[10px] mr-2 text-white/30"></i> Privacy Policy</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="border-t border-white/10 mt-8 pt-4 text-xs text-white/60 flex flex-col md:flex-row justify-between">
-                <span>© EjoHePlus. 2024 | All Rights Reserved.</span>
-                <span>Terms & Condition · Privacy Policy</span>
+
+            <!-- Copyright Bar -->
+            <div class="border-t border-white/10 mt-16 pt-8 text-center text-white/50 text-xs">
+                <p>EjoHePlus - Copyright 2026. Powered by <span class="text-white font-medium">Ejohe Initiative</span>.</p>
             </div>
         </div>
     </footer>

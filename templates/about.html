@@ -7,261 +7,263 @@
 {% include "partials/home_styles.html" %}
 <style>
     .about-hero {
-        background: linear-gradient(135deg, #0b2f66 0%, #0b3f9a 100%);
-        border-radius: 18px;
-        padding: 44px 54px;
+        background: linear-gradient(135deg, #003d29 0%, #005a3d 100%);
+        border-radius: 24px;
+        padding: 60px 40px;
         color: white;
         position: relative;
         overflow: hidden;
+        margin-bottom: 40px;
     }
 
-    .about-hero .breadcrumb {
-        font-size: 12px;
-        color: rgba(255, 255, 255, 0.7);
-    }
-
-    .about-hero .title {
-        font-size: 28px;
-        font-weight: 700;
-        margin-top: 8px;
-    }
-
-    .about-hero .hero-illustration {
-        width: 190px;
-        height: 160px;
-        border-radius: 18px;
-        background: rgba(255, 255, 255, 0.15);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 12px;
-        color: rgba(255, 255, 255, 0.7);
+    .about-hero::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -10%;
+        width: 400px;
+        height: 400px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
     }
 
     .about-card {
         background: white;
-        border-radius: 14px;
-        padding: 18px;
-        box-shadow: var(--card-shadow);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+        border: 1px solid #f0f0f0;
+    }
+
+    .about-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.08);
     }
 
     .about-badge {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
-        padding: 6px 12px;
-        background: #f1f5ff;
-        color: var(--blue-primary);
+        gap: 8px;
+        padding: 8px 16px;
+        background: rgba(0, 61, 41, 0.1);
+        color: #003d29;
         border-radius: 999px;
-        font-size: 11px;
-        font-weight: 600;
-    }
-
-    .about-stat {
-        background: #f1f5ff;
-        border-radius: 12px;
-        padding: 12px;
         font-size: 12px;
-        font-weight: 600;
-        color: var(--text-dark);
-        box-shadow: var(--card-shadow);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 
-    .feature-pill {
+    .category-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 16px;
         display: flex;
-        gap: 10px;
         align-items: center;
-        background: #f8fafc;
-        border-radius: 12px;
-        padding: 12px;
-        font-size: 12px;
-        color: #475569;
+        justify-content: center;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .category-icon.orange { background: #fff7ed; color: #f97316; }
+    .category-icon.blue { background: #eff6ff; color: #3b82f6; }
+    .category-icon.purple { background: #faf5ff; color: #a855f7; }
+    .category-icon.red { background: #fef2f2; color: #ef4444; }
+
+    .stat-number {
+        font-size: 32px;
+        font-weight: 800;
+        color: #003d29;
+        margin-bottom: 4px;
     }
 
     .promo-banner {
-        background: linear-gradient(135deg, #0d5bd8 0%, #0b4fd0 100%);
-        border-radius: 16px;
-        padding: 24px 32px;
+        background: #003d29;
+        border-radius: 24px;
+        padding: 40px;
         color: white;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 18px;
+        position: relative;
+        overflow: hidden;
     }
 
-    .promo-banner .cta {
-        background: #ff9f43;
-        color: white;
-        font-size: 12px;
-        font-weight: 600;
-        padding: 8px 16px;
-        border-radius: 8px;
+    .section-button {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
+        gap: 10px;
+        background: #ff9800;
+        color: white;
+        padding: 14px 28px;
+        border-radius: 999px;
+        font-weight: 700;
+        transition: all 0.3s ease;
     }
 
-    .testimonial-card {
-        background: white;
-        border-radius: 14px;
-        padding: 18px;
-        box-shadow: var(--card-shadow);
-        font-size: 12px;
-        color: #475569;
-    }
-
-    @media (max-width: 768px) {
-        .about-hero {
-            padding: 28px 24px;
-        }
-        .about-hero .title {
-            font-size: 22px;
-        }
-        .about-hero .hero-illustration {
-            width: 140px;
-            height: 120px;
-        }
-        .promo-banner {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-        .promo-banner .cta {
-            width: 100%;
-            justify-content: center;
-        }
-    }
-
-    @media (max-width: 640px) {
-        .about-hero .hero-illustration {
-            width: 110px;
-            height: 100px;
-        }
-        .about-card {
-            padding: 16px;
-        }
+    .section-button:hover {
+        background: #e68900;
+        transform: scale(1.05);
     }
 </style>
 {% endblock %}
 
 {% block content %}
-
-
-<section class="section">
+<!-- Hero Section -->
+<section class="pt-12 pb-6">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            <div class="grid grid-cols-2 gap-4">
-                <div class="about-card h-56 flex items-center justify-center text-sm text-gray-400">Program Image</div>
-                <div class="about-card h-56 flex items-center justify-center text-sm text-gray-400">Mentorship Image</div>
-                <div class="about-stat col-span-2 flex items-center gap-3">
-                    <i class="fas fa-users text-blue-600"></i>
-                    6,570+ Active Students
+        <div class="about-hero text-center md:text-left">
+            <div class="max-w-3xl">
+                <span class="inline-block px-4 py-1 bg-white/10 rounded-full text-xs font-bold uppercase tracking-wider mb-4">About EjoHePlus</span>
+                <h1 class="text-4xl md:text-5xl font-black mb-6 leading-tight">Empowering Rwanda's Youth for a Brighter Tomorrow</h1>
+                <p class="text-lg text-white/80 leading-relaxed mb-8">
+                    EjoHe Initiative (EHI) is a transformative non-profit organization dedicated to bridging the gap between education and career success for Rwandan students.
+                </p>
+                <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+                    <a href="{% url 'accounts:register' %}" class="bg-[#ff9800] text-white px-8 py-4 rounded-full font-bold hover:bg-white hover:text-[#003d29] transition-all">Join Our Community</a>
+                    <a href="#vision" class="border border-white/30 text-white px-8 py-4 rounded-full font-bold hover:bg-white/10 transition-all">Learn More</a>
                 </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-12 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+            <div>
+                <div class="stat-number">6,500+</div>
+                <p class="text-sm text-gray-500 font-medium">Students Empowered</p>
             </div>
             <div>
-                <span class="about-badge"><i class="fas fa-book mr-1"></i>Empowering Futures</span>
-                <h2 class="section-title mt-3">The Career Guidance and Life Planning Education Program</h2>
-                <p class="text-xs text-gray-500 mt-3">
-                    At EjoHe Initiative (EHI), we believe that empowering students with the tools to make informed decisions is the key to shaping a brighter future.
-                </p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
-                    <div class="feature-pill"><i class="fas fa-check-circle text-blue-600"></i> Career Guidance & Life Planning</div>
-                    <div class="feature-pill"><i class="fas fa-check-circle text-blue-600"></i> Youth Empowerment Programs</div>
-                </div>
-                <div class="mt-4 flex gap-3">
-                    <a href="{% url 'home' %}#contact" class="section-button">Watch Video</a>
-                    
-                </div>
+                <div class="stat-number">150+</div>
+                <p class="text-sm text-gray-500 font-medium">Expert Mentors</p>
+            </div>
+            <div>
+                <div class="stat-number">45+</div>
+                <p class="text-sm text-gray-500 font-medium">Partner Schools</p>
+            </div>
+            <div>
+                <div class="stat-number">100%</div>
+                <p class="text-sm text-gray-500 font-medium">Free Resources</p>
             </div>
         </div>
     </div>
 </section>
 
-<section class="section">
+<!-- Mission & Vision -->
+<section id="vision" class="py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-6">
-            <p class="section-subtitle"><i class="fas fa-layer-group mr-2"></i>Who We Are</p>
-            <h2 class="section-title">Our Core <span class="highlight">Featured</span></h2>
-            <p class="text-xs text-gray-500 max-w-xl mx-auto">
-                EjoHe Initiative (EHI) is a transformative organization dedicated to empowering Rwandan students to make informed decisions about their educational and career pathways.
-            </p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="about-card text-center">
-                <div class="category-icon orange mx-auto mb-3"><i class="fas fa-graduation-cap"></i></div>
-                <div class="font-semibold text-sm">Education Program</div>
-                <div class="text-xs text-gray-500 mt-2">Career guidance and life planning for students.</div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div class="relative">
+                <div class="aspect-square bg-gray-100 rounded-3xl overflow-hidden relative z-10 shadow-2xl">
+                    <img src="{% static 'image/305.jpg' %}" alt="Students" class="w-full h-full object-cover">
+                </div>
+                <div class="absolute -bottom-6 -right-6 w-48 h-48 bg-[#ff9800] rounded-3xl -z-0"></div>
+                <div class="absolute -top-6 -left-6 w-32 h-32 bg-[#003d29] rounded-full -z-0 opacity-20"></div>
             </div>
-            <div class="about-card text-center">
-                <div class="category-icon blue mx-auto mb-3"><i class="fas fa-users"></i></div>
-                <div class="font-semibold text-sm">Parents Engagement</div>
-                <div class="text-xs text-gray-500 mt-2">Involving parents in educational and career decisions.</div>
-            </div>
-            <div class="about-card text-center">
-                <div class="category-icon purple mx-auto mb-3"><i class="fas fa-hand-holding-heart"></i></div>
-                <div class="font-semibold text-sm">SUS Program</div>
-                <div class="text-xs text-gray-500 mt-2">Financial support for underprivileged students.</div>
-            </div>
-            <div class="about-card text-center">
-                <div class="category-icon red mx-auto mb-3"><i class="fas fa-user-graduate"></i></div>
-                <div class="font-semibold text-sm">Alumni Mentorship</div>
-                <div class="text-xs text-gray-500 mt-2">Leveraging alumni expertise to support learners.</div>
+            <div>
+                <span class="about-badge mb-4">Our Purpose</span>
+                <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-6">Guiding the Next Generation of Leaders</h2>
+                <div class="space-y-8">
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center shrink-0">
+                            <i class="fas fa-bullseye text-[#003d29] text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-2">Our Mission</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">To empower students with the tools, knowledge, and mentorship needed to make informed decisions about their educational and career pathways.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center shrink-0">
+                            <i class="fas fa-eye text-[#ff9800] text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-2">Our Vision</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">A future where every Rwandan youth has clear career direction and equal access to opportunities for professional growth.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="section">
+<!-- Core Programs -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <span class="about-badge mb-4">How We Help</span>
+            <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-4">Our Core Programs</h2>
+            <p class="text-gray-500 max-w-2xl mx-auto">We provide a comprehensive ecosystem of support for students at every stage of their journey.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="about-card">
+                <div class="category-icon orange"><i class="fas fa-compass"></i></div>
+                <h3 class="font-bold text-gray-900 mb-3">Career Guidance</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">Scientific assessment models to help students discover their true interests and strengths.</p>
+            </div>
+            <div class="about-card">
+                <div class="category-icon blue"><i class="fas fa-users-rays"></i></div>
+                <h3 class="font-bold text-gray-900 mb-3">Mentorship</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">Direct connection to industry professionals who provide real-world insights and advice.</p>
+            </div>
+            <div class="about-card">
+                <div class="category-icon purple"><i class="fas fa-laptop-code"></i></div>
+                <h3 class="font-bold text-gray-900 mb-3">Skill Training</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">Specialized courses designed to equip students with market-relevant technical and soft skills.</p>
+            </div>
+            <div class="about-card">
+                <div class="category-icon red"><i class="fas fa-briefcase"></i></div>
+                <h3 class="font-bold text-gray-900 mb-3">Opportunities</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">A curated portal for scholarships, internships, and job placements for our community.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <span class="about-badge mb-4">The People Behind EHI</span>
+            <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-4">Meet Our Experts</h2>
+            <p class="text-gray-500 max-w-2xl mx-auto">Our team of dedicated professionals and volunteers are committed to youth empowerment.</p>
+        </div>
+        <div id="about-team-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Dynamically loaded via script -->
+        </div>
+        <div class="text-center mt-12">
+            <a href="{% url 'mentorship:mentor_list' %}" class="section-button">
+                Become a Mentor
+                <i class="fas fa-plus"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="pb-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="promo-banner">
-            <div class="flex items-center gap-4">
-                <div class="mentor-avatar">EHI</div>
-                <div>
-                    <div class="text-xs text-white/70">Get Involved</div>
-                    <div class="text-lg font-semibold">Empowering Futures</div>
-                    <div class="text-xs text-white/70">Join the movement to guide Rwanda’s youth.</div>
+            <div class="relative z-10">
+                <h2 class="text-3xl font-black mb-4">Ready to start your journey?</h2>
+                <p class="text-white/80 mb-8 max-w-xl">Join thousands of students who are already shaping their futures with EjoHePlus. It's completely free to join.</p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="{% url 'accounts:register' %}" class="bg-white text-[#003d29] px-8 py-4 rounded-full font-bold hover:bg-[#ff9800] hover:text-white transition-all">Create Free Account</a>
+                    <a href="{% url 'home' %}#contact" class="bg-white/10 text-white border border-white/20 px-8 py-4 rounded-full font-bold hover:bg-white/20 transition-all">Contact Us</a>
                 </div>
             </div>
-            <a href="{% url 'home' %}#contact" class="cta">Get Involved <i class="fas fa-arrow-right"></i></a>
-        </div>
-    </div>
-</section>
-
-<section class="section">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-6">
-            <p class="section-subtitle"><i class="fas fa-users mr-2"></i>Our Team</p>
-            <h2 class="section-title">Meet Our <span class="highlight">Team</span></h2>
-            <p class="text-xs text-gray-500">Empowering students through mentorship and guidance.</p>
-        </div>
-        <div id="about-team-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
-        <div class="flex justify-center mt-6">
-            <a href="{% url 'mentorship:mentor_list' %}" class="section-button">View All Team</a>
-        </div>
-    </div>
-</section>
-
-<section class="section">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-6">
-            <p class="section-subtitle"><i class="fas fa-comments mr-2"></i>Testimonials</p>
-            <h2 class="section-title">What Our <span class="highlight">Students</span> Say</h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="testimonial-card">
-                “EjoHe Initiative helped me plan my future with confidence and clarity.”
-                <div class="mt-3 text-xs font-semibold">Esther Howard</div>
-                <div class="text-[10px] text-gray-400">Student</div>
+            <div class="hidden lg:block relative z-10">
+                <div class="w-64 h-64 bg-white/10 rounded-full flex items-center justify-center animate-pulse">
+                    <i class="fas fa-rocket text-7xl text-white"></i>
+                </div>
             </div>
-            <div class="testimonial-card">
-                “The mentorship program gave me guidance and support I needed.”
-                <div class="mt-3 text-xs font-semibold">Dianne Russell</div>
-                <div class="text-[10px] text-gray-400">Program Alumni</div>
-            </div>
-            <div class="testimonial-card">
-                “EjoHe Initiative is shaping real opportunities for young people.”
-                <div class="mt-3 text-xs font-semibold">Courtney Henry</div>
-                <div class="text-[10px] text-gray-400">Volunteer</div>
-            </div>
+            <!-- Decorative circle -->
+            <div class="absolute -bottom-24 -right-24 w-64 h-64 bg-white/5 rounded-full"></div>
         </div>
     </div>
 </section>
@@ -276,20 +278,25 @@
             if (!grid) return;
             const items = data.results || data;
             if (!items.length) {
-                grid.innerHTML = '<div class="text-sm text-gray-500">No team members available.</div>';
+                grid.innerHTML = '<div class="text-sm text-gray-500 col-span-full text-center py-12">Our team members will appear here soon.</div>';
                 return;
             }
             grid.innerHTML = items.map(item => `
-                <div class="mentor-card">
-                    <div class="mentor-avatar">
-                        <img src="${item.profile_picture || fallbackMentorImage}" alt="${item.full_name}" />
+                <div class="about-card text-center group">
+                    <div class="w-32 h-32 mx-auto mb-6 relative">
+                        <img src="${item.profile_picture || fallbackMentorImage}" alt="${item.full_name}" class="w-full h-full object-cover rounded-2xl shadow-lg group-hover:scale-105 transition duration-300" />
+                        <div class="absolute inset-0 rounded-2xl border-2 border-[#ff9800]/0 group-hover:border-[#ff9800]/50 transition duration-300"></div>
                     </div>
-                    <div class="font-semibold text-sm">${item.full_name}</div>
-                    <div class="text-xs text-gray-500">${item.professional_title || 'Team Member'}</div>
+                    <div class="font-black text-gray-900 text-lg mb-1">${item.full_name}</div>
+                    <div class="text-xs text-[#003d29] font-bold uppercase tracking-widest mb-4">${item.professional_title || 'Expert Member'}</div>
+                    <p class="text-xs text-gray-500 leading-relaxed line-clamp-2">${item.bio || 'Dedicated to guiding the next generation of professionals.'}</p>
                 </div>
             `).join('');
+        })
+        .catch(err => {
+            console.error('Error loading team:', err);
+            const grid = document.getElementById('about-team-grid');
+            if (grid) grid.innerHTML = '<div class="text-sm text-gray-500 col-span-full text-center py-12">Unable to load team members at this time.</div>';
         });
 </script>
 {% endblock content %}
-
-

@@ -8,295 +8,625 @@
 {% endblock %}
 
 {% block content %}
-<section class="hero-section">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="hero-card">
-            <div class="hero-decoration">
-                <svg viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="200" cy="120" r="120" fill="white" opacity="0.15"/>
-                    <circle cx="900" cy="180" r="160" fill="white" opacity="0.12"/>
-                    <circle cx="620" cy="420" r="140" fill="white" opacity="0.12"/>
-                    <rect x="420" y="200" width="220" height="220" fill="white" opacity="0.08" transform="rotate(45 530 310)"/>
-                </svg>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center relative z-10">
-                <div>
-                    <div class="hero-badge">
-                        <i class="fas fa-award"></i>
-                        Empowering Students Across Rwanda
-                    </div>
-                    <h1 class="hero-title">
-                        Make Informed <span class="underline">Education</span> Choices And Build Your <span class="underline">Future</span>
-                    </h1>
-                    <p class="hero-text">
-                        EjoHe Initiative (EHI) supports students with guidance, mentorship, sponsorships, and community programs.
-                    </p>
-                    <div class="flex flex-wrap gap-3 mt-4">
-                        <a href="{% url 'careers:discovery_intro' %}" class="section-button">
-                            Start Your Career Discovery
-                        </a>
-                        <a href="{% url 'courses:index' %}" class="section-button">
-                            Start Learning
-                        </a>
-                    </div>
-                </div>
-
-                <div class="hero-visual relative">
-                    <div class="hero-person">
-                        <img src="{% static 'image/3705.jpg' %}" alt="EjoHePlus Hero">
-                    </div>
-                    <div class="absolute right-4 bottom-4 w-20 h-20 rounded-2xl overflow-hidden shadow-lg z-10">
-                        <img src="{% static 'image/1481.jpg' %}" alt="EjoHePlus Highlight" class="w-full h-full object-cover">
-                    </div>
-                    <div class="stats-card hero-stat stats-float absolute left-3 top-3 z-10">
-                        <div class="stats-icon"><i class="fas fa-user-graduate"></i></div>
-                        <div>
-                            <div class="text-sm font-bold">15k+</div>
-                            <div class="text-[10px] text-gray-500">Active Students</div>
-                        </div>
-                    </div>
-                    <div class="stats-card hero-stat stats-float delay-1 absolute right-4 top-8 z-10">
-                        <div class="stats-icon"><i class="fas fa-user-tie"></i></div>
-                        <div>
-                            <div class="text-sm font-bold">120+</div>
-                            <div class="text-[10px] text-gray-500">Mentors</div>
-                        </div>
-                    </div>
-                    <div class="stats-card hero-stat stats-float delay-2 absolute left-6 bottom-4 z-10">
-                        <div class="stats-icon"><i class="fas fa-briefcase"></i></div>
-                        <div>
-                            <div class="text-sm font-bold">250+</div>
-                            <div class="text-[10px] text-gray-500">Opportunities</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="category-strip mt-2">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="category-card">
-                    <div class="category-icon orange"><i class="fas fa-bullhorn"></i></div>
-                    <div>
-                        <h4>Career Guidance</h4>
-                        <span>05 Courses</span>
-                    </div>
-                </div>
-                <div class="category-card">
-                    <div class="category-icon blue"><i class="fas fa-palette"></i></div>
-                    <div>
-                        <h4>Digital Skills</h4>
-                        <span>06 Courses</span>
-                    </div>
-                </div>
-                <div class="category-card">
-                    <div class="category-icon purple"><i class="fas fa-code"></i></div>
-                    <div>
-                        <h4>Professional Growth</h4>
-                        <span>04 Courses</span>
-                    </div>
-                </div>
-                <div class="category-card">
-                    <div class="category-icon red"><i class="fas fa-cube"></i></div>
-                    <div>
-                        <h4>Leadership</h4>
-                        <span>07 Courses</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+<section class="relative bg-[#003d29] text-white pt-20 pb-40 overflow-hidden">
+    <!-- Decorative Elements -->
+    <div class="absolute top-10 left-10 opacity-20">
+        <i class="fas fa-paper-plane text-4xl transform -rotate-12"></i>
     </div>
-</section>
+    <div class="absolute bottom-20 left-10 grid grid-cols-4 gap-2 opacity-20">
+        {% for i in "1234567890123456" %}
+            <div class="w-1.5 h-1.5 bg-white rounded-full"></div>
+        {% endfor %}
+    </div>
+    <div class="absolute bottom-10 left-20 w-4 h-4 border-2 border-green-400 rounded-full opacity-50"></div>
+    
+    <!-- Background Waves/Lines (Simplified representation) -->
+    <div class="absolute inset-0 opacity-10 pointer-events-none">
+        <svg class="w-full h-full" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 600 C 300 500, 600 700, 1200 500" stroke="white" stroke-width="2" fill="none" />
+            <path d="M0 650 C 300 550, 600 750, 1200 550" stroke="white" stroke-width="2" fill="none" />
+            <path d="M0 700 C 300 600, 600 800, 1200 600" stroke="white" stroke-width="2" fill="none" />
+        </svg>
+    </div>
+    <!-- Side pattern strips -->
+    <div class="pattern-strip pattern-left"></div>
+    <div class="pattern-strip pattern-right"></div>
 
-<section class="section">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="mentor-highlight grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            <div class="grid grid-cols-2 gap-4">
-                <div class="bg-white/10 rounded-xl p-4">
-                    <div class="h-32 bg-white/20 rounded-lg mb-3" style="background-image:url('{% static 'image/1481.jpg' %}'); background-size: cover; background-position: center;"></div>
-                    <div class="mentor-stat">6,570+ Active Student</div>
-                </div>
-                <div class="bg-white/10 rounded-xl p-4">
-                    <div class="h-28 bg-white/20 rounded-lg mb-3" style="background-image:url('{% static 'image/3755.jpg' %}'); background-size: cover; background-position: center;"></div>
-                    <div class="mentor-stat">★★★★★ (15k Reviews)</div>
-                </div>
-                <div class="bg-white/10 rounded-xl p-4 col-span-2">
-                    <div class="flex items-center gap-3">
-                        <div class="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center">
-                            <i class="fas fa-user-tie"></i>
-                        </div>
-                        <div>
-                            <div class="font-semibold text-sm">Professional Mentors</div>
-                            <div class="text-xs text-white/70">Guiding your career journey</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <p class="section-subtitle text-white"><i class="fas fa-book mr-2"></i>About Us — EjoHe Initiative (EHI)</p>
-                <h3>Empowering students to make <span class="highlight">informed</span> education and career decisions</h3>
-                <p>
-                    EjoHe Initiative (EHI) is a non-profit organization in Rwanda dedicated to empowering students to make
-                    informed decisions about their education and career paths. The organization focuses on guidance,
-                    mentorship, sponsorship, and community engagement to help young people build meaningful futures.
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <!-- Left Content -->
+            <div class="space-y-8">
+                <h1 class="text-5xl md:text-6xl font-extrabold leading-tight">
+                    Start Better <br>
+                    Career &amp; Learning <span class="relative inline-block">
+                        Future
+                        <svg class="absolute -bottom-2 left-0 w-full" height="8" viewBox="0 0 200 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 6C50 2 150 2 198 6" stroke="#ff9800" stroke-width="4" stroke-linecap="round"/>
+                        </svg>
+                    </span> <br>
+                    From Here
+                </h1>
+                <p class="text-lg text-white/80 max-w-lg leading-relaxed">
+                    Empower yourself with the knowledge and career skills gained through online education! The key to your future!
                 </p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-5 text-sm">
-                    <div><i class="fas fa-check-circle mr-2"></i>Career guidance & life planning</div>
-                    <div><i class="fas fa-check-circle mr-2"></i>Mentorship & sponsorship support</div>
-                    <div><i class="fas fa-check-circle mr-2"></i>Community & parent engagement</div>
+                <div class="pt-4">
+                    <a href="{% url 'courses:index' %}" class="bg-[#ff9800] hover:bg-[#f57c00] text-white px-10 py-4 rounded-full font-bold text-lg transition transform hover:scale-105 inline-block">
+                        Get Started Today
+                    </a>
                 </div>
-                <div class="mt-6">
-                    <a href="{% url 'mentorship:index' %}" class="section-button">Learn More</a>
+            </div>
+
+            <!-- Right Visual -->
+            <div class="relative">
+                <!-- Main Circular Image Container -->
+                <div class="relative w-full aspect-square max-w-lg mx-auto min-h-[320px]">
+                    <!-- Circular Border/Decoration -->
+                    <div class="absolute inset-0 border-[16px] border-[#ff9800]/20 rounded-full"></div>
+                    <div class="absolute -inset-4 border-2 border-dashed border-white/20 rounded-full animate-spin-slow"></div>
+                    <!-- Photo Slides -->
+                    <div id="hero-circle-slider" class="absolute inset-8 rounded-full overflow-hidden">
+                        <img src="{% static 'image/3705.jpg' %}" alt="Slide 1" class="absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-1000">
+                        <img src="{% static 'image/1885.jpg' %}" alt="Slide 2" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000">
+                        <img src="{% static 'image/3755.jpg' %}" alt="Slide 3" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000">
+                    </div>
+                 <!-- Stats Badge -->
+                    <div class="absolute top-10 -right-4 bg-white rounded-2xl p-4 shadow-xl flex items-center space-x-4 animate-bounce-slow">
+                        <div class="w-12 h-12 bg-[#ff9800] rounded-xl flex items-center justify-center">
+                            <i class="fas fa-video text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold text-gray-900 leading-none">24k</div>
+                            <div class="text-xs text-gray-500 font-medium">Classes Completed</div>
+                        </div>
+                    </div>
+
+                    <!-- Floating Elements -->
+                    <div class="absolute -top-6 right-1/4">
+                        <i class="fas fa-caret-up text-[#ff9800] text-3xl transform rotate-45"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Bottom Curve (White section) -->
+    <div class="absolute bottom-0 left-0 w-full h-32 bg-white" style="border-top-left-radius: 50% 100%; border-top-right-radius: 50% 100%;"></div>
 </section>
 
-
-<section class="section">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-8">
-            <p class="section-subtitle"><i class="fas fa-users mr-2"></i>Find a Mentor</p>
-            <h2 class="section-title">Meet mentors who guide <span class="highlight">your path</span></h2>
-            <p class="text-xs text-gray-500">Connect with mentors who can guide you in your career path.</p>
-        </div>
-        <div id="featured-mentors-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
-        <div class="flex justify-center mt-6">
-            <a href="{% url 'mentorship:index' %}" class="section-button">Find a Mentor</a>
-        </div>
-    </div>
+<style>
+    @keyframes spin-slow {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    @keyframes bounce-slow {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    .animate-spin-slow { animation: spin-slow 20s linear infinite; }
+    .animate-bounce-slow { animation: bounce-slow 4s ease-in-out infinite; }
+</style>
+<script>
+    (function () {
+        var el = document.getElementById('hero-circle-slider');
+        if (!el) return;
+        var slides = el.querySelectorAll('img');
+        var i = 0;
+        setInterval(function () {
+            slides[i].classList.remove('opacity-100');
+            slides[i].classList.add('opacity-0');
+            i = (i + 1) % slides.length;
+            slides[i].classList.remove('opacity-0');
+            slides[i].classList.add('opacity-100');
+        }, 3000);
+    })();
+</script>
 </section>
 
-<section class="section">
+<section class="py-24 bg-white overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="dark-section grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            <div>
-                <p class="section-subtitle text-white"><i class="fas fa-layer-group mr-2"></i>Our Programs</p>
-                <h2 class="section-title text-white">Programs that empower students</h2>
-                <p class="text-xs text-white/70">
-                    Education Program: Career guidance and life planning education for students.
-                    Sponsorships for Underprivileged Students (SUS Program): Scholarships, mentorship, and academic support.
-                    Alumni Mentorship Program: Alumni supporting current students through mentorship.
-                    Parent Engagement Program: Workshops and joint planning sessions with parents.
-                    Community Engagement Program: Partnerships with communities to reinforce education, mentorship, and support systems.
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <!-- Left: Image Composition -->
+            <div class="relative">
+                <!-- Main Background Image -->
+                <div class="relative z-10 w-4/5 rounded-3xl overflow-hidden shadow-2xl">
+                    <img src="{% static 'image/1481.jpg' %}" alt="Learning Anywhere" class="w-full h-[400px] object-cover">
+                </div>
+                
+                <!-- Overlapping Foreground Image -->
+                <div class="absolute -bottom-10 -right-4 z-20 w-3/5 rounded-3xl overflow-hidden border-8 border-white shadow-2xl">
+                    <img src="{% static 'image/3755.jpg' %}" alt="Build Career" class="w-full h-[250px] object-cover">
+                </div>
+
+                <!-- Experience Badge -->
+                <div class="absolute bottom-10 right-10 z-30 bg-[#ff9800] text-white p-6 rounded-3xl shadow-xl animate-bounce-slow">
+                    <div class="text-3xl font-bold">24+</div>
+                    <div class="text-xs font-medium opacity-90 uppercase tracking-wider">Years of Experience</div>
+                </div>
+
+                <!-- Decorative dots/lines -->
+                <div class="absolute -bottom-16 left-1/4 opacity-20">
+                    <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="2" cy="2" r="2" fill="currentColor"/>
+                        <circle cx="22" cy="2" r="2" fill="currentColor"/>
+                        <!-- ... more circles for the grid ... -->
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Right: Content -->
+            <div class="space-y-8">
+                <div>
+                    <span class="text-[#003d29] font-bold text-sm tracking-widest uppercase mb-4 block">Welcome to Our EjoHePlus Centre</span>
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
+                        Now learning from anywhere, and build your bright <span class="relative inline-block">
+                            career.
+                            <svg class="absolute -bottom-2 left-0 w-full" height="8" viewBox="0 0 200 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 6C50 2 150 2 198 6" stroke="#ff9800" stroke-width="4" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                    </h2>
+                </div>
+                
+                <p class="text-gray-600 text-lg leading-relaxed">
+                    EjoHe Initiative (EHI) is a non-profit organization in Rwanda dedicated to empowering students to make informed decisions about their education and career paths.
                 </p>
-                <a href="{% url 'opportunities:list' %}" class="section-button mt-4">Find Opportunities</a>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div class="dark-card"><i class="fas fa-graduation-cap"></i> Education Program</div>
-                <div class="dark-card"><i class="fas fa-hand-holding-heart"></i> SUS Program</div>
-                <div class="dark-card"><i class="fas fa-users"></i> Alumni Mentorship</div>
-                <div class="dark-card"><i class="fas fa-people-arrows"></i> Parent Engagement</div>
-            </div>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-            <div class="promo-card orange">
-                <div class="w-16 h-16 rounded-full bg-white/30 flex items-center justify-center">
-                    <i class="fas fa-hands-helping"></i>
-                </div>
-                <div>
-                    <h4 class="font-semibold">Community Engagement Program</h4>
-                    <p class="text-xs text-white/80">Partnering with communities to reinforce mentorship and support.</p>
-                </div>
-            </div>
-            <div class="promo-card purple">
-                <div class="w-16 h-16 rounded-full bg-white/30 flex items-center justify-center">
-                    <i class="fas fa-chalkboard-teacher"></i>
-                </div>
-                <div>
-                    <h4 class="font-semibold">Start Learning</h4>
-                    <p class="text-xs text-white/80">Explore career guidance courses and build your skills.</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-14 h-14 rounded-full border-2 border-gray-100 flex items-center justify-center shrink-0">
+                            <div class="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center">
+                                <i class="fas fa-graduation-cap text-[#003d29]"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 mb-2">Engaging Instructors</h4>
+                            <p class="text-sm text-gray-500">Stay motivated with our professional mentors and guides.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-4">
+                        <div class="w-14 h-14 rounded-full border-2 border-gray-100 flex items-center justify-center shrink-0">
+                            <div class="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center">
+                                <i class="fas fa-certificate text-[#003d29]"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 mb-2">Skill Building</h4>
+                            <p class="text-sm text-gray-500">Build skills your way, from labs to specialized courses.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="section course-ui">
+<!-- Trending Courses Section -->
+<section class="py-24 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between mb-6">
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
             <div>
-                <p class="section-subtitle"><i class="fas fa-briefcase mr-2"></i>Opportunities</p>
-                <h2 class="section-title">Latest <span class="highlight">Opportunities</span></h2>
+                <span class="text-[#003d29] font-bold text-sm tracking-widest uppercase mb-4 block">Result of all true Learning</span>
+                <h2 class="text-4xl font-extrabold text-gray-900 leading-tight">
+                    Trending <span class="relative inline-block">
+                        Courses
+                        <svg class="absolute -bottom-2 left-0 w-full" height="8" viewBox="0 0 200 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 6C50 2 150 2 198 6" stroke="#ff9800" stroke-width="4" stroke-linecap="round"/>
+                        </svg>
+                    </span>
+                </h2>
             </div>
-            <a href="{% url 'opportunities:list' %}" class="course-primary-btn">View All Opportunities</a>
+            <!-- Navigation Arrows -->
+            <div class="flex space-x-4 mt-6 md:mt-0">
+                <button class="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:bg-[#ff9800] hover:text-white hover:border-[#ff9800] transition">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <button class="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:bg-[#ff9800] hover:text-white hover:border-[#ff9800] transition">
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
         </div>
-        {% if latest_opportunities %}
+
+        <!-- Courses Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for course in trending_courses %}
+            <!-- Course Card -->
+            <div class="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition group border border-gray-100 flex flex-col">
+                <div class="relative h-64 overflow-hidden">
+                    <a href="{% url 'courses:course_detail' course.slug %}" class="block w-full h-full">
+                        {% if course.thumbnail %}
+                            <img src="{{ course.thumbnail.url }}" alt="{{ course.title }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        {% else %}
+                            <img src="{% static 'image/3705.jpg' %}" alt="{{ course.title }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        {% endif %}
+                    </a>
+                    
+                    <div class="absolute top-4 left-4 bg-[#003d29]/80 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                        {{ course.category|default:"Career Guidance" }}
+                    </div>
+                    
+                    <div class="absolute bottom-4 right-4 bg-[#ff9800] text-white text-xs font-bold px-3 py-1 rounded-full flex items-center space-x-1">
+                        <i class="fas fa-star text-[10px]"></i>
+                        <span>4.9</span>
+                    </div>
+                </div>
+                
+                <div class="p-6 flex-1 flex flex-col">
+                    <div class="flex items-center space-x-4 text-xs text-gray-500 mb-4">
+                        <div class="flex items-center space-x-1">
+                            <i class="fas fa-book-open text-[#ff9800]"></i>
+                            <span>{{ course.chapters.count }} Lessons</span>
+                        </div>
+                        <div class="flex items-center space-x-1">
+                            <i class="far fa-clock text-[#ff9800]"></i>
+                            <span>{{ course.duration_hours }}h</span>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 group-hover:text-[#003d29] transition line-clamp-2 h-14">
+                        <a href="{% url 'courses:course_detail' course.slug %}">{{ course.title }}</a>
+                    </h3>
+                    
+                    <div class="mt-auto">
+                        <div class="flex items-center justify-between border-t border-gray-100 pt-6 mb-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
+                                    {% if course.instructor %}
+                                        {% if course.instructor.profile_image %}
+                                            <img src="{{ course.instructor.profile_image.url }}" alt="{{ course.instructor.get_full_name|default:course.instructor.username }}" class="w-full h-full object-cover">
+                                        {% else %}
+                                            <div class="w-full h-full flex items-center justify-center bg-[#003d29] text-white text-xs font-bold">
+                                                {{ course.instructor.get_full_name|slice:":1"|default:course.instructor.username|slice:":1"|default:"E" }}
+                                            </div>
+                                        {% endif %}
+                                    {% else %}
+                                        <div class="w-full h-full flex items-center justify-center bg-[#003d29] text-white text-xs font-bold">
+                                            E
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <span class="text-sm font-medium text-gray-700">
+                                    {% if course.instructor %}
+                                        {{ course.instructor.get_full_name|default:course.instructor.username }}
+                                    {% else %}
+                                        EjoHePlus Team
+                                    {% endif %}
+                                </span>
+                            </div>
+                            
+                            <div class="bg-[#003d29] text-white px-4 py-2 rounded-xl font-bold text-sm">
+                                FREE
+                            </div>
+                        </div>
+                        
+                        <a href="{% url 'courses:course_detail' course.slug %}" class="block w-full text-center py-3 bg-gray-50 hover:bg-[#ff9800] hover:text-white text-[#003d29] font-bold rounded-2xl transition duration-300">
+                            View Details <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <!-- Fallback if no courses are available -->
+            <div class="col-span-full py-12 text-center bg-white rounded-3xl border-2 border-dashed border-gray-200">
+                <i class="fas fa-graduation-cap text-4xl text-gray-300 mb-4 block"></i>
+                <p class="text-gray-500 font-medium">Coming Soon: New Empowering Courses</p>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- View All Button -->
+        <div class="flex justify-center mt-16">
+            <a href="{% url 'courses:index' %}" class="inline-flex items-center px-10 py-4 bg-[#003d29] hover:bg-[#002a1c] text-white font-bold rounded-full transition transform hover:scale-105 shadow-xl group">
+                Explore All Courses
+                <i class="fas fa-arrow-right ml-3 group-hover:translate-x-2 transition-transform"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<!-- Expert Mentors Section -->
+<section class="py-24 bg-white overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+            <div class="flex items-center justify-center space-x-4 mb-2">
+                <span class="h-[1px] w-8 bg-[#003d29]"></span>
+                <span class="text-[#003d29] font-medium text-sm tracking-wide">Our Team of Experts</span>
+                <span class="h-[1px] w-8 bg-[#003d29]"></span>
+            </div>
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900">Expert Mentors Guiding Your Growth</h2>
+        </div>
+
+        <!-- Mentors Grid - 4 by row -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {% for opportunity in latest_opportunities %}
-            <div class="course-card">
-                <div class="h-32 bg-gray-200" style="background-image:url('{% static 'image/6456.jpg' %}'); background-size: cover; background-position: center;"></div>
-                <div class="p-4">
-                    <span class="course-pill active">{{ opportunity.category|default:opportunity.get_type_display }}</span>
-                    <h4 class="font-semibold text-gray-900 mt-2">{{ opportunity.title }}</h4>
-                    <p class="text-sm text-gray-600 mt-2">{{ opportunity.description|truncatewords:14 }}</p>
-                    <div class="text-xs text-gray-500 mt-3">
-                        <i class="far fa-calendar mr-1"></i>Deadline: {{ opportunity.deadline|date:"M d, Y" }}
+            {% for mentor in featured_mentors %}
+            <!-- Mentor Card -->
+            <div class="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden flex flex-col group">
+                <!-- Image Container with vertical experience bar -->
+                <div class="relative h-72 bg-gray-50 overflow-hidden">
+                    <a href="{% url 'mentorship:mentor_detail' mentor.id %}" class="block w-full h-full">
+                        {% if mentor.profile_picture %}
+                            <img src="{{ mentor.profile_picture.url }}" alt="{{ mentor.get_full_name }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        {% else %}
+                            <div class="w-full h-full bg-[#003d29] flex items-center justify-center text-white text-5xl font-bold">
+                                {{ mentor.get_full_name|slice:":1"|default:mentor.username|slice:":1" }}
+                            </div>
+                        {% endif %}
+                    </a>
+                    
+                    <!-- Vertical Experience Bar -->
+                    <div class="absolute top-0 left-0 bottom-0 w-10 bg-black flex items-center justify-center">
+                        <span class="text-white text-[10px] font-bold uppercase tracking-widest whitespace-nowrap -rotate-90">
+                            {{ mentor.mentor_profile.years_of_experience|default:"5" }}+ Years Experience
+                        </span>
                     </div>
-                    <a href="{% url 'opportunities:detail' opportunity.slug %}" class="course-primary-btn inline-block mt-4">View Details</a>
+                </div>
+
+                <!-- Info Section -->
+                <div class="p-5 flex-1 flex flex-col">
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 line-clamp-1">
+                        <a href="{% url 'mentorship:mentor_detail' mentor.id %}" class="hover:text-[#003d29] transition-colors">
+                            {{ mentor.get_full_name|default:mentor.username }}
+                        </a>
+                    </h3>
+                    
+                    <div class="mt-auto flex items-center justify-between">
+                        <!-- Expertise Badge -->
+                        <span class="px-3 py-1 bg-gray-50 text-gray-500 text-xs rounded-lg border border-gray-100">
+                            {{ mentor.mentor_profile.professional_title|default:"Career Building"|truncatechars:15 }}
+                        </span>
+                        
+                        <!-- Star Rating -->
+                        <div class="flex items-center space-x-1 text-gray-900 font-bold text-sm">
+                            <i class="fas fa-star text-[#ffc107] text-xs"></i>
+                            <span>4.2</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <!-- Fallback -->
+            <div class="col-span-full py-12 text-center bg-gray-50 rounded-3xl border-2 border-dashed border-gray-200">
+                <i class="fas fa-users text-4xl text-gray-300 mb-4 block"></i>
+                <p class="text-gray-500 font-medium">Our team of experts is joining soon</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- More Mentors Button -->
+        <div class="flex justify-center mt-12">
+            <a href="{% url 'mentorship:mentor_list' %}" class="inline-flex items-center px-8 py-3 bg-[#003d29] hover:bg-[#002a1c] text-white font-bold rounded-full transition-all shadow-lg hover:shadow-xl group">
+                More Mentors
+                <i class="fas fa-chevron-right ml-2 text-xs group-hover:translate-x-1 transition-transform"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Become an Instructor CTA Section -->
+<section class="py-24 bg-white overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-[#003d29] rounded-[40px] relative overflow-hidden min-h-[450px] flex items-center">
+            <!-- Decorative Background Shapes -->
+            <div class="absolute top-1/2 right-10 -translate-y-1/2 w-1/2 h-full flex items-center justify-end pointer-events-none opacity-20 lg:opacity-100">
+                <div class="relative w-96 h-96">
+                    <div class="absolute top-0 right-0 w-64 h-24 bg-[#ff9800] rounded-full transform rotate-12"></div>
+                    <div class="absolute bottom-10 right-10 w-80 h-32 bg-[#ff9800] rounded-full transform -rotate-6"></div>
+                </div>
+            </div>
+
+            <!-- Floating Icons -->
+            <div class="absolute inset-0 pointer-events-none overflow-hidden">
+                <div class="absolute top-20 left-1/3 text-white/20 animate-bounce delay-75">
+                    <i class="fas fa-paper-plane text-2xl"></i>
+                </div>
+                <div class="absolute bottom-20 left-1/2 text-white/20 animate-pulse">
+                    <i class="fas fa-graduation-cap text-3xl"></i>
+                </div>
+                <div class="absolute top-1/4 right-1/4 text-white/10">
+                    <i class="fas fa-star text-sm"></i>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10 w-full px-8 md:px-16 py-12">
+                <!-- Left Content -->
+                <div class="text-white space-y-8">
+                    <div>
+                        <span class="text-white/80 font-bold text-sm tracking-widest uppercase mb-4 block">Become A Instructor</span>
+                        <h2 class="text-5xl md:text-6xl font-extrabold leading-tight">
+                            You can join <br> us a <span class="relative inline-block">
+                                Mentor?
+                                <svg class="absolute -bottom-3 left-0 w-full" height="10" viewBox="0 0 200 10" fill="none">
+                                    <path d="M2 8C50 2 150 2 198 8" stroke="#ff9800" stroke-width="6" stroke-linecap="round"/>
+                                </svg>
+                            </span>
+                        </h2>
+                    </div>
+                    
+                    <div class="flex flex-wrap items-center gap-6">
+                        <a href="{% url 'accounts:register' %}" class="px-10 py-4 bg-white text-[#003d29] font-bold rounded-full hover:bg-[#ff9800] hover:text-white transition duration-300 shadow-xl transform hover:scale-105">
+                            Become mentor
+                        </a>
+                        <a href="{% url 'about' %}" class="text-white font-bold hover:text-[#ff9800] transition flex items-center group">
+                            More Information
+                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Image -->
+                <div class="hidden lg:flex justify-end items-end h-full">
+                    <div class="relative w-full max-w-lg">
+                        <!-- We use a representative image from the project or a placeholder -->
+                        <img src="{% static 'image/305.jpg' %}" alt="Become an Instructor" class="w-full h-auto object-contain transform translate-y-12" onerror="this.src='{% static 'image/305.jpg' %}'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Latest Opportunities Section -->
+<section class="py-24 bg-gray-50/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row items-end justify-between mb-16">
+            <div class="max-w-2xl">
+                <div class="flex items-center space-x-4 mb-4">
+                    <span class="h-[1px] w-8 bg-[#003d29]"></span>
+                    <span class="text-[#003d29] font-bold text-sm tracking-widest uppercase">Global Opportunities</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
+                    Latest <span class="relative inline-block text-[#003d29]">
+                        Opportunities
+                        <svg class="absolute -bottom-2 left-0 w-full" height="8" viewBox="0 0 200 8" fill="none">
+                            <path d="M2 6C50 2 150 2 198 6" stroke="#ff9800" stroke-width="4" stroke-linecap="round"/>
+                        </svg>
+                    </span>
+                </h2>
+            </div>
+            <a href="{% url 'opportunities:list' %}" class="mt-8 md:mt-0 px-8 py-3 bg-[#003d29] hover:bg-[#002a1c] text-white font-bold rounded-full transition-all shadow-lg hover:shadow-xl group">
+                View All Opportunities
+                <i class="fas fa-chevron-right ml-2 text-xs group-hover:translate-x-1 transition-transform"></i>
+            </a>
+        </div>
+
+        {% if latest_opportunities %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {% for opportunity in latest_opportunities %}
+            <div class="group bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden flex flex-col">
+                <div class="relative h-48 overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
+                    <img src="{% static 'image/6456.jpg' %}" alt="{{ opportunity.title }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    <span class="absolute top-4 left-4 z-20 px-4 py-1.5 bg-[#ff9800] text-white text-[10px] font-bold rounded-full uppercase tracking-wider shadow-lg">
+                        {{ opportunity.get_type_display }}
+                    </span>
+                </div>
+                
+                <div class="p-6 flex-1 flex flex-col">
+                    <span class="text-[#003d29] text-xs font-bold mb-2 block">{{ opportunity.category|default:"General" }}</span>
+                    <h4 class="text-lg font-bold text-gray-900 mb-3 group-hover:text-[#003d29] transition line-clamp-2 h-14">
+                        {{ opportunity.title }}
+                    </h4>
+                    <p class="text-gray-500 text-sm mb-6 line-clamp-2">
+                        {{ opportunity.description }}
+                    </p>
+                    
+                    <div class="mt-auto pt-6 border-t border-gray-50 flex items-center justify-between">
+                        <div class="flex items-center space-x-2 text-gray-400">
+                            <i class="far fa-calendar-alt text-xs"></i>
+                            <span class="text-[11px] font-medium">{{ opportunity.deadline|date:"M d, Y" }}</span>
+                        </div>
+                        <a href="{% url 'opportunities:detail' opportunity.slug %}" class="text-[#003d29] font-bold text-xs flex items-center hover:underline">
+                            Details <i class="fas fa-arrow-right ml-1 text-[10px]"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
             {% endfor %}
         </div>
         {% else %}
-        <div class="bg-gray-50 rounded-lg p-8 text-center text-gray-600">
-            No opportunities available right now.
+        <div class="py-20 text-center bg-white rounded-[40px] border border-dashed border-gray-200">
+            <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="fas fa-briefcase text-3xl text-gray-300"></i>
+            </div>
+            <p class="text-gray-500 font-medium">New opportunities are coming soon.</p>
         </div>
         {% endif %}
     </div>
 </section>
 
-<section class="section course-ui">
+<!-- Recent Articles Section -->
+<section class="py-24 bg-white overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="course-header flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-            <div>
-                <p class="text-sm text-white/80"><i class="fas fa-compass mr-2"></i>🎯 Start by Choosing Your Career</p>
-                <h2 class="text-3xl font-bold">Find the right career path</h2>
-                <p class="text-sm text-white/80">Answer a few questions to get clear, explainable career matches.</p>
-            </div>
-            <a href="{% url 'careers:discovery_intro' %}" class="course-primary-btn">Start Your Career Discovery</a>
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+            <span class="text-[#003d29] font-bold text-sm tracking-widest uppercase mb-4 block">News and Updates</span>
+            <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900">
+                Recent <span class="relative inline-block">
+                    Articles
+                    <svg class="absolute -bottom-2 left-0 w-full" height="8" viewBox="0 0 200 8" fill="none">
+                        <path d="M2 6C50 2 150 2 198 6" stroke="#ff9800" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                </span>
+            </h2>
         </div>
-    </div>
-</section>
 
-<section id="blog" class="section">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-8">
-            <p class="section-subtitle"><i class="fas fa-pen mr-2"></i>📰 Latest Blog</p>
-            <h2 class="section-title">Latest <span class="highlight">Blog</span></h2>
-            <p class="text-xs text-gray-500">News, stories, and updates from EjoHe Initiative.</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {% for i in "123"|make_list %}
-            <div class="blog-card">
-                <div class="blog-thumb" style="background-image:url('{% static 'image/4337.jpg' %}'); background-size: cover; background-position: center;"></div>
-                <div class="p-4">
-                    <div class="text-xs text-blue-600 font-semibold">Education</div>
-                    <div class="training-title mt-2">Career Growth: Skills that Matter in 2024</div>
-                    <div class="text-xs text-gray-500"><i class="far fa-calendar mr-2"></i>September 10, 2023</div>
+        <!-- Articles Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            {% for article in latest_articles %}
+            <div class="bg-white rounded-[32px] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden group">
+                <div class="relative h-64 overflow-hidden">
+                    {% if article.cover_image %}
+                        <img src="{{ article.cover_image.url }}" alt="{{ article.title }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    {% else %}
+                        <div class="w-full h-full bg-gray-100 flex items-center justify-center text-gray-300">
+                            <i class="fas fa-image text-5xl"></i>
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="p-8">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 group-hover:text-[#003d29] transition line-clamp-2 h-14">
+                        <a href="{% url 'blog_detail' article.slug %}">{{ article.title }}</a>
+                    </h3>
+                    <p class="text-gray-500 text-sm mb-6 line-clamp-3">
+                        {{ article.excerpt|default:article.content|striptags|truncatewords:20 }}
+                    </p>
+                    
+                    <div class="flex items-center space-x-4">
+                        <div class="bg-[#ff9800] text-white px-4 py-1.5 rounded-full text-[10px] font-bold">
+                            {{ article.created_at|date:"M d, Y" }}
+                        </div>
+                        <div class="flex items-center space-x-1 text-[#003d29] text-xs font-bold">
+                            <i class="fas fa-comment"></i>
+                            <span>14</span>
+                        </div>
+                    </div>
                 </div>
             </div>
+            {% empty %}
+            <div class="col-span-full py-12 text-center bg-gray-50 rounded-3xl border-2 border-dashed border-gray-200">
+                <i class="fas fa-newspaper text-4xl text-gray-300 mb-4 block"></i>
+                <p class="text-gray-500 font-medium">Coming Soon: Inspiring Articles</p>
+            </div>
             {% endfor %}
         </div>
-        <div class="flex justify-center gap-2 mt-6">
-            <span class="w-3 h-3 rounded-full bg-blue-600"></span>
-            <span class="w-3 h-3 rounded-full bg-gray-300"></span>
-        </div>
+        
     </div>
 </section>
 
-<section class="section">
+<!-- Partners Section -->
+<section class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-6">
-            <p class="section-subtitle"><i class="fas fa-handshake mr-2"></i>Our Partners</p>
-            <h2 class="section-title">Our Trusted <span class="highlight">Partners</span></h2>
+        <div class="text-center mb-16">
+            <div class="flex items-center justify-center space-x-4 mb-4">
+                <span class="h-[1px] w-8 bg-[#003d29]"></span>
+                <span class="text-[#003d29] font-bold text-sm tracking-widest uppercase">Our Ecosystem</span>
+                <span class="h-[1px] w-8 bg-[#003d29]"></span>
+            </div>
+            <h2 class="text-4xl font-extrabold text-gray-900">Our Trusted <span class="relative inline-block">
+                Partners
+                <svg class="absolute -bottom-2 left-0 w-full" height="8" viewBox="0 0 200 8" fill="none">
+                    <path d="M2 6C50 2 150 2 198 6" stroke="#ff9800" stroke-width="4" stroke-linecap="round"/>
+                </svg>
+            </span></h2>
         </div>
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
-            {% for i in "12345"|make_list %}
-            <div class="partner-logo">Partner {{ i }}</div>
-            {% endfor %}
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 items-center">
+            <div class="p-10 grayscale hover:grayscale-0 transition duration-500 flex items-center justify-center border border-gray-100 rounded-3xl hover:border-[#003d29]/30 hover:shadow-2xl bg-white group min-h-[160px]">
+                <img src="{% static 'image/partner_logo_1.jpeg' %}" alt="Partner 1" class="h-20 w-auto object-contain group-hover:scale-110 transition duration-500">
+            </div>
+            <div class="p-10 grayscale hover:grayscale-0 transition duration-500 flex items-center justify-center border border-gray-100 rounded-3xl hover:border-[#003d29]/30 hover:shadow-2xl bg-white group min-h-[160px]">
+                <img src="{% static 'image/305.jpg' %}" alt="Partner 2" class="h-20 w-auto object-contain group-hover:scale-110 transition duration-500">
+            </div>
+            <div class="p-10 grayscale hover:grayscale-0 transition duration-500 flex items-center justify-center border border-gray-100 rounded-3xl hover:border-[#003d29]/30 hover:shadow-2xl bg-white group min-h-[160px]">
+                <img src="{% static 'image/944.jpg' %}" alt="Partner 3" class="h-20 w-auto object-contain group-hover:scale-110 transition duration-500">
+            </div>
+            <div class="p-10 grayscale hover:grayscale-0 transition duration-500 flex items-center justify-center border border-gray-100 rounded-3xl hover:border-[#003d29]/30 hover:shadow-2xl bg-white group min-h-[160px]">
+                <img src="{% static 'image/264.jpg' %}" alt="Partner 4" class="h-20 w-auto object-contain group-hover:scale-110 transition duration-500">
+            </div>
         </div>
     </div>
 </section>
