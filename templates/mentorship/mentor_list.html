@@ -66,17 +66,42 @@
             <h3 class="text-xl font-semibold mb-4">Recommended for you</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {% for mentor in recommended_mentors %}
-                <div class="course-card mentor-card p-5">
-                    <div class="mentor-avatar w-16 h-16 mx-auto">
-                        {% if mentor.profile_picture %}
-                            <img src="{{ mentor.profile_picture.url }}" alt="{{ mentor.get_full_name|default:mentor.username }}">
-                        {% else %}
-                            <img src="{% static 'image/1481.jpg' %}" alt="{{ mentor.get_full_name|default:mentor.username }}">
-                        {% endif %}
+                <div class="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden flex flex-col group">
+                    <div class="relative h-72 bg-gray-50 overflow-hidden">
+                        <a href="{% url 'mentorship:mentor_detail' mentor.id %}" class="block w-full h-full">
+                            {% if mentor.profile_picture %}
+                                <img src="{{ mentor.profile_picture.url }}" alt="{{ mentor.get_full_name|default:mentor.username }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            {% else %}
+                                <div class="w-full h-full bg-[#003d29] flex items-center justify-center text-white text-5xl font-bold">
+                                    {{ mentor.get_full_name|slice:":1"|default:mentor.username|slice:":1" }}
+                                </div>
+                            {% endif %}
+                        </a>
+                        <div class="absolute top-0 left-0 bottom-0 w-10 bg-black flex items-center justify-center">
+                            <span class="text-white text-[10px] font-bold uppercase tracking-widest whitespace-nowrap -rotate-90">
+                                {{ mentor.mentor_profile.years_of_experience|default:"5" }}+ Years Experience
+                            </span>
+                        </div>
                     </div>
-                    <div class="font-semibold text-center mt-3">{{ mentor.get_full_name|default:mentor.username }}</div>
-                    <div class="text-xs text-gray-500 text-center">{{ mentor.mentor_profile.professional_title|default:"Mentor" }}</div>
-                    <a href="{% url 'mentorship:mentor_detail' mentor.id %}" class="course-primary-btn w-full mt-4 text-center">View Profile</a>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <h3 class="text-xl font-bold text-gray-900 mb-3 line-clamp-1">
+                            <a href="{% url 'mentorship:mentor_detail' mentor.id %}" class="hover:text-[#003d29] transition-colors">
+                                {{ mentor.get_full_name|default:mentor.username }}
+                            </a>
+                        </h3>
+                        <div class="mt-auto flex items-center justify-between">
+                            <span class="px-3 py-1 bg-gray-50 text-gray-500 text-xs rounded-lg border border-gray-100">
+                                {{ mentor.mentor_profile.professional_title|default:"Mentor"|truncatechars:18 }}
+                            </span>
+                            <div class="flex items-center space-x-1 text-gray-900 font-bold text-sm">
+                                <i class="fas fa-star text-[#ffc107] text-xs"></i>
+                                <span>4.2</span>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <a href="{% url 'mentorship:mentor_detail' mentor.id %}" class="course-primary-btn w-full text-center">View Profile</a>
+                        </div>
+                    </div>
                 </div>
                 {% endfor %}
             </div>
@@ -85,31 +110,54 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {% for mentor in mentors %}
-            <div class="course-card mentor-card p-5">
-                <div class="mentor-avatar w-16 h-16 mx-auto">
-                    {% if mentor.profile_picture %}
-                        <img src="{{ mentor.profile_picture.url }}" alt="{{ mentor.get_full_name|default:mentor.username }}">
-                    {% else %}
-                        <img src="{% static 'image/1481.jpg' %}" alt="{{ mentor.get_full_name|default:mentor.username }}">
-                    {% endif %}
+            <div class="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden flex flex-col group">
+                <div class="relative h-72 bg-gray-50 overflow-hidden">
+                    <a href="{% url 'mentorship:mentor_detail' mentor.id %}" class="block w-full h-full">
+                        {% if mentor.profile_picture %}
+                            <img src="{{ mentor.profile_picture.url }}" alt="{{ mentor.get_full_name|default:mentor.username }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        {% else %}
+                            <div class="w-full h-full bg-[#003d29] flex items-center justify-center text-white text-5xl font-bold">
+                                {{ mentor.get_full_name|slice:":1"|default:mentor.username|slice:":1" }}
+                            </div>
+                        {% endif %}
+                    </a>
+                    <div class="absolute top-0 left-0 bottom-0 w-10 bg-black flex items-center justify-center">
+                        <span class="text-white text-[10px] font-bold uppercase tracking-widest whitespace-nowrap -rotate-90">
+                            {{ mentor.mentor_profile.years_of_experience|default:"5" }}+ Years Experience
+                        </span>
+                    </div>
                 </div>
-                <div class="font-semibold text-center mt-3">{{ mentor.get_full_name|default:mentor.username }}</div>
-                <div class="text-xs text-gray-500 text-center">{{ mentor.mentor_profile.professional_title|default:"Mentor" }}</div>
-                <div class="flex flex-wrap gap-1 justify-center mt-3">
-                    {% for cat in mentor.mentor_profile.career_categories.all %}
-                        <span class="course-pill draft">{{ cat.name }}</span>
-                    {% empty %}
-                        <span class="course-pill draft">General</span>
-                    {% endfor %}
-                </div>
-                <div class="grid grid-cols-1 gap-2 mt-4">
-                    <a href="{% url 'mentorship:mentor_detail' mentor.id %}" class="course-secondary-btn w-full text-center">View Profile</a>
-                    {% if user.is_authenticated and user.is_student %}
-                        <form method="post" action="{% url 'mentorship:request_mentor' mentor.id %}">
-                            {% csrf_token %}
-                            <button type="submit" class="course-primary-btn w-full">Ask to be your mentor</button>
-                        </form>
-                    {% endif %}
+                <div class="p-5 flex-1 flex flex-col">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2 line-clamp-1">
+                        <a href="{% url 'mentorship:mentor_detail' mentor.id %}" class="hover:text-[#003d29] transition-colors">
+                            {{ mentor.get_full_name|default:mentor.username }}
+                        </a>
+                    </h3>
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-gray-50 text-gray-500 text-xs rounded-lg border border-gray-100">
+                            {{ mentor.mentor_profile.professional_title|default:"Mentor"|truncatechars:18 }}
+                        </span>
+                        <div class="flex items-center space-x-1 text-gray-900 font-bold text-sm">
+                            <i class="fas fa-star text-[#ffc107] text-xs"></i>
+                            <span>4.2</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-1 mb-4">
+                        {% for cat in mentor.mentor_profile.career_categories.all %}
+                            <span class="course-pill draft">{{ cat.name }}</span>
+                        {% empty %}
+                            <span class="course-pill draft">General</span>
+                        {% endfor %}
+                    </div>
+                    <div class="mt-auto grid grid-cols-1 gap-2">
+                        <a href="{% url 'mentorship:mentor_detail' mentor.id %}" class="course-secondary-btn w-full text-center">View Profile</a>
+                        {% if user.is_authenticated and user.is_student %}
+                            <form method="post" action="{% url 'mentorship:request_mentor' mentor.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="course-primary-btn w-full">Ask to be your mentor</button>
+                            </form>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
             {% empty %}

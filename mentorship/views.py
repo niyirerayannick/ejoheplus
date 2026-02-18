@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
 from accounts.models import User
+from training.models import Course
 from careers.models import CareerDiscoveryResponse, CareerOptionWeight, Career
 from django.db.models import Prefetch
 from dashboard.models import Notification
@@ -73,11 +74,14 @@ def mentor_detail(request, mentor_id):
     if request.user.is_student:
         connection = MentorshipConnection.objects.filter(mentor=mentor, mentee=request.user).first()
 
+    courses = Course.objects.filter(instructor=mentor, is_active=True).select_related('instructor').prefetch_related('chapters')[:4]
+
     context = {
         'page_title': f'{mentor.get_full_name() or mentor.username} - Mentor Profile',
         'mentor': mentor,
         'profile': profile,
         'connection': connection,
+        'courses': courses,
     }
     return render(request, 'mentorship/mentor_detail.html', context)
 
