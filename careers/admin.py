@@ -6,6 +6,10 @@ from .models import (
     CareerQuestion,
     CareerOption,
     CareerOptionWeight,
+    CareerAssessment,
+    CareerAnswer,
+    CareerResult,
+    CareerRecommendation,
 )
 
 
@@ -19,7 +23,7 @@ class CareerAdmin(admin.ModelAdmin):
 
 @admin.register(CareerCategory)
 class CareerCategoryAdmin(admin.ModelAdmin):
-    list_display = ['name', 'slug', 'created_at']
+    list_display = ['name', 'code', 'slug', 'created_at']
     prepopulated_fields = {'slug': ('name',)}
     search_fields = ['name']
 
@@ -48,3 +52,38 @@ class CareerQuestionAdmin(admin.ModelAdmin):
 class CareerOptionWeightAdmin(admin.ModelAdmin):
     list_display = ['option', 'career', 'weight']
     list_filter = ['career']
+
+
+@admin.register(CareerAssessment)
+class CareerAssessmentAdmin(admin.ModelAdmin):
+    list_display = ['id', 'user', 'session_key', 'level', 'status', 'date_started', 'date_completed']
+    list_filter = ['status', 'level']
+    search_fields = ['user__username', 'session_key']
+
+
+@admin.register(CareerAnswer)
+class CareerAnswerAdmin(admin.ModelAdmin):
+    list_display = ['assessment', 'question', 'score']
+    list_filter = ['question__category']
+
+
+@admin.register(CareerResult)
+class CareerResultAdmin(admin.ModelAdmin):
+    list_display = [
+        'assessment',
+        'primary_code',
+        'secondary_code',
+        'tertiary_code',
+        'realistic_score',
+        'investigative_score',
+        'artistic_score',
+        'social_score',
+        'enterprising_score',
+        'conventional_score',
+    ]
+
+
+@admin.register(CareerRecommendation)
+class CareerRecommendationAdmin(admin.ModelAdmin):
+    list_display = ['code']
+    search_fields = ['code', 'description']

@@ -1,10 +1,11 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.utils import timezone
 from dashboard.models import Article
 from opportunities.models import Opportunity
 from training.models import Course
 from accounts.models import User
+from django.contrib import messages
 
 
 def home(request):
@@ -41,7 +42,6 @@ def home(request):
 
 
 def about(request):
-    """About us page"""
     context = {
         'page_title': 'About Us - EjoHePlus',
     }
@@ -95,3 +95,19 @@ def blog_detail(request, slug):
         'tag_list': tag_list,
     }
     return render(request, 'blog/detail.html', context)
+
+
+def contact(request):
+    if request.method == 'POST':
+        name = request.POST.get('name', '').strip()
+        email = request.POST.get('email', '').strip()
+        subject = request.POST.get('subject', '').strip()
+        message_text = request.POST.get('message', '').strip()
+        if name and email and message_text:
+            messages.success(request, 'Thank you for contacting us. We will get back to you soon.')
+            return redirect('contact')
+        messages.error(request, 'Please fill in all required fields.')
+    context = {
+        'page_title': 'Contact Us - EjoHePlus',
+    }
+    return render(request, 'contact.html', context)

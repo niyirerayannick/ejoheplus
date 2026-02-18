@@ -25,7 +25,7 @@
     </style>
     {% block extra_css %}{% endblock %}
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50 {% block body_class %}{% endblock %}">
     <!-- Top Bar -->
     <div class="bg-[#003d29] text-white py-2 hidden md:block border-b border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -95,7 +95,7 @@
                     <a href="{% url 'careers:discovery_intro' %}" class="hover:text-[#ff9800] transition">Career Discovery</a>
                     <a href="{% url 'opportunities:list' %}" class="hover:text-[#ff9800] transition">Opportunities</a>
                     <a href="{% url 'blog_list' %}" class="hover:text-[#ff9800] transition">Articles</a>
-                    <a href="{% url 'home' %}#contact" class="hover:text-[#ff9800] transition">Contact Us</a>
+                    <a href="{% url 'contact' %}" class="hover:text-[#ff9800] transition">Contact Us</a>
                 </div>
                 
                 <!-- Action Items -->
@@ -151,7 +151,7 @@
                 <a href="{% url 'careers:discovery_intro' %}" class="block px-3 py-2 text-white hover:text-[#ff9800]">Career Discovery</a>
                 <a href="{% url 'opportunities:list' %}" class="block px-3 py-2 text-white hover:text-[#ff9800]">Opportunities</a>
                 <a href="{% url 'blog_list' %}" class="block px-3 py-2 text-white hover:text-[#ff9800]">Articles</a>
-                <a href="{% url 'home' %}#contact" class="block px-3 py-2 text-white hover:text-[#ff9800]">Contact Us</a>
+                <a href="{% url 'contact' %}" class="block px-3 py-2 text-white hover:text-[#ff9800]">Contact Us</a>
                 {% if user.is_authenticated %}
                     <a href="{% url 'dashboard:index' %}" class="block px-3 py-2 text-white hover:text-[#ff9800]">Dashboard</a>
                     <a href="{% url 'accounts:logout' %}" class="block px-3 py-2 text-white hover:text-[#ff9800]">Logout</a>
@@ -181,7 +181,7 @@
     {% block footer %}
     <footer class="bg-[#003d29] text-white pt-32 pb-12 relative overflow-hidden">
         <!-- Top Curve (White section) -->
-        <div class="absolute top-0 left-0 w-full h-24 bg-white" style="border-bottom-left-radius: 50% 100%; border-bottom-right-radius: 50% 100%;"></div>
+        <div class="absolute top-0 left-0 w-full h-24 bg-white footer-top-curve" style="border-bottom-left-radius: 50% 100%; border-bottom-right-radius: 50% 100%;"></div>
         <!-- Side pattern strips -->
         <div class="pattern-strip pattern-left"></div>
         <div class="pattern-strip pattern-right"></div>

@@ -10,6 +10,10 @@ from .models import (
     CareerOptionWeight,
     CareerDiscoveryResponse,
     CareerDiscoveryAnswer,
+    CareerAssessment,
+    CareerAnswer,
+    CareerResult,
+    CareerRecommendation,
 )
 
 
@@ -48,7 +52,7 @@ def discovery_intro(request):
 
 
 def discovery_questionnaire(request):
-    questions = CareerQuestion.objects.filter(is_active=True).prefetch_related('options').order_by('order', 'id')
+    questions = CareerQuestion.objects.filter(is_active=True).prefetch_related('options').order_by('order', 'id')[:30]
     total = questions.count()
     if total == 0:
         messages.error(request, 'Career discovery questions are not yet available.')
@@ -73,20 +77,80 @@ def discovery_questionnaire(request):
         answers[str(question.id)] = selected_option_id
         request.session['career_discovery_answers'] = answers
 
+        if not request.session.session_key:
+            request.session.save()
+
+        assessment_id = request.session.get('career_assessment_id')
+        assessment = None
+        if assessment_id:
+            assessment = CareerAssessment.objects.filter(id=assessment_id).first()
+        if assessment is None:
+            anonymous = request.session.get('career_discovery_anonymous', False)
+            user = request.user if request.user.is_authenticated and not anonymous else None
+            assessment = CareerAssessment.objects.create(
+                user=user,
+                session_key=request.session.session_key or '',
+                level=level,
+                status='in_progress',
+            )
+            request.session['career_assessment_id'] = assessment.id
+        elif level and assessment.level != level:
+            assessment.level = level
+            assessment.save(update_fields=['level'])
+
+        option = question.options.filter(id=selected_option_id).first()
+        if option:
+            CareerAnswer.objects.update_or_create(
+                assessment=assessment,
+                question=question,
+                defaults={'score': option.value},
+            )
+
         if step >= total:
             return redirect('careers:discovery_results')
         return redirect(f"{request.path}?step={step + 1}")
 
     progress = int((step / total) * 100)
+    answers = request.session.get('career_discovery_answers', {})
+    selected_option_id = answers.get(str(question.id))
     context = {
         'page_title': 'Career Discovery',
         'question': question,
         'step': step,
         'total': total,
         'progress': progress,
+        'selected_option_id': int(selected_option_id) if selected_option_id else None,
         'level': request.session.get('career_discovery_level', ''),
     }
     return render(request, 'careers/discovery_questionnaire.html', context)
+
+
+def discovery_history(request):
+    assessments_qs = CareerAssessment.objects.filter(status='completed')
+    if request.user.is_authenticated:
+        assessments_qs = assessments_qs.filter(user=request.user)
+    else:
+        if not request.session.session_key:
+            request.session.save()
+        assessments_qs = assessments_qs.filter(session_key=request.session.session_key)
+
+    assessments = []
+    for assessment in assessments_qs.select_related('result'):
+        code = ''
+        if getattr(assessment, 'result', None):
+            code = f"{assessment.result.primary_code}{assessment.result.secondary_code}{assessment.result.tertiary_code}"
+        assessments.append({
+            'date_started': assessment.date_started,
+            'level': assessment.level,
+            'code': code,
+            'status_label': assessment.get_status_display(),
+        })
+
+    context = {
+        'page_title': 'Career Discovery History',
+        'assessments': assessments,
+    }
+    return render(request, 'careers/discovery_history.html', context)
 
 
 def discovery_results(request):
@@ -153,6 +217,42 @@ def discovery_results(request):
 
     level = request.session.get('career_discovery_level', '')
     level_key = 'advanced' if level in ['A-Level', 'S4', 'S5', 'S6'] else 'ordinary' if level in ['O-Level', 'S1', 'S2', 'S3'] else ''
+
+    assessment = None
+    assessment_id = request.session.get('career_assessment_id')
+    if assessment_id:
+        assessment = CareerAssessment.objects.filter(id=assessment_id).first()
+    if assessment is None:
+        anonymous = request.session.get('career_discovery_anonymous', False)
+        user = request.user if request.user.is_authenticated and not anonymous else None
+        assessment = CareerAssessment.objects.create(
+            user=user,
+            session_key=request.session.session_key or 'anonymous',
+            level=level,
+            status='completed',
+            date_completed=timezone.now(),
+        )
+        request.session['career_assessment_id'] = assessment.id
+    else:
+        assessment.status = 'completed'
+        assessment.date_completed = timezone.now()
+        assessment.level = level
+        assessment.save(update_fields=['status', 'date_completed', 'level'])
+
+    CareerResult.objects.update_or_create(
+        assessment=assessment,
+        defaults={
+            'realistic_score': riasec_scores.get('R', 0),
+            'investigative_score': riasec_scores.get('I', 0),
+            'artistic_score': riasec_scores.get('A', 0),
+            'social_score': riasec_scores.get('S', 0),
+            'enterprising_score': riasec_scores.get('E', 0),
+            'conventional_score': riasec_scores.get('C', 0),
+            'primary_code': top_three[0],
+            'secondary_code': top_three[1],
+            'tertiary_code': top_three[2],
+        },
+    )
 
     results = []
     careers = Career.objects.exclude(riasec_primary='').exclude(riasec_primary__isnull=True)

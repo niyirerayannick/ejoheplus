@@ -111,43 +111,39 @@
 
 {% block content %}
 <!-- Hero Section -->
-<section class="pt-12 pb-6">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="about-hero text-center md:text-left">
-            <div class="max-w-3xl">
-                <span class="inline-block px-4 py-1 bg-white/10 rounded-full text-xs font-bold uppercase tracking-wider mb-4">About EjoHePlus</span>
-                <h1 class="text-4xl md:text-5xl font-black mb-6 leading-tight">Empowering Rwanda's Youth for a Brighter Tomorrow</h1>
-                <p class="text-lg text-white/80 leading-relaxed mb-8">
-                    EjoHe Initiative (EHI) is a transformative non-profit organization dedicated to bridging the gap between education and career success for Rwandan students.
-                </p>
-                <div class="flex flex-wrap gap-4 justify-center md:justify-start">
-                    <a href="{% url 'accounts:register' %}" class="bg-[#ff9800] text-white px-8 py-4 rounded-full font-bold hover:bg-white hover:text-[#003d29] transition-all">Join Our Community</a>
-                    <a href="#vision" class="border border-white/30 text-white px-8 py-4 rounded-full font-bold hover:bg-white/10 transition-all">Learn More</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<section class="relative bg-[#003d29] py-20 overflow-hidden">
+    <div class="absolute top-0 left-0 w-32 h-32 bg-white/5 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+    <div class="absolute bottom-0 right-0 w-64 h-64 bg-[#ff9800]/10 rounded-full translate-x-1/3 translate-y-1/3"></div>
 
-<!-- Stats Section -->
-<section class="py-12 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-            <div>
-                <div class="stat-number">6,500+</div>
-                <p class="text-sm text-gray-500 font-medium">Students Empowered</p>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="text-white space-y-6">
+                <nav class="flex items-center space-x-2 text-sm text-white/60 mb-8">
+                    <a href="{% url 'home' %}" class="hover:text-white transition"><i class="fas fa-home mr-2"></i>Home</a>
+                    <span>/</span>
+                    <span class="text-white">About Us</span>
+                </nav>
+                <h1 class="text-5xl md:text-6xl font-extrabold leading-tight">
+                    About <span class="relative inline-block">
+                        EjoHePlus
+                        <svg class="absolute -bottom-2 left-0 w-full" height="8" viewBox="0 0 200 8" fill="none">
+                            <path d="M2 6C50 2 150 2 198 6" stroke="#ff9800" stroke-width="4" stroke-linecap="round"/>
+                        </svg>
+                    </span>
+                </h1>
+                <p class="text-white/80 text-lg max-w-lg leading-relaxed">
+                    Empowering Rwanda's youth with guidance, mentorship, and opportunities to build brighter futures.
+                </p>
             </div>
-            <div>
-                <div class="stat-number">150+</div>
-                <p class="text-sm text-gray-500 font-medium">Expert Mentors</p>
-            </div>
-            <div>
-                <div class="stat-number">45+</div>
-                <p class="text-sm text-gray-500 font-medium">Partner Schools</p>
-            </div>
-            <div>
-                <div class="stat-number">100%</div>
-                <p class="text-sm text-gray-500 font-medium">Free Resources</p>
+
+            <div class="hidden lg:flex justify-end relative">
+                <div class="relative w-80 h-80">
+                    <div class="absolute inset-0 bg-[#ff9800] rounded-full scale-105 animate-pulse opacity-20"></div>
+                    <div class="absolute inset-0 border-4 border-[#ff9800] rounded-full translate-x-4 -translate-y-4"></div>
+                    <div class="relative w-full h-full rounded-full overflow-hidden border-8 border-white shadow-2xl">
+                        <img src="{% static 'image/305.jpg' %}" alt="About EjoHePlus" class="w-full h-full object-cover">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -224,27 +220,29 @@
         </div>
     </div>
 </section>
-
-<!-- Team Section -->
-<section class="py-20">
+<!-- Stats Section -->
+<section class="py-12 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
-            <span class="about-badge mb-4">The People Behind EHI</span>
-            <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-4">Meet Our Experts</h2>
-            <p class="text-gray-500 max-w-2xl mx-auto">Our team of dedicated professionals and volunteers are committed to youth empowerment.</p>
-        </div>
-        <div id="about-team-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <!-- Dynamically loaded via script -->
-        </div>
-        <div class="text-center mt-12">
-            <a href="{% url 'mentorship:mentor_list' %}" class="section-button">
-                Become a Mentor
-                <i class="fas fa-plus"></i>
-            </a>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+            <div>
+                <div class="stat-number">1k+</div>
+                <p class="text-sm text-gray-500 font-medium">Students Empowered</p>
+            </div>
+            <div>
+                <div class="stat-number">15+</div>
+                <p class="text-sm text-gray-500 font-medium">Expert Mentors</p>
+            </div>
+            <div>
+                <div class="stat-number">15+</div>
+                <p class="text-sm text-gray-500 font-medium">Partner Schools</p>
+            </div>
+            <div>
+                <div class="stat-number">100%</div>
+                <p class="text-sm text-gray-500 font-medium">Free Resources</p>
+            </div>
         </div>
     </div>
 </section>
-
 <!-- Call to Action -->
 <section class="pb-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -268,35 +266,4 @@
     </div>
 </section>
 
-<script>
-    const fallbackMentorImage = "{% static 'image/1481.jpg' %}";
-
-    fetch('/api/mentors/?limit=4')
-        .then(response => response.json())
-        .then(data => {
-            const grid = document.getElementById('about-team-grid');
-            if (!grid) return;
-            const items = data.results || data;
-            if (!items.length) {
-                grid.innerHTML = '<div class="text-sm text-gray-500 col-span-full text-center py-12">Our team members will appear here soon.</div>';
-                return;
-            }
-            grid.innerHTML = items.map(item => `
-                <div class="about-card text-center group">
-                    <div class="w-32 h-32 mx-auto mb-6 relative">
-                        <img src="${item.profile_picture || fallbackMentorImage}" alt="${item.full_name}" class="w-full h-full object-cover rounded-2xl shadow-lg group-hover:scale-105 transition duration-300" />
-                        <div class="absolute inset-0 rounded-2xl border-2 border-[#ff9800]/0 group-hover:border-[#ff9800]/50 transition duration-300"></div>
-                    </div>
-                    <div class="font-black text-gray-900 text-lg mb-1">${item.full_name}</div>
-                    <div class="text-xs text-[#003d29] font-bold uppercase tracking-widest mb-4">${item.professional_title || 'Expert Member'}</div>
-                    <p class="text-xs text-gray-500 leading-relaxed line-clamp-2">${item.bio || 'Dedicated to guiding the next generation of professionals.'}</p>
-                </div>
-            `).join('');
-        })
-        .catch(err => {
-            console.error('Error loading team:', err);
-            const grid = document.getElementById('about-team-grid');
-            if (grid) grid.innerHTML = '<div class="text-sm text-gray-500 col-span-full text-center py-12">Unable to load team members at this time.</div>';
-        });
-</script>
 {% endblock content %}

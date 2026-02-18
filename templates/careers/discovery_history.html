@@ -1,0 +1,61 @@
+{% extends "base.html" %}
++
+{% block title %}Career Discovery History{% endblock %}
++
+{% block extra_css %}
+{% include "partials/home_styles.html" %}
+{% endblock %}
++
+{% block content %}
+<section class="py-16 bg-gray-50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-3xl shadow-2xl p-6 mb-6 flex items-center justify-between">
+            <div>
+                <h1 class="text-2xl font-bold mb-1 text-[#003d29]">Your career discovery history</h1>
+                <p class="text-sm text-gray-600">
+                    Review past assessments and track how your interests evolve over time.
+                </p>
+            </div>
+            <a href="{% url 'careers:discovery_intro' %}" class="course-primary-btn text-xs">
+                New assessment
+            </a>
+        </div>
++
+        {% if assessments %}
+        <div class="bg-white rounded-3xl shadow-md p-6">
+            <div class="space-y-4">
+                {% for item in assessments %}
+                <div class="flex items-center justify-between border-b border-gray-100 pb-3 last:border-b-0 last:pb-0">
+                    <div>
+                        <p class="text-sm font-semibold text-gray-900">
+                            {{ item.date_started|date:"M d, Y H:i" }}
+                        </p>
+                        <p class="text-xs text-gray-500">
+                            Code: {{ item.code }} • Level: {{ item.level|default:"Not specified" }}
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="course-pill draft text-xs">
+                            {{ item.status_label }}
+                        </span>
+                        <a href="{% url 'careers:discovery_results' %}" class="course-secondary-btn text-xs">
+                            View latest results
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% else %}
+        <div class="bg-white rounded-xl shadow-md p-6 text-center">
+            <p class="text-sm text-gray-600">
+                No completed assessments yet. Start your first discovery to build history.
+            </p>
+            <a href="{% url 'careers:discovery_intro' %}" class="course-primary-btn mt-4">
+                Start Career Discovery
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
