@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.conf import settings
+from django.core.exceptions import MultipleObjectsReturned
 from .models import User
 from .forms import LoginForm, RegisterForm, ProfileUpdateForm
 
@@ -27,6 +28,9 @@ def login_view(request):
                     user = authenticate(request, username=user_obj.username, password=password)
                 except User.DoesNotExist:
                     pass
+                except MultipleObjectsReturned:
+                    messages.error(request, 'Multiple accounts use this email. Please login with your username.')
+                    user = None
             
             # If not found by email or doesn't look like an email, try username directly
             if user is None:

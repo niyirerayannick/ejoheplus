@@ -18,12 +18,12 @@ def home(request):
         is_active=True
     ).select_related('instructor').order_by('-created_at')[:3]
 
-    # Fetch featured mentors
+    # Fetch featured mentors (list all approved mentors)
     featured_mentors = User.objects.filter(
         role='mentor',
         is_mentor_approved=True,
         is_active=True
-    ).select_related('mentor_profile').prefetch_related('courses').order_by('?')[:4]
+    ).select_related('mentor_profile').prefetch_related('courses').order_by('?')
 
     # Fetch latest articles
     latest_articles = Article.objects.filter(
