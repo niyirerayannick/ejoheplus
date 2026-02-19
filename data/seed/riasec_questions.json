@@ -2,7 +2,7 @@
   {
     "id": "R01",
     "riasec": "R",
-    "question_text": "Fix or assemble mechanical or electronic devices.",
+    "question_text": "I like making and installing kitchen cabinets using wood and hand tools.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
@@ -15,7 +15,7 @@
   {
     "id": "R02",
     "riasec": "R",
-    "question_text": "Use tools to build or repair something at home or school.",
+    "question_text": "I am interested in building walls or floors by laying bricks or tiles.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
@@ -28,7 +28,7 @@
   {
     "id": "R03",
     "riasec": "R",
-    "question_text": "Work outdoors with plants, animals, or nature.",
+    "question_text": "I enjoy fixing household items such as cookers, radios, fridges, or electric fans.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
@@ -41,7 +41,7 @@
   {
     "id": "R04",
     "riasec": "R",
-    "question_text": "Operate machines or equipment safely.",
+    "question_text": "I am interested in raising fish in ponds or hatcheries for food production.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
@@ -54,7 +54,7 @@
   {
     "id": "R05",
     "riasec": "R",
-    "question_text": "Drive or operate vehicles for work tasks.",
+    "question_text": "I like assembling small electronic parts, such as radios or simple devices.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
@@ -132,7 +132,7 @@
   {
     "id": "I01",
     "riasec": "I",
-    "question_text": "Solve science or math problems.",
+    "question_text": "I am interested in designing or improving machines to work better or solve problems.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
@@ -145,7 +145,7 @@
   {
     "id": "I02",
     "riasec": "I",
-    "question_text": "Investigate how machines, systems, or nature work.",
+    "question_text": "I like studying ways to reduce water pollution in rivers, lakes, or communities.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
@@ -158,7 +158,7 @@
   {
     "id": "I03",
     "riasec": "I",
-    "question_text": "Analyze data to discover patterns.",
+    "question_text": "I enjoy carrying out chemical experiments to understand how substances react.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
@@ -171,7 +171,7 @@
   {
     "id": "I04",
     "riasec": "I",
-    "question_text": "Do laboratory experiments or research.",
+    "question_text": "I am interested in learning about space, such as how planets and stars move.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
@@ -184,7 +184,7 @@
   {
     "id": "I05",
     "riasec": "I",
-    "question_text": "Read about new discoveries or inventions.",
+    "question_text": "I like examining blood or other samples using a microscope to find information.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
@@ -262,7 +262,7 @@
   {
     "id": "A01",
     "riasec": "A",
-    "question_text": "Write stories, poems, or scripts.",
+    "question_text": "I enjoy writing stories, books, poems, or plays to express ideas and feelings.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
@@ -275,7 +275,7 @@
   {
     "id": "A02",
     "riasec": "A",
-    "question_text": "Draw, paint, or design creative artwork.",
+    "question_text": "I like playing musical instruments such as piano, guitar, drums, or traditional instruments.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
@@ -288,7 +288,7 @@
   {
     "id": "A03",
     "riasec": "A",
-    "question_text": "Create posters, logos, or visual designs.",
+    "question_text": "I am interested in composing, arranging, or creating my own music.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
@@ -301,7 +301,7 @@
   {
     "id": "A04",
     "riasec": "A",
-    "question_text": "Play a musical instrument or sing.",
+    "question_text": "I enjoy drawing, sketching, or designing pictures and artworks.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
@@ -314,7 +314,7 @@
   {
     "id": "A05",
     "riasec": "A",
-    "question_text": "Act, dance, or perform in front of others.",
+    "question_text": "I am interested in creating special visual effects for films, videos, or digital media.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
@@ -392,7 +392,7 @@
   {
     "id": "S01",
     "riasec": "S",
-    "question_text": "Teach or tutor someone who needs help.",
+    "question_text": "I enjoy teaching or helping others understand new things.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
@@ -405,7 +405,7 @@
   {
     "id": "S02",
     "riasec": "S",
-    "question_text": "Support people who are going through challenges.",
+    "question_text": "I like caring for sick, elderly, or vulnerable people.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
@@ -418,7 +418,7 @@
   {
     "id": "S03",
     "riasec": "S",
-    "question_text": "Volunteer in community or school programs.",
+    "question_text": "I enjoy giving advice or guidance to people with problems.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
@@ -431,7 +431,7 @@
   {
     "id": "S04",
     "riasec": "S",
-    "question_text": "Work in teams to help others succeed.",
+    "question_text": "I like working with children or young people in schools or communities.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
@@ -444,7 +444,7 @@
   {
     "id": "S05",
     "riasec": "S",
-    "question_text": "Care for children, patients, or people who need support.",
+    "question_text": "I am interested in helping communities improve health, education, or wellbeing.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
@@ -522,7 +522,7 @@
   {
     "id": "E01",
     "riasec": "E",
-    "question_text": "Lead a group project or club.",
+    "question_text": "I enjoy leading groups or taking responsibility for decisions.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
@@ -535,7 +535,7 @@
   {
     "id": "E02",
     "riasec": "E",
-    "question_text": "Start a small project or business idea.",
+    "question_text": "I like starting small businesses or income-generating projects.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
@@ -548,7 +548,7 @@
   {
     "id": "E03",
     "riasec": "E",
-    "question_text": "Promote an idea or persuade others.",
+    "question_text": "I enjoy selling products or convincing people to support an idea.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
@@ -561,7 +561,7 @@
   {
     "id": "E04",
     "riasec": "E",
-    "question_text": "Speak in public or present to an audience.",
+    "question_text": "I like planning and organizing events or projects.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
@@ -574,7 +574,7 @@
   {
     "id": "E05",
     "riasec": "E",
-    "question_text": "Plan a business or marketing strategy.",
+    "question_text": "I am interested in managing people, money, or resources.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
@@ -652,7 +652,7 @@
   {
     "id": "C01",
     "riasec": "C",
-    "question_text": "Organize files, records, or folders.",
+    "question_text": "I enjoy organizing information, records, or files neatly.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
@@ -665,7 +665,7 @@
   {
     "id": "C02",
     "riasec": "C",
-    "question_text": "Follow clear procedures or rules.",
+    "question_text": "I like working with numbers, accounts, or financial records.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
@@ -678,7 +678,7 @@
   {
     "id": "C03",
     "riasec": "C",
-    "question_text": "Work with numbers or budgets.",
+    "question_text": "I enjoy following clear rules, schedules, and procedures.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
@@ -691,7 +691,7 @@
   {
     "id": "C04",
     "riasec": "C",
-    "question_text": "Plan schedules or track deadlines.",
+    "question_text": "I am interested in office work such as typing, filing, or data entry.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
@@ -704,12 +704,12 @@
   {
     "id": "C05",
     "riasec": "C",
-    "question_text": "Use spreadsheets to organize information.",
+    "question_text": "I like keeping records accurate and up to date.",
     "type": "scale",
     "options": [
       { "label": "Strongly Dislike", "value": 1 },
       { "label": "Dislike", "value": 2 },
-      { "label": "Neutral", "value": 3 },
+      { "label": "Unsure", "value": 3 },
       { "label": "Like", "value": 4 },
       { "label": "Strongly Like", "value": 5 }
     ]

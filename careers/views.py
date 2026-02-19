@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.contrib import messages
 from django.db.models import Count
+import random
 from .models import (
     Career,
     CareerProgram,
@@ -52,15 +53,29 @@ def discovery_intro(request):
 
 
 def discovery_questionnaire(request):
-    questions = CareerQuestion.objects.filter(is_active=True).prefetch_related('options').order_by('order', 'id')[:30]
-    total = questions.count()
+    step = int(request.GET.get('step', '1'))
+    base_qs = CareerQuestion.objects.filter(is_active=True).prefetch_related('options')
+    if request.method == 'POST' and step == 1:
+        request.session.pop('career_discovery_answers', None)
+        request.session.pop('career_discovery_question_ids', None)
+        request.session.pop('career_assessment_id', None)
+    question_ids = request.session.get('career_discovery_question_ids')
+    if not question_ids:
+        all_ids = list(base_qs.values_list('id', flat=True))
+        if not all_ids:
+            messages.error(request, 'Career discovery questions are not yet available.')
+            return redirect('careers:discovery_intro')
+        random.shuffle(all_ids)
+        question_ids = all_ids[:30]
+        request.session['career_discovery_question_ids'] = question_ids
+    questions_map = {q.id: q for q in base_qs.filter(id__in=question_ids)}
+    ordered_questions = [questions_map[q_id] for q_id in question_ids if q_id in questions_map]
+    total = len(ordered_questions)
     if total == 0:
         messages.error(request, 'Career discovery questions are not yet available.')
         return redirect('careers:discovery_intro')
-
-    step = int(request.GET.get('step', '1'))
     step = max(1, min(step, total))
-    question = questions[step - 1]
+    question = ordered_questions[step - 1]
 
     if request.method == 'POST':
         selected_option_id = request.POST.get('option')
@@ -292,10 +307,16 @@ def discovery_results(request):
         level=level,
     )
     for question_id, option_id in answers.items():
+        q_id = int(question_id)
+        o_id = int(option_id)
+        if not CareerQuestion.objects.filter(id=q_id).exists():
+            continue
+        if not CareerOption.objects.filter(id=o_id).exists():
+            continue
         CareerDiscoveryAnswer.objects.create(
             response=response,
-            question_id=int(question_id),
-            option_id=int(option_id),
+            question_id=q_id,
+            option_id=o_id,
         )
 
     context = {

@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'cloudinary',
+    'cloudinary_storage',
     'accounts',
     'core',
     'dashboard',
@@ -146,6 +148,9 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Media files
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+CLOUDINARY_URL = os.environ.get('CLOUDINARY_URL', '')
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
