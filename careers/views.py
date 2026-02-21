@@ -100,13 +100,10 @@ def discovery_questionnaire(request):
             assessment = CareerAssessment.objects.create(
                 user=user,
                 session_key=request.session.session_key or '',
-                level=level,
+                level='',
                 status='in_progress',
             )
             request.session['career_assessment_id'] = assessment.id
-        elif level and assessment.level != level:
-            assessment.level = level
-            assessment.save(update_fields=['level'])
 
         option = question.options.filter(id=selected_option_id).first()
         if option:
