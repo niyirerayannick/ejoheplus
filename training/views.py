@@ -693,6 +693,11 @@ def take_quiz(request, quiz_id):
         passed = score >= quiz.pass_score
         QuizAttempt.objects.create(enrollment=enrollment, quiz=quiz, score=score, passed=passed)
         if passed:
+            if quiz.chapter:
+                progress, _ = ChapterProgress.objects.get_or_create(enrollment=enrollment, chapter=quiz.chapter)
+                progress.is_completed = True
+                progress.completed_at = timezone.now()
+                progress.save()
             messages.success(request, f'Quiz passed with {score}%.')
         else:
             messages.error(request, f'Quiz failed with {score}%. Try again.')

@@ -79,12 +79,7 @@ def discovery_questionnaire(request):
 
     if request.method == 'POST':
         selected_option_id = request.POST.get('option')
-        level = request.POST.get('level', '').strip()
-        if level:
-            request.session['career_discovery_level'] = level
         if not selected_option_id:
-            if level and step == 1:
-                return redirect(f"{request.path}?step=1")
             messages.error(request, 'Please select an answer to continue.')
             return redirect(f"{request.path}?step={step}")
 
@@ -135,7 +130,6 @@ def discovery_questionnaire(request):
         'total': total,
         'progress': progress,
         'selected_option_id': int(selected_option_id) if selected_option_id else None,
-        'level': request.session.get('career_discovery_level', ''),
     }
     return render(request, 'careers/discovery_questionnaire.html', context)
 
@@ -230,8 +224,8 @@ def discovery_results(request):
         for code in top_three
     ]
 
-    level = request.session.get('career_discovery_level', '')
-    level_key = 'advanced' if level in ['A-Level', 'S4', 'S5', 'S6'] else 'ordinary' if level in ['O-Level', 'S1', 'S2', 'S3'] else ''
+    level = ''
+    level_key = ''
 
     assessment = None
     assessment_id = request.session.get('career_assessment_id')
@@ -243,7 +237,7 @@ def discovery_results(request):
         assessment = CareerAssessment.objects.create(
             user=user,
             session_key=request.session.session_key or 'anonymous',
-            level=level,
+            level='',
             status='completed',
             date_completed=timezone.now(),
         )
@@ -251,7 +245,7 @@ def discovery_results(request):
     else:
         assessment.status = 'completed'
         assessment.date_completed = timezone.now()
-        assessment.level = level
+        assessment.level = ''
         assessment.save(update_fields=['status', 'date_completed', 'level'])
 
     CareerResult.objects.update_or_create(
@@ -323,8 +317,6 @@ def discovery_results(request):
         'page_title': 'Career Discovery Results',
         'best_matches': best_matches,
         'alternatives': alternatives,
-        'level': level,
-        'level_key': level_key,
         'riasec_scores': riasec_breakdown,
         'riasec_code': riasec_code,
         'riasec_explanations': riasec_explanations,
